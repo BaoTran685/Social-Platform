@@ -1,8 +1,7 @@
 
-import BoxPost from "./BoxPost";
 const ContentSection = () => {
   return (
-    <div className="flex flex-col space-y-8 mt-10">
+    <div className="flex flex-col space-y-8 my-10">
       <div className="text-xl font-medium underline decoration-pink-400">
         iambaotran.05
       </div>
@@ -16,12 +15,7 @@ const ContentSection = () => {
         the Universtiy of Waterloo, majoring in Mathematics and Computing. I and my friend, Chris,
         are developing this social app together and would love listening to any feedback from you guys.
       </div>
-
-      <div className="flex flex-col items-center justify-center">
-        <BoxPost />
-      </div>
     </div>
-
   );
 }
 

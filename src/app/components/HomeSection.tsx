@@ -1,5 +1,6 @@
 
 import ContentSection from "./ContentSection"
+import PostSection from "./PostSection"
 
 const HomeSection = () => {
   return (
@@ -12,6 +13,8 @@ const HomeSection = () => {
           </div>
           <div className="w-full h-0.5 bg-[#ddd] mt-2" />
           <ContentSection />
+          <div className="w-full h-0.5 bg-[#ddd] mt-2" />
+          <PostSection />
         </div>
 
         <div></div>
