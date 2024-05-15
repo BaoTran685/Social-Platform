@@ -1,19 +1,27 @@
 
+import Link from "next/link";
 import FormSection from "./components/FormSection";
 
 
 const RegisterPage = async () => {
   return (
-    <main className="mt-32">
-      <div className="layout">
-        <div />
-        <div className="flex flex-col align-center justify-center w-full h-full bg-[#e7e7e76b] rounded-xl shadow-xl space-y-8 p-8">
-          <div className="place-self-center text-[#37352F] text-xl">
-            Social Media
+    <main className="min-h-screen">
+      <div className="">
+        <div className="pt-32">
+          <div className="flex flex-row align-center justify-center">
+            <div className="w-4/5 max-w-[400px] h-full">
+              <div className="place-self-center text-[#37352F] text-xl text-center">
+                Social Media
+              </div>
+              <FormSection />
+              <div className="text-center mt-3">
+                <Link href="/login" className="text-[#37352F] underline">
+                  Already have an account?
+                </Link>
+              </div>
+            </div>
           </div>
-          <FormSection />
         </div>
-        <div />
       </div>
     </main>
   )
