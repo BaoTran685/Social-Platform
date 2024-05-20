@@ -1,11 +1,11 @@
 'use client'
 
 import { EyeClose, EyeOpen } from "@/app/components/Icon/Icons";
-import InputBox from "@/app/components/InputBox";
+import InputBox from "@/app/components/Form/InputBox";
 import { signIn } from "next-auth/react";
 import { FormEvent, useEffect, useState } from "react";
 
-import { Obj, LoginRegisterItem } from "./types";
+import { Obj, LoginRegisterItem } from "../types";
 import { useRouter } from "next/navigation";
 
 const FormSection = ({ items }: { items: LoginRegisterItem }) => {

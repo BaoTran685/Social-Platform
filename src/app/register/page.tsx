@@ -1,6 +1,6 @@
 
 import Link from "next/link";
-import FormSection from "../components/FormSection";
+import FormSection from "../components/Form/FormSection";
 
 import { REGISTER_ITEMS } from "../components/constants";
 

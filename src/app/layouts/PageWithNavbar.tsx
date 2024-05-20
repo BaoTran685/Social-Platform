@@ -1,10 +1,10 @@
 
 import { ReactNode } from "react";
-import SideNav from "../components/SideNav";
-import TopHeader from "../components/TopHeader";
-import MarginWidthWrapper from "../components/MarginWidthWrapper";
+import SideNav from "../components/Nav/SideNav";
+import TopHeader from "../components/Nav/TopHeader";
+import MarginWidthWrapper from "./MarginWidthWrapper";
 
-export default function MainWithNavbar({
+export default function PageWithNavbar({
   children,
 }: {
   children: ReactNode;

@@ -1,4 +1,4 @@
-import MainWithNavbar from "./layouts/MainWithNavbar";
+import MainWithNavbar from "./layouts/PageWithNavbar";
 
 
 export default function Home() {

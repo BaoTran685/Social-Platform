@@ -2,7 +2,7 @@
 import ContentSection from "./components/ContentSection"
 import PostSection from "./components/PostSection"
 import SettingSection from "./components/SettingSection"
-import MainWithNavbar from "../layouts/MainWithNavbar"
+import MainWithNavbar from "../layouts/PageWithNavbar"
 import { useSession } from "next-auth/react"
 
 
