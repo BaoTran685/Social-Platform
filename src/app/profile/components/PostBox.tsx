@@ -2,7 +2,7 @@
 
 const PostBox = () => {
   return (
-    <div className="flex flex-col w-full h-fit bg-[#e7e7e76b] rounded-xl shadow-lg p-8">
+    <div className="flex flex-col w-full h-fit bg-[#e7e7e76b] rounded-lg shadow-md p-8">
       <div className="text-2xl font-bold">Welcoming Post</div>
       <div className="flex flex-col sm:flex-row justify-between">
         <div className="">

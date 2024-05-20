@@ -1,8 +1,11 @@
+import MainWithNavbar from "./layouts/MainWithNavbar";
 
 
 export default function Home() {
   return (
-    <main>
-    </main>
+    <MainWithNavbar>
+      <main>
+      </main>
+    </MainWithNavbar>
   );
 }

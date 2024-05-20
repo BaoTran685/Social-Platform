@@ -1,9 +1,13 @@
+import { useSession } from "next-auth/react";
 
 const ContentSection = () => {
+  const {data: session} = useSession();
+  console.log(session);
+  const userid = (session?.user as any)?.userid
   return (
     <div className="flex flex-col space-y-8 my-10">
       <div className="text-xl sm:text-2xl font-medium underline decoration-[#ec4899]">
-        iambaotran.05
+        {userid}
       </div>
       <div className="text-base sm:text-lg flex flex-row items-center justify-center space-x-4">
         <div><span className="text-[#EA580C] font-bold">10 </span>posts</div>

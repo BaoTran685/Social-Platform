@@ -3,12 +3,22 @@
 @tailwind utilities;
 
 :root {
-  --background-white-color: #f2f2f2;
+  --background-white-color: white;
   --text-grey-color: #37352F;
   --placeholder-grey-color: #A1A1AA;
+
+  --black-color: #1E1E24;
+  --pink-color: #FB9F89;
+  --khaki-color: #C4AF9A;
+  --blue-color: #81AE9D;
+  --green-color: #21A179;
 }
 @layer components {
   .layout {
     @apply grid grid-cols-[minmax(40px,1fr)_minmax(auto,708px)_minmax(40px,1fr)] sm:grid-cols-[minmax(96px,1fr)_minmax(auto,708px)_minmax(96px,1fr)];
+  }
+
+  .box--shadow {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
   }
 }

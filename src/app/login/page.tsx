@@ -1,6 +1,8 @@
 
 import Link from "next/link";
-import FormSection from "./components/FormSection";
+import FormSection from "../components/FormSection";
+
+import { LOGIN_ITEMS } from "../components/constants";
 
 const LoginPage = async () => {
   return (
@@ -12,7 +14,7 @@ const LoginPage = async () => {
               <div className="place-self-center text-[#37352F] text-xl text-center">
                 Social Media
               </div>
-              <FormSection />
+              <FormSection items={LOGIN_ITEMS}/>
               <div className="text-center mt-3">
                 <Link href="/register" className="text-[#37352F] underline">
                   Create an account

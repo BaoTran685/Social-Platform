@@ -21,17 +21,35 @@ const handler = NextAuth({
             SELECT * FROM users WHERE username=${username};
           ` 
           const user = response.rows[0];
+          console.log(user);
           if (user && await compare(password, user.password)) {
             return {
               id: user.id,
-              username: user.username
+              name: user.name,
+              userid: user.userid,
             }
           }
         }
         return null;
       }
     })
-  ]
+  ],
+  pages: {
+    signIn: "/login",
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      console.log(123)
+      console.log(token, user);
+      return { ...token, ...user }
+    },
+    async session({ session, token }) {
+      console.log(345);
+      console.log(session, token);
+      session.user = token;
+      return session;
+    }
+  }
 })
 
 export {handler as GET, handler as POST}
