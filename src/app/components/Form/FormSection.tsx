@@ -7,11 +7,13 @@ import { FormEvent, useEffect, useState } from "react";
 
 import { Obj, LoginRegisterItem } from "../types";
 import { useRouter } from "next/navigation";
+import LoadingButton from "../LoadingButton";
 
 const FormSection = ({ items }: { items: LoginRegisterItem }) => {
   const router = useRouter();
 
-  const { arr, field, formType, endPoint } = items;
+
+  const { arr, field, formType, endPoint, buttonName } = items;
   let initUser = {}
   let initUserFillError = {}
   arr.forEach((item) => {
@@ -20,6 +22,8 @@ const FormSection = ({ items }: { items: LoginRegisterItem }) => {
   })
   const [user, setUser] = useState(initUser);
   const [userFillError, setUserFillError] = useState(initUserFillError);
+  const [process, setProcess] = useState(false);
+
   const handleChange = (event: FormEvent<HTMLFormElement>) => {
     setUser({
       ...user,
@@ -41,16 +45,19 @@ const FormSection = ({ items }: { items: LoginRegisterItem }) => {
     if (error === 1) {
       return;
     }
+    setProcess(true);
     if (formType === 'register') {
       const response = await fetch(endPoint, {
         method: 'POST',
         body: JSON.stringify(user),
       });
       console.log(response);
+      setProcess(false);
       if (response?.ok === true) {
         router.push('/login');
         router.refresh();
       }
+      
     } else if (formType === 'login') {
       const response = await signIn('credentials', {
         username: (user as any).username,
@@ -58,6 +65,7 @@ const FormSection = ({ items }: { items: LoginRegisterItem }) => {
         redirect: false,
       });
       console.log(response);
+      setProcess(false);
       if (response?.ok === true) {
         router.push('/profile');
         router.refresh();
@@ -76,17 +84,12 @@ const FormSection = ({ items }: { items: LoginRegisterItem }) => {
     })
   })
   return (
-    <form className="flex flex-col align-center justify-center mt-6" onSubmit={(e) => handleSubmit(e)}>
+    <form className="flex flex-col align-center justify-center space-y-4 mt-6" onSubmit={(e) => handleSubmit(e)}>
       {field.map((object, index) => (
         <InputItem key={index} object={object} fillError={(userFillError as any)[object.name]} handleChange={handleChange} />
       )
       )}
-      <button
-        type='submit'
-        className='text-white w-full rounded-lg bg-[#21A179] shadow-inner transition-transform ease-in duration-300 hover:scale-105 mt-6'
-      >
-        <span className='block rounded-full px-6 py-3'>Sign In</span>
-      </button>
+      <LoadingButton type="submit" text={buttonName} isLoading={process}/>
     </form>
   )
 }

@@ -1,23 +1,20 @@
 import { useSession } from "next-auth/react";
+import { DataContent } from "@/app/components/types";
 
-const ContentSection = () => {
-  const {data: session} = useSession();
-  console.log(session);
-  const userid = (session?.user as any)?.userid
+const ContentSection = ({userInfo}: {userInfo: DataContent}) => {
+  const {userid, number_post, number_following, number_follower, description} = userInfo;
   return (
     <div className="flex flex-col space-y-8 my-10">
       <div className="text-xl sm:text-2xl font-medium underline decoration-[#ec4899]">
         {userid}
       </div>
       <div className="text-base sm:text-lg flex flex-row items-center justify-center space-x-4">
-        <div><span className="text-[#EA580C] font-bold">10 </span>posts</div>
-        <div><span className="text-[#0EA5E9] font-bold">10 </span>following</div>
-        <div><span className="text-[#3B82F6] font-bold">10 </span>followers</div>
+        <div><span className="text-[#EA580C] font-bold">{number_post} </span>posts</div>
+        <div><span className="text-[#0EA5E9] font-bold">{number_following} </span>following</div>
+        <div><span className="text-[#3B82F6] font-bold">{number_follower} </span>followers</div>
       </div>
       <div className="text-base sm:text-lg text-left">
-        Hi there, I'm Bao and I'm from Prince Edward Island (PEI), Canada. I'm studying at
-        the Universtiy of Waterloo, majoring in Mathematics and Computing. I and my friend, Chris,
-        are developing this social app together and would love listening to any feedback from you guys.
+        {description}
       </div>
     </div>
   );

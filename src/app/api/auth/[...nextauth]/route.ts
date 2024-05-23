@@ -1,9 +1,11 @@
 import { sql } from '@vercel/postgres';
-import NextAuth from 'next-auth'
+import NextAuth, { User } from 'next-auth'
+import type { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { compare } from 'bcrypt';
+import { JWT } from 'next-auth/jwt';
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
   },
@@ -18,15 +20,14 @@ const handler = NextAuth({
         if (credentials) {
           const {username, password} = credentials;
           const response = await sql`
-            SELECT * FROM users WHERE username=${username};
+            SELECT * FROM users WHERE username = ${username}
           ` 
           const user = response.rows[0];
           console.log(user);
           if (user && await compare(password, user.password)) {
             return {
               id: user.id,
-              name: user.name,
-              userid: user.userid,
+              username: user.username
             }
           }
         }
@@ -38,18 +39,28 @@ const handler = NextAuth({
     signIn: "/login",
   },
   callbacks: {
-    async jwt({ token, user }) {
-      console.log(123)
-      console.log(token, user);
-      return { ...token, ...user }
+    async jwt({ token, user} : {token: JWT, user: User}) {
+      if (user) {
+        return {
+          ...token,
+          id: user.id,
+          username: (user as any).username,
+        }
+      }
+      return token;
     },
-    async session({ session, token }) {
-      console.log(345);
-      console.log(session, token);
-      session.user = token;
-      return session;
+    async session({ session, token }: {session: any, token: JWT}) {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+          username: token.username,
+        }
+      }
     }
   }
-})
+}
+export const handler = NextAuth(authOptions);
 
 export {handler as GET, handler as POST}

@@ -2,12 +2,14 @@
 import { signIn, signOut, useSession } from "next-auth/react"
 import { Cor } from "../../components/Icon/Icons"
 import { useState } from "react";
+import Link from "next/link";
 
 const SettingSection = () => {
   const [settingOpen, setSettingOpen] = useState(false);
   const handleClick = () => {
     setSettingOpen(!settingOpen);
   }
+
   const {data: session} = useSession();
   return (
     <div className="flex flex-col items-center justify-center">
@@ -18,7 +20,9 @@ const SettingSection = () => {
         {settingOpen === true && (
           <div className="absolute top-[calc(100%_+_.5rem)] right-0 bg-[white] rounded-lg box--shadow p-2">
             <div className="flex flex-col whitespace-nowrap">
-              <SettingItem text="Update Profile" onClick={() => console.log('Update Profile')} />
+              <Link href='/profile/update'>
+                <SettingItem text="Update Profile" onClick={() => console.log('Update Profile')} />
+              </Link>
               <SettingItem text="Create Post" onClick={() => console.log('Create Post')} />
               {(session === null) ? (
                 <SettingItem text="Log In" onClick={() => signIn()} />

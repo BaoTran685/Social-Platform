@@ -8,8 +8,8 @@ import { cn } from '../../lib/tailwind-merge'
 
 const SideNav = () => {
   return (
-    <div className='hidden md:flex md:w-30 h-screen flex-1 fixed'>
-      <div className='place-self-center flex flex-col items-center justify-center h-fit space-y-2 bg-[#e7e7e76b] rounded-md shadow-md ml-6 p-2'>
+    <div className='hidden md:flex md:w-24 h-screen flex-1 fixed'>
+      <div className='place-self-center flex flex-col items-center justify-center h-fit space-y-2 bg-[#e7e7e76b] rounded-md shadow-md ml-auto p-2'>
         {SIDENAV_ITEMS.map((item, index) => (
           <NavItem key={index} item={item} />
         ))}
