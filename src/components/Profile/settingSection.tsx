@@ -1,6 +1,6 @@
 'use client'
 import { signIn, signOut, useSession } from "next-auth/react"
-import { Cor } from "../../components/Icon/Icons"
+import { Cor } from "@/components/Icon/icons"
 import { useState } from "react";
 import Link from "next/link";
 

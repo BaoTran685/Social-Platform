@@ -1,12 +1,12 @@
 import { useSession } from "next-auth/react";
-import { DataContent } from "@/app/components/types";
+import { ProfileDataObj } from "@/components/types/profile";
 
-const ContentSection = ({userInfo}: {userInfo: DataContent}) => {
-  const {userid, number_post, number_following, number_follower, description} = userInfo;
+const ContentSection = ({userProfile}: {userProfile: ProfileDataObj}) => {
+  const {username, number_post, number_following, number_follower, description} = userProfile;
   return (
     <div className="flex flex-col space-y-8 my-10">
       <div className="text-xl sm:text-2xl font-medium underline decoration-[#ec4899]">
-        {userid}
+        {username}
       </div>
       <div className="text-base sm:text-lg flex flex-row items-center justify-center space-x-4">
         <div><span className="text-[#EA580C] font-bold">{number_post} </span>posts</div>

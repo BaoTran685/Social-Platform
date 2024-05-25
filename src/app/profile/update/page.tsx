@@ -1,10 +1,10 @@
 'use client';
-import { Spinner } from "@/app/components/Icon/Icons";
-import PageWithNavbar from "../../layouts/PageWithNavbar";
-import InputBox from "./components/InputBox";
+import { Spinner } from "@/components/Icon/icons";
+import PageWithNavbar from "@/layouts/pageWithNav";
+import InputBox from "@/components/Profile/Update/inputBox";
 
 import { FormEvent, useState } from "react"
-import LoadingButton from "@/app/components/LoadingButton";
+import LoadingButton from "@/components/loadingButton";
 
 const END_POINT = '/api/profile/update'
 

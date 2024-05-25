@@ -1,6 +1,6 @@
 'use client'
-import useScroll from "@/app/hooks/use-scroll";
-import { cn } from "@/app/lib/tailwind-merge";
+import useScroll from "@/hooks/use-scroll";
+import { cn } from "@/lib/tailwind-merge";
 import { useSelectedLayoutSegment } from "next/navigation";
 
 const TopHeader = () => {

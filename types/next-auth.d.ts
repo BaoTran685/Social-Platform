@@ -3,7 +3,7 @@
 export module 'next-auth' {
   interface Session {
     user: {
-      id: Number,
+      id: string,
       username: string,
     }
   }

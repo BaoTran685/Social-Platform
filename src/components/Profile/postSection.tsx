@@ -1,4 +1,4 @@
-import PostBox from "./PostBox";
+import PostBox from "./postBox";
 
 
 const PostSection = () => {

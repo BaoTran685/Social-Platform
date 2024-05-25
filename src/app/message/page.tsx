@@ -1,4 +1,4 @@
-import MainWithNavbar from "../layouts/PageWithNavbar"
+import MainWithNavbar from "@/layouts/pageWithNav"
 
 
 const MessagePage = () => {
