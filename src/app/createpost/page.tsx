@@ -4,10 +4,9 @@ import ToolBox from "./components/ToolBox";
 
 
 const POST = {
-  title: 'description',
+  name: 'description',
   type: 'text',
   placeholder: 'Type Here',
-  isInput: false,
 }
 
 const CreatePage = () => {
