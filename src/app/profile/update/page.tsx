@@ -1,41 +1,15 @@
 'use client';
-import { Spinner } from "@/components/Icon/icons";
 import PageWithNavbar from "@/layouts/pageWithNav";
-import InputBox from "@/components/Profile/Update/inputBox";
+import UpdateInputBox from "@/components/Profile/Update/updateInputBox";
 
-import { FormEvent, useState } from "react"
+import { FormEvent, useState } from "react";
 import LoadingButton from "@/components/loadingButton";
 
-const END_POINT = '/api/profile/update'
-
-const UPDATE_INPUTS = [
-  {
-    label: 'New UserId',
-    name: 'userid',
-    type: 'text',
-    placeholder: 'iambaotran.05',
-    isInput: true,
-  },
-  {
-    label: 'New Name',
-    name: 'name',
-    type: 'text',
-    placeholder: 'Bao Tran',
-    isInput: true,
-  },
-]
-const DESCRIPTION = {
-  label: 'New Description',
-  name: 'description',
-  type: 'text',
-  placeholder: 'Say Something About Yourself',
-  isInput: false,
-}
-const IDs = ['userid', 'name', 'description'];
+import { PROFILE_UPDATE_ITEMS } from "@/components/constants/profileUpdate";
 
 const UpdatePage = () => {
-  const [newInfo, setNewInfo] = useState({ userid: '', name: '', description: '' });
-  const [fillError, setUserFillError] = useState({ userid: false, name: false, description: false});
+  const [newInfo, setNewInfo] = useState(PROFILE_UPDATE_ITEMS.initNewInfo);
+  const [fillError, setUserFillError] = useState(PROFILE_UPDATE_ITEMS.initFillError);
   const [process, setProcess] = useState(false);
 
   const handleChange = (event: FormEvent<HTMLFormElement>) => {
@@ -48,8 +22,8 @@ const UpdatePage = () => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     let error = 0;
-    IDs.map((item) => {
-      if ((fillError as any)[item] === false && (newInfo as any)[item] === '') {
+    PROFILE_UPDATE_ITEMS.objectKey.map((item) => {
+      if (fillError[item] === false && newInfo[item] === '') {
         setUserFillError((prev) => ({
           ...prev,
           [item]: true,
@@ -62,7 +36,7 @@ const UpdatePage = () => {
     }
     console.log(newInfo);
     setProcess(true);
-    const response = await fetch(END_POINT, {
+    const response = await fetch(PROFILE_UPDATE_ITEMS.endPoint, {
       method: 'POST',
       body: JSON.stringify(newInfo),
     });
@@ -75,17 +49,14 @@ const UpdatePage = () => {
         <div />
         <div className="flex flex-col space-y-6">
           <h1 className="text-center text-3xl underline">Update Profile</h1>
-          <div className="w-full h-full bg-[#e6e6e67b] rounded-xl shadow-lg mb-5 md:mb-6 px-8 md:px-10 lg:px-14 xl:px-18 py-8">
+          <div className="w-full h-full mb-5 md:mb-6 px-8 md:px-10 lg:px-14 xl:px-18 py-8">
             <form className="flex flex-col" onSubmit={(e) => handleSubmit(e)}>
               <div className="grid grid-cols-2 gap-4">
-                {UPDATE_INPUTS.map((items, index) => (
-                  <InputBox key={index} items={items} onChange={handleChange} />
-                ))}
+                <UpdateInputBox items={PROFILE_UPDATE_ITEMS.fields.userid} onChange={handleChange} fillError={fillError.userid} />
+                <UpdateInputBox items={PROFILE_UPDATE_ITEMS.fields.name} onChange={handleChange} fillError={fillError.description} />
               </div>
-
-              <InputBox items={DESCRIPTION} onChange={handleChange} />
-
-              <LoadingButton type="submit" text="Update" isLoading={process}/>
+              <UpdateInputBox items={PROFILE_UPDATE_ITEMS.fields.description} onChange={handleChange} fillError={fillError.description} />
+              <LoadingButton type="submit" text="Update" isLoading={process} />
             </form>
           </div>
         </div>

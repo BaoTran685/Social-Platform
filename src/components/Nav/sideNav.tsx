@@ -1,16 +1,16 @@
 'use client'
 import React from 'react'
-import { SIDENAV_ITEMS } from '../constants/sideNav'
-import { SideNavItem } from '../types/sideNav'
+import { SIDENAV_ARRAY } from '../constants/sideNav'
+import { SideNavArray } from '../types/sideNav'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '../../lib/tailwind-merge'
 
 const SideNav = () => {
   return (
-    <div className='hidden md:flex md:w-24 h-screen flex-1 fixed'>
+    <div className='hidden md:flex flex-1 md:w-24 h-screen fixed'>
       <div className='place-self-center flex flex-col items-center justify-center h-fit space-y-2 bg-[#e7e7e76b] rounded-md shadow-md ml-auto p-2'>
-        {SIDENAV_ITEMS.map((item, index) => (
+        {SIDENAV_ARRAY.map((item, index) => (
           <NavItem key={index} item={item} />
         ))}
       </div>
@@ -20,7 +20,7 @@ const SideNav = () => {
 
 export default SideNav;
 
-const NavItem = ({ item }: { item: SideNavItem }) => {
+const NavItem = ({ item }: { item: SideNavArray }) => {
   const pathName = usePathname();
 
   return (
@@ -41,7 +41,7 @@ const NavItem = ({ item }: { item: SideNavItem }) => {
           <span className='font-bold text-xl'>Logo</span>
         </Link>
         <div className='flex flex-col space-y-2 px-4'>
-          {SIDENAV_ITEMS.map((item, index) => (
+          {SIDENAV_ARRAY.map((item, index) => (
             <NavItem key={index} item={item} />
           ))}
         </div>

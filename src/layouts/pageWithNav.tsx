@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import SideNav from "../components/Nav/sideNav";
 import TopHeader from "../components/Nav/topHeader";
 import MarginWidthWrapper from "./marginWidthWrapper";
+import PageWrapper from "./pageWrapper";
 
 export default function PageWithNavbar({
   children,
@@ -15,9 +16,12 @@ export default function PageWithNavbar({
       <div className="flex-1">
         <MarginWidthWrapper>
           <TopHeader />
-          {children}
+          <PageWrapper>
+            {children}
+          </PageWrapper>
         </MarginWidthWrapper>
       </div>
+
     </main>
   )
 }

@@ -18,9 +18,19 @@
     @apply grid grid-cols-[minmax(40px,1fr)_minmax(auto,708px)_minmax(40px,1fr)] sm:grid-cols-[minmax(96px,1fr)_minmax(auto,708px)_minmax(96px,1fr)];
   }
   .input--box {
-    @apply block w-full rounded-lg bg-[white] border border-transparent focus:outline-none focus:ring-2 focus:ring-[#33353F] placeholder-[#9CA2A9] p-2.5 appearance-none;
+    @apply block w-full rounded-lg bg-inherit focus:outline-none focus:border-[#1E1E24] transition-colors ease-linear placeholder-[#A1A1AA] p-2.5 appearance-none;
+  }
+  .input--line {
+    @apply block w-full bg-inherit border-b-2 focus:outline-none focus:border-b-[#1E1E24] transition-colors ease-linear placeholder:text-[#A1A1AA] p-2 appearance-none;
   }
   .box--shadow {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
   }
+}
+
+.notebook {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+  background-size: 100% 24px;
+  line-height: 24px;
+  font-family: 'Courier New', Courier, monospace;
 }

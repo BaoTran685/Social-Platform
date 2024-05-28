@@ -1,8 +1,7 @@
-import { useSession } from "next-auth/react";
-import { ProfileDataObj } from "@/components/types/profile";
+import { ProfileObj } from "@/components/types/profile";
 
-const ContentSection = ({userProfile}: {userProfile: ProfileDataObj}) => {
-  const {username, number_post, number_following, number_follower, description} = userProfile;
+const ContentSection = ({ profile }: { profile: ProfileObj }) => {
+  const { username, number_post, number_following, number_follower, description } = profile;
   return (
     <div className="flex flex-col space-y-8 my-10">
       <div className="text-xl sm:text-2xl font-medium underline decoration-[#ec4899]">

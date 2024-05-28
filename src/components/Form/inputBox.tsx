@@ -1,3 +1,4 @@
+import { cn } from "@/lib/tailwind-merge";
 
 interface Props {
   name: string,
@@ -6,13 +7,15 @@ interface Props {
   fillError: boolean,
   onChange: Function,
 }
-const InputBox = ({name, type, placeholder, fillError, onChange}:Props) => {
-  let borderColor = fillError === true ? 'border-b-red-600' : 'border-b-[#1E1E24]';
+const InputBox = ({ name, type, placeholder, fillError, onChange }: Props) => {
   return (
     <input
       name={name}
       type={type}
-      className={`text-sm text-black block w-full bg-inherit border-b-2 ${borderColor} focus:outline-none focus:border-b-[#21A179] transition-colors ease-linear p-2 placeholder:text-[#A1A1AA] appearance-none`}
+      className={cn(`text-sm text-black input--line`, {
+        'border-b-red-600': fillError === true,
+        'border-b-[#A1A1AA]': fillError === false,
+      })}
       placeholder={placeholder}
       onChange={(e) => onChange(e)}
       autoComplete="off"

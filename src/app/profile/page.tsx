@@ -1,42 +1,37 @@
-'use client'
 import ContentSection from "@/components/Profile/contentSection"
 import PostSection from "@/components/Profile/postSection"
 import SettingSection from "@/components/Profile/settingSection"
 import MainWithNavbar from "@/layouts/pageWithNav"
-import useSWR from "swr"
-import { ProfileDataObj } from "@/components/types/profile"
-import { PROFILE_DATA_OBJ, PROFILE_DATA } from "@/components/constants/profile"
-
-const fetcher = (url: string) => fetch(url, {
-  method: 'GET',
-}).then(response => response.json());
+import { ProfileObj } from "@/components/types/profile"
+import { PROFILE_ITEMS } from "@/components/constants/profile"
+import { getProfile } from "@/lib/getProfile"
 
 
-let userProfile: ProfileDataObj = PROFILE_DATA_OBJ;
+let profile: ProfileObj = PROFILE_ITEMS.initProfile;
 
-const ProfilePage = () => {
-  const { data, error, isLoading } = useSWR('/api/profile/info', fetcher);
+const ProfilePage = async () => {
+  const data = await getProfile();
   console.log(data);
-  if (data && data.content) {
-    PROFILE_DATA.forEach((item) => {
-      (userProfile as any)[item] = (data.content as any)[item];
+  if (data) {
+    PROFILE_ITEMS.objectKey.forEach((item) => {
+      (profile as any)[item] = (data.content as any)[item];
     })
   }
-  console.log(userProfile)
+  console.log(profile)
   return (
     <MainWithNavbar>
-      <section className="text-[#37352F] mt-32">
+      <section className="text-[#37352F] mt-20">
         <div className="layout">
           <div />
           <div className="flex flex-col">
             <div className="flex flex-row justify-between">
               <div className="text-4xl sm:text-5xl lg:text-6xl font-semibold">
-                {userProfile.name}
+                {profile.name}
               </div>
               <SettingSection />
             </div>
             <div className="w-full h-0.5 bg-[#ddd] mt-2" />
-            <ContentSection userProfile={userProfile} />
+            <ContentSection profile={profile} />
             <div className="w-full h-0.5 bg-[#ddd] mt-2" />
             <PostSection />
           </div>
@@ -48,4 +43,5 @@ const ProfilePage = () => {
 }
 
 export default ProfilePage;
+
 

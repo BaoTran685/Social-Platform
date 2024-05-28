@@ -1,7 +1,7 @@
 import { HomeIcon, ProfileIcon, MessageIcon } from "../Icon/icons"
-import { SideNavItem } from "../types/sideNav"
+import { SideNavArray } from "../types/sideNav"
 
-export const SIDENAV_ITEMS: SideNavItem[] = [
+export const SIDENAV_ARRAY: SideNavArray[] = [
   {
     title: 'Home',
     path: '/',
