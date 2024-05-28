@@ -14,12 +14,7 @@ let profileUpdateItems: ProfileUpdateItems = PROFILE_UPDATE_ITEMS;
 
 const UpdatePage = async () => {
   const data: DataProps = await getProfile();
-  
-  if (data && data.message === 'success') {
-    PROFILE_UPDATE_ITEMS.objectKey.map((item) => {
-      profileUpdateItems.initNewInfo[item] = data.content[item];
-    })
-  }
+
   return (
     <PageWithNavbar>
       <section className="layout">
@@ -27,7 +22,7 @@ const UpdatePage = async () => {
         <div className="flex flex-col space-y-6">
           <h1 className="text-center text-3xl underline">Update Profile</h1>
           <div className="w-full h-full mb-5 md:mb-6 px-8 md:px-10 lg:px-14 xl:px-18 py-8">
-            <UpdateFormSection items={profileUpdateItems}/>
+            <UpdateFormSection items={profileUpdateItems} profile={data?.content} />
           </div>
         </div>
         <div />

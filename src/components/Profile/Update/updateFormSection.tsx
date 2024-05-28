@@ -6,15 +6,17 @@ import InputBox from "@/components/Form/inputBox";
 import TextAreaBox from "@/components/Form/textAreaBox";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { ProfileObj } from "@/components/types/profile";
 
 
-const UpdateFormSection = ({ items }: { items: ProfileUpdateItems }) => {
+const UpdateFormSection = ({ items, profile }: { items: ProfileUpdateItems, profile: ProfileObj }) => {
   const router = useRouter();
   const { data: session } = useSession();
 
-  const { objectKey, initNewInfo, initFillError, field, endPoint } = items;
+  const { objectKey, initFillError, field, endPoint } = items;
+  const { userid, name, description } = profile;
 
-  const [newInfo, setNewInfo] = useState(initNewInfo);
+  const [newInfo, setNewInfo] = useState({ userid, name, description });
   const [fillError, setFillError] = useState(initFillError);
   const [process, setProcess] = useState(false);
   const handleChange = (event: FormEvent<HTMLFormElement>) => {

@@ -1,7 +1,7 @@
 import PageWithNavbar from "@/layouts/pageWithNav";
 
 
-const MessagePage = () => {
+const Loading = () => {
   return (
     <PageWithNavbar>
       <section className="flex flex-grow">
@@ -14,4 +14,4 @@ const MessagePage = () => {
   )
 }
 
-export default MessagePage;
+export default Loading;

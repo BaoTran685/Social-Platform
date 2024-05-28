@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { connectToDatabase } from '@/helper/server-helper'
 import prisma from '@/lib/prisma'
+import { PROFILE_ITEMS } from '@/components/constants/profile'
 
 export async function POST (request: Request) {
   try {
@@ -24,5 +25,5 @@ export async function POST (request: Request) {
   } finally {
     prisma.$disconnect();
   }
-  return NextResponse.json({ message: 'fail' }, { status: 401 })
+  return NextResponse.json({ message: 'fail', content: PROFILE_ITEMS.initProfile }, { status: 401 })
 }
