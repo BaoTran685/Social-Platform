@@ -6,15 +6,19 @@ import { ProfileObj } from "@/components/types/profile"
 import { PROFILE_ITEMS } from "@/components/constants/profile"
 import { getProfile } from "@/lib/getProfile"
 
+interface DataProps {
+  message: string,
+  content: ProfileObj,
+}
 
 let profile: ProfileObj = PROFILE_ITEMS.initProfile;
 
 const ProfilePage = async () => {
-  const data = await getProfile();
+  const data: DataProps = await getProfile();
   console.log(data);
-  if (data) {
+  if (data && data.message === 'success') {
     PROFILE_ITEMS.objectKey.forEach((item) => {
-      (profile as any)[item] = (data.content as any)[item];
+      profile[item] = data.content[item];
     })
   }
   console.log(profile)

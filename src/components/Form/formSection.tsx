@@ -39,6 +39,7 @@ const FormSection = ({ items }: { items: LoginRegisterItem }) => {
     }
     let response;
     setProcess(true);
+    console.log("MY END POINT", endPoint);
     if (formType === 'register') {
       response = await fetch(endPoint, {
         method: 'POST',
@@ -70,15 +71,15 @@ const FormSection = ({ items }: { items: LoginRegisterItem }) => {
   })
   return (
     <form className="flex flex-col align-center justify-center space-y-4 mt-6" onSubmit={(e) => handleSubmit(e)}>
-      {field.map((object, index) => {
+      {objectKey.map((item, index) => {
         return (
           <div key={index}>
-            {object.name === "password" ? (
-              <InputItemPassword  object={object} fillError={fillError[object.name]} handleChange={handleChange} />
+            {item === "password" ? (
+              <InputItemPassword object={field[item]} value={user[item]} fillError={fillError[item]} handleChange={handleChange} />
             ) : (
-              <InputItem object={object} fillError={(fillError as any)[object.name]} handleChange={handleChange} />
+              <InputItem object={(field as any)[item]} value={(user as any)[item]} fillError={(fillError as any)[item]} handleChange={handleChange} />
             )}
-            {fillError[object.name] && (
+            {fillError[item] && (
               <div className="text-sm font-medium text-red-600 pt-1">Required field</div>
             )}
           </div>
@@ -95,13 +96,13 @@ export default FormSection;
 
 
 
-const InputItem = ({ object, fillError, handleChange }: { object: InputObj, fillError: boolean, handleChange: Function }) => {
+const InputItem = ({ object, value, fillError, handleChange }: { object: InputObj, value: string, fillError: boolean, handleChange: Function }) => {
   return (
-    <InputBox name={object.name} type={object.type} placeholder={object.placeholder} fillError={fillError} onChange={handleChange} />
+    <InputBox name={object.name} type={object.type} placeholder={object.placeholder} value={value} fillError={fillError} onChange={handleChange} />
   )
 }
 
-const InputItemPassword = ({ object, fillError, handleChange }: { object: InputObj, fillError: boolean, handleChange: Function }) => {
+const InputItemPassword = ({ object, value, fillError, handleChange }: { object: InputObj, value:string, fillError: boolean, handleChange: Function }) => {
   const [eyeOpen, setEyeOpen] = useState(true);
   const [passwordType, setPasswordType] = useState('password');
   const handleEye = () => {
@@ -114,7 +115,7 @@ const InputItemPassword = ({ object, fillError, handleChange }: { object: InputO
   }
   return (
     <div className="relative">
-      <InputBox name={object.name} type={passwordType} placeholder={object.placeholder} fillError={fillError} onChange={handleChange} />
+      <InputBox name={object.name} type={passwordType} placeholder={object.placeholder} value={value} fillError={fillError} onChange={handleChange} />
       <button className="absolute bottom-2 right-1 w-fit h-fit flex items-center justify-center cursor-pointer" type="button" onClick={() => handleEye()}>
         {eyeOpen ? (
           <div className="flex items-center justify-center w-fit h-fit rounded-md text-[#A1A1AA]">

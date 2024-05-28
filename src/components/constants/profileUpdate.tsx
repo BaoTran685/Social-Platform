@@ -5,19 +5,19 @@ export const PROFILE_UPDATE_ITEMS: ProfileUpdateItems = {
   objectKey: ['userid', 'name', 'description'],
   initNewInfo: { userid: '', name: '', description: '' },
   initFillError: { userid: false, name: false, description: false },
-  fields: {
+  field: {
     userid: {
       label: 'New UserId',
       name: 'userid',
       type: 'text',
-      placeholder: 'iambaotran.05',
+      placeholder: 'Your Unique Id',
       isInput: true,
     },
     name: {
       label: 'New Name',
       name: 'name',
       type: 'text',
-      placeholder: 'Bao Tran',
+      placeholder: 'Your Name',
       isInput: true,
     },
     description: {

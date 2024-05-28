@@ -13,14 +13,18 @@ export type FillErrorObj = {
   name?: boolean,
   password: boolean,
 }
+export type FieldObj = {
+  email: InputObj,
+  name?: InputObj,
+  password: InputObj,
+}
 export type ObjectKey = 'email' | 'password' | 'name'
-
 
 export type LoginRegisterItem = {
   objectKey: Array<ObjectKey>,
   initUser: UserObj,
   initFillError: FillErrorObj,
-  field: Array<InputObj>,
+  field: FieldObj,
   formType: string,
   endPoint: string,
   buttonName: string,

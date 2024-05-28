@@ -17,7 +17,7 @@ export type InputObj = {
   placeholder: string,
   isInput: boolean,
 }
-export type FieldsObj = {
+export type FieldObj = {
   userid: InputObj,
   name: InputObj,
   description: InputObj,
@@ -28,6 +28,6 @@ export type ProfileUpdateItems = {
   objectKey: Array<ObjectKey>
   initNewInfo: UserObj,
   initFillError: FillErrorObj,
-  fields: FieldsObj,
+  field: FieldObj,
   endPoint: string,
 }

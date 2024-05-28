@@ -1,6 +1,6 @@
 
 export type ProfileObj = {
-  username: string,
+  userid: string,
   name: string,
   number_post: string,
   number_following: string,
@@ -8,8 +8,8 @@ export type ProfileObj = {
   description: string,
 }
 
-
+export type ObjectKey = 'userid' | 'name' | 'number_post' | 'number_following' | 'number_follower' | 'description'
 export type ProfileItem = {
-  objectKey: Array<string>,
+  objectKey: Array<ObjectKey>,
   initProfile: ProfileObj
 }

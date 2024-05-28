@@ -21,6 +21,8 @@ export async function POST (request: Request) {
     }
   } catch (e) {
     console.log(e)
+  } finally {
+    prisma.$disconnect();
   }
   return NextResponse.json({ message: 'fail' }, { status: 401 })
 }
