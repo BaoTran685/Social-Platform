@@ -4,16 +4,16 @@ import { EyeClose, EyeOpen } from "@/components/Icon/icons";
 import InputBox from "@/components/Form/inputBox";
 import { signIn } from "next-auth/react";
 import { FormEvent, useEffect, useState } from "react";
-import { InputObj, LoginRegisterItem } from "../types/loginAndRegister";
+import { InputObj, LoginRegisterItem } from "@/components/types/login&&register";
 import { useRouter } from "next/navigation";
 import LoadingButton from "../loadingButton";
 
 const FormSection = ({ items }: { items: LoginRegisterItem }) => {
-  const { arr, userInfo, fillError, field, formType, endPoint, buttonName, callback } = items;
+  const { objectKey, initUser, initFillError, field, formType, endPoint, buttonName, callback } = items;
 
   const router = useRouter();
-  const [user, setUser] = useState(userInfo);
-  const [userFillError, setUserFillError] = useState(fillError);
+  const [user, setUser] = useState(initUser);
+  const [fillError, setFillError] = useState(initFillError);
   const [process, setProcess] = useState(false);
 
   const handleChange = (event: FormEvent<HTMLFormElement>) => {
@@ -25,9 +25,9 @@ const FormSection = ({ items }: { items: LoginRegisterItem }) => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     let error = 0;
-    arr.forEach((item) => {
-      if ((userFillError as any)[item] === false && (user as any)[item] === '') {
-        setUserFillError((prev) => ({
+    objectKey.forEach((item) => {
+      if (fillError[item] === false && user[item] === '') {
+        setFillError((prev) => ({
           ...prev,
           [item]: true
         }));
@@ -46,8 +46,8 @@ const FormSection = ({ items }: { items: LoginRegisterItem }) => {
       });
     }
     response = await signIn('credentials', {
-      username: (user as any).username,
-      password: (user as any).password,
+      email: user.email,
+      password: user.password,
       redirect: false,
     });
     console.log(response);
@@ -59,9 +59,9 @@ const FormSection = ({ items }: { items: LoginRegisterItem }) => {
   }
 
   useEffect(() => {
-    arr.forEach((item) => {
-      if ((userFillError as any)[item] === true && (user as any)[item] !== '') {
-        setUserFillError((prev) => ({
+    objectKey.forEach((item) => {
+      if (fillError[item] === true && user[item] !== '') {
+        setFillError((prev) => ({
           ...prev,
           [item]: false
         }))
@@ -74,11 +74,11 @@ const FormSection = ({ items }: { items: LoginRegisterItem }) => {
         return (
           <div key={index}>
             {object.name === "password" ? (
-              <InputItemPassword  object={object} fillError={(userFillError as any)[object.name]} handleChange={handleChange} />
+              <InputItemPassword  object={object} fillError={fillError[object.name]} handleChange={handleChange} />
             ) : (
-              <InputItem object={object} fillError={(userFillError as any)[object.name]} handleChange={handleChange} />
+              <InputItem object={object} fillError={(fillError as any)[object.name]} handleChange={handleChange} />
             )}
-            {(userFillError as any)[object.name] && (
+            {fillError[object.name] && (
               <div className="text-sm font-medium text-red-600 pt-1">Required field</div>
             )}
           </div>
@@ -91,6 +91,8 @@ const FormSection = ({ items }: { items: LoginRegisterItem }) => {
 }
 
 export default FormSection;
+
+
 
 
 const InputItem = ({ object, fillError, handleChange }: { object: InputObj, fillError: boolean, handleChange: Function }) => {

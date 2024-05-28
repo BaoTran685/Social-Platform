@@ -15,24 +15,25 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        username: {},
+        email: {},
         password: {}
       },
       async authorize(credentials, req) {
         try {
           if (credentials) {
-            const {username, password} = credentials;
+            const {email, password} = credentials;
+            console.log(email, password);
             await connectToDatabase();
             const user = await prisma.user.findUnique({
               where: {
-                username: username,
+                email: email,
               }
             })
             console.log(user);
             if (user && await compare(password, user.hashPassword)) {
               return {
                 id: user.id,
-                username: user.username,
+                eamil: user.email,
               }
             }
           }
@@ -55,7 +56,7 @@ export const authOptions: NextAuthOptions = {
         return {
           ...token,
           id: user.id,
-          username: (user as any).username,
+          email: (user as any).email,
         }
       }
       return token;
@@ -66,7 +67,7 @@ export const authOptions: NextAuthOptions = {
         user: {
           ...session.user,
           id: token.id,
-          username: token.username,
+          email: token.email,
         }
       }
     }

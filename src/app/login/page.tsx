@@ -2,7 +2,7 @@
 import Link from "next/link";
 import FormSection from "@/components/Form/formSection";
 
-import { LOGIN_ITEMS } from "@/components/constants/loginAndRegister";
+import { LOGIN_ITEMS } from "@/components/constants/login&&register";
 
 const LoginPage = async () => {
   return (

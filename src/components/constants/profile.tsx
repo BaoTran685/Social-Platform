@@ -1,6 +1,7 @@
-import { ProfileDataObj } from "../types/profile";
+import { ProfileItem } from "../types/profile";
 
-export const PROFILE_DATA_OBJ: ProfileDataObj = 
-  { username: '', name: '', number_post: '', number_follower: '', number_following: '', description: '' };
-export const PROFILE_DATA: string[] = 
-  ['username', 'name', 'number_post', 'number_following', 'number_follower', 'description'];
+
+export const PROFILE_ITEMS: ProfileItem = {
+  objectKey: ['username', 'name', 'number_post', 'number_following', 'number_follower', 'description'],
+  initProfile: { username: '', name: '', number_post: '', number_follower: '', number_following: '', description: '' },
+}
