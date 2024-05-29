@@ -1,7 +1,4 @@
-import { sql } from "@vercel/postgres";
-import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import {authOptions} from "@/lib/authOptions"
 import { connectToDatabase } from "@/helper/server-helper";
 import prisma from "@/lib/prisma";
 
@@ -25,7 +22,7 @@ export async function POST(request: Request) {
       return NextResponse.json({message: 'success', content: response}, {status: 200})
     }
   } catch(e) {
-    console.log(e)
+    console.log(e);
   } finally {
     prisma.$disconnect();
   }

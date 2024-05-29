@@ -1,29 +1,35 @@
 export type InputObj = {
-  name: 'email' | 'password' |'name',
+  name: 'username' | 'password' |'name',
   type: string,
   placeholder: string,
 }
 export type UserObj = {
-  email: string,
+  username: string,
   name?: string,
   password: string,
 }
-export type FillErrorObj = {
-  email: boolean,
+export type IsErrorObj = {
+  username: boolean,
   name?: boolean,
   password: boolean,
 }
+export type ErrorMessageObj = {
+  username: string,
+  name?: string,
+  password: string,
+}
 export type FieldObj = {
-  email: InputObj,
+  username: InputObj,
   name?: InputObj,
   password: InputObj,
 }
-export type ObjectKey = 'email' | 'password' | 'name'
+export type ObjectKey = 'username' | 'password' | 'name'
 
 export type LoginRegisterItem = {
   objectKey: Array<ObjectKey>,
   initUser: UserObj,
-  initFillError: FillErrorObj,
+  initIsError: IsErrorObj,
+  initErrorMessage: ErrorMessageObj,
   field: FieldObj,
   formType: string,
   endPoint: string,

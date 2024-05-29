@@ -3,8 +3,8 @@ import { Inter } from "next/font/google";
 
 import "./globals.css";
 import { getServerSession } from "next-auth";
-import SessionProvider from "@/components/sessionProvider";
-import ProgressProvider from "@/components/progressProvider";
+import SessionProvider from "@/provider/sessionProvider";
+import ProgressProvider from "@/provider/progressProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
