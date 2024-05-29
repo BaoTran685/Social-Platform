@@ -1,11 +1,11 @@
 import { ProfileObj } from "@/components/types/profile";
 
 const ContentSection = ({ profile }: { profile: ProfileObj }) => {
-  const { userid, number_post, number_following, number_follower, description } = profile;
+  const { username, number_post, number_following, number_follower, description } = profile;
   return (
     <div className="flex flex-col space-y-8 my-10">
       <div className="text-xl sm:text-2xl font-medium underline decoration-[#ec4899]">
-        {userid}
+        {username}
       </div>
       <div className="text-base sm:text-lg flex flex-row items-center justify-center space-x-4">
         <div><span className="text-[#EA580C] font-bold">{number_post} </span>posts</div>

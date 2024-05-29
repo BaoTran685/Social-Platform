@@ -1,15 +1,13 @@
-
 export type UserObj = {
-  userid: string,
   name: string,
+  email: string,
   description: string,
 }
 export type FillErrorObj = {
-  userid: boolean,
   name: boolean,
+  email: boolean,
   description: boolean,
 }
-
 export type InputObj = {
   label: string,
   name: string,
@@ -18,16 +16,18 @@ export type InputObj = {
   isInput: boolean,
 }
 export type FieldObj = {
-  userid: InputObj,
   name: InputObj,
+  email: InputObj,
   description: InputObj,
 }
-export type ObjectKey = 'userid' | 'name' | 'description'
+export type ErrorMessageObj = UserObj
+export type ObjectKey = 'name' | 'email' | 'description'
 
 export type ProfileUpdateItems = {
   objectKey: Array<ObjectKey>
   initNewInfo: UserObj,
-  initFillError: FillErrorObj,
+  initIsError: FillErrorObj,
+  initErrorMessage: ErrorMessageObj,
   field: FieldObj,
   endPoint: string,
 }

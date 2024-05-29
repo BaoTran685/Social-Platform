@@ -9,17 +9,17 @@ const POST = {
   placeholder: 'Type Here',
 }
 
-const CreatePage = () => {
+const CreatePostPage = () => {
   return (
     <main className="pt-6">
       <div className="w-full">
         <div className="flex items-center space-x-1">
-          <ToolBox/>
-          <InputBox items={POST}/>
+          <ToolBox />
+          <InputBox items={POST} />
         </div>
       </div>
     </main>
   );
 };
 
-export default CreatePage;
+export default CreatePostPage;

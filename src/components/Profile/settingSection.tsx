@@ -10,7 +10,7 @@ const SettingSection = () => {
     setSettingOpen(!settingOpen);
   }
 
-  const {data: session} = useSession();
+  const { data: session } = useSession();
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="relative">
@@ -23,7 +23,9 @@ const SettingSection = () => {
               <Link href='/profile/update'>
                 <SettingItem text="Update Profile" onClick={() => console.log('Update Profile')} />
               </Link>
-              <SettingItem text="Create Post" onClick={() => console.log('Create Post')} />
+              <Link href='/profile/createpost'>
+                <SettingItem text="Create Post" onClick={() => console.log('Create Post')} />
+              </Link>
               {(session === null) ? (
                 <SettingItem text="Log In" onClick={() => signIn()} />
               ) : (

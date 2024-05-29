@@ -1,30 +1,33 @@
-import { NextResponse } from "next/server";
-import { connectToDatabase } from "@/helper/server-helper";
-import prisma from "@/lib/prisma";
+import { NextResponse } from 'next/server'
+import { connectToDatabase } from '@/helper/server-helper'
+import prisma from '@/lib/prisma'
 
-export async function POST(request: Request) {
+export async function POST (request: Request) {
   try {
-    const {userid, name, description, id} = await request.json();
-    
-    console.log(id);
+    const { email, name, description, id } = await request.json()
+
+    console.log(id)
     if (id) {
-      await connectToDatabase();
+      await connectToDatabase()
       const response = await prisma.profile.update({
         where: {
-          profileId: id,
+          profileId: id
         },
         data: {
-          userid: userid,
           name: name,
-          description: description,
+          email: email,
+          description: description
         }
-      });
-      return NextResponse.json({message: 'success', content: response}, {status: 200})
+      })
+      return NextResponse.json(
+        { message: 'success', content: response },
+        { status: 200 }
+      )
     }
-  } catch(e) {
-    console.log(e);
+  } catch (e) {
+    console.log(e)
   } finally {
-    prisma.$disconnect();
+    prisma.$disconnect()
   }
-  return NextResponse.json({message: 'fail'}, {status: 401})
+  return NextResponse.json({ message: 'fail' }, { status: 401 })
 }

@@ -110,7 +110,7 @@ const FormSection = ({ items }: { items: LoginRegisterItem }) => {
 
 export default FormSection;
 
-export const checkInput = async (user: UserObj, isError: IsErrorObj, setIsError: Function, setErrorMessage: Function, setProcess: Function, objectKey: Array<ObjectKey>, formType: string,) => {
+export const checkInput = (user: UserObj, isError: IsErrorObj, setIsError: Function, setErrorMessage: Function, setProcess: Function, objectKey: Array<ObjectKey>, formType: string,) => {
   let error = false;
   // check for empty input
   objectKey.forEach((item) => {

@@ -26,7 +26,8 @@ model Profile {
   number_post Int @default(value: 0)
   number_follower Int @default(value: 0)
   number_following Int @default(value: 0)
+  username String @unique
   name String @default(value: "")
-  userid String @default(value: "")
+  email String @default(value: "")
   description String @default(value: "")
 }

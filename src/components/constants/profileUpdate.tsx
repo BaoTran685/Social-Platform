@@ -2,22 +2,23 @@
 import { ProfileUpdateItems } from "../types/profileUpdate"
 
 export const PROFILE_UPDATE_ITEMS: ProfileUpdateItems = {
-  objectKey: ['userid', 'name', 'description'],
-  initNewInfo: { userid: '', name: '', description: '' },
-  initFillError: { userid: false, name: false, description: false },
+  objectKey: ['name', 'email', 'description'],
+  initNewInfo: { name: '', email: '', description: '' },
+  initIsError: { name: false, email: false, description: false },
+  initErrorMessage: { name: '', email: '', description: '' },
   field: {
-    userid: {
-      label: 'New UserId',
-      name: 'userid',
-      type: 'text',
-      placeholder: 'Your Unique Id',
-      isInput: true,
-    },
     name: {
       label: 'New Name',
       name: 'name',
       type: 'text',
       placeholder: 'Your Name',
+      isInput: true,
+    },
+    email: {
+      label: 'New Email',
+      name: 'email',
+      type: 'text',
+      placeholder: 'Your Email',
       isInput: true,
     },
     description: {

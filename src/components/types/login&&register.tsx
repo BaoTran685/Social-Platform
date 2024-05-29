@@ -13,11 +13,7 @@ export type IsErrorObj = {
   name?: boolean,
   password: boolean,
 }
-export type ErrorMessageObj = {
-  username: string,
-  name?: string,
-  password: string,
-}
+export type ErrorMessageObj = UserObj
 export type FieldObj = {
   username: InputObj,
   name?: InputObj,
