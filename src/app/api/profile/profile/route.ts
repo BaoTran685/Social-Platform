@@ -1,29 +1,40 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { connectToDatabase } from '@/helper/server-helper'
 import prisma from '@/lib/prisma'
-import { PROFILE_ITEMS } from '@/components/constants/profile'
 
-export async function POST (request: Request) {
+// getting the data to the profile page
+export async function GET (request: NextRequest) {
   try {
-    const { id } = await request.json()
+    const id = request.nextUrl.searchParams.get('id')
     console.log('id', id)
     if (id) {
       await connectToDatabase()
-      const profile = await prisma.profile.findUnique({
+      const response = await prisma.user.findUnique({
         where: {
-          profileId: id
+          id: id
+        },
+        include: {
+          info: true,
+          number: true
         }
       })
-      console.log(profile)
-      return NextResponse.json(
-        { message: 'success', content: profile },
-        { status: 200 }
-      )
+      console.log('Response', response)
+      if (response) {
+        const profile = {
+          username: response.username,
+          ...response.info,
+          ...response.number,
+        };
+        return NextResponse.json(
+          { message: 'success', content: profile },
+          { status: 200 }
+        );
+      }
     }
   } catch (e) {
     console.log(e)
   } finally {
-    prisma.$disconnect();
+    prisma.$disconnect()
   }
-  return NextResponse.json({ message: 'fail', content: PROFILE_ITEMS.initProfile }, { status: 401 })
+  return NextResponse.json({ message: 'fail' }, { status: 401 })
 }

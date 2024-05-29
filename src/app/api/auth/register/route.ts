@@ -14,13 +14,16 @@ export async function POST(request: Request) {
         hashPassword: await hash(password, 10),
         profile: {
           create: {
-            username: username,
             name: name,
           },
+        },
+        number: {
+          create: {},
         }
       },
       include: {
         profile: true,
+        number: true,
       }
     });
     console.log(newUser);

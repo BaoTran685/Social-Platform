@@ -17,17 +17,22 @@ model User {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   username String @unique
   hashPassword String
-  profile Profile?
+  info Info?
+  number Number?
 }
 
-model Profile {
-  profileId String @id @map("_id") @db.ObjectId
-  user User @relation(fields: [profileId], references: [id])
-  number_post Int @default(value: 0)
-  number_follower Int @default(value: 0)
-  number_following Int @default(value: 0)
-  username String @unique
+model Info {
+  infoId String @id @map("_id") @db.ObjectId
+  user User @relation(fields: [infoId], references: [id])
   name String @default(value: "")
   email String @default(value: "")
   description String @default(value: "")
+}
+
+model Number {
+  numberId String @id @map("_id") @db.ObjectId
+  user User @relation(fields: [numberId], references: [id])
+  number_post Int @default(value: 0)
+  number_follower Int @default(value: 0)
+  number_following Int @default(value: 0)
 }

@@ -1,10 +1,10 @@
 import { getServerSession } from 'next-auth'
-import { PROFILE_ITEMS } from '@/components/constants/profile'
+import { PROFILE_UPDATE_ITEMS } from '@/components/constants/profileUpdate';
 import { authOptions } from './authOptions';
 
-const endPoint = process.env.BASE_URL + '/api/profile/profile'
+const endPoint = process.env.BASE_URL + '/api/profile/update'
 
-export const getProfile = async () => {
+export const getProfileUpdate = async () => {
   const session = await getServerSession(authOptions);
   const id = session?.user?.id
   console.log('session', session)
@@ -19,5 +19,5 @@ export const getProfile = async () => {
       return response.json();
     }
   }
-  return {message: 'fail', content: PROFILE_ITEMS.initProfile}
+  return {message: 'fail', content: PROFILE_UPDATE_ITEMS.initNewInfo}
 }

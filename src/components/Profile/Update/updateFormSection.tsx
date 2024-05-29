@@ -1,20 +1,19 @@
 'use client'
 import { FormEvent, useState } from "react";
-import { ProfileUpdateItems } from "@/components/types/profileUpdate";
+import { ProfileUpdateItems, UserObj } from "@/components/types/profileUpdate";
 import LoadingButton from "@/components/loadingButton";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { ProfileObj } from "@/components/types/profile";
 import UpdateInputItem from "./updateInputItem";
 
 
-const UpdateFormSection = ({ items, profile }: { items: ProfileUpdateItems, profile: ProfileObj }) => {
+const UpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, info: UserObj }) => {
   const router = useRouter();
   const { data: session } = useSession();
 
   const { objectKey, initIsError, initErrorMessage, field, endPoint } = items;
   // data from the db
-  const { name, email, description } = profile;
+  const { name, email, description } = info;
 
   const [newInfo, setNewInfo] = useState({ name, email, description });
   const [isError, setIsError] = useState(initIsError);
@@ -29,7 +28,7 @@ const UpdateFormSection = ({ items, profile }: { items: ProfileUpdateItems, prof
     setIsError({
       ...isError,
       [event.currentTarget.name]: false,
-    })
+    });
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {

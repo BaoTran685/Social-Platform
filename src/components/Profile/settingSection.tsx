@@ -17,7 +17,7 @@ const SettingSection = () => {
         <div onClick={() => handleClick()}>
           <Cor />
         </div>
-        {settingOpen === true && (
+        {(settingOpen === true) && (
           <div className="absolute top-[calc(100%_+_.5rem)] right-0 bg-[white] rounded-lg box--shadow p-2">
             <div className="flex flex-col whitespace-nowrap">
               <Link href='/profile/update'>

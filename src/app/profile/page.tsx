@@ -5,13 +5,13 @@ import MainWithNavbar from "@/layouts/pageWithNav"
 import { ProfileObj } from "@/components/types/profile"
 import { getProfile } from "@/lib/getProfile"
 
-interface DataProps {
+interface ServerDataProps {
   message: string,
   content: ProfileObj,
 }
 
 const ProfilePage = async () => {
-  const data: DataProps = await getProfile();
+  const data: ServerDataProps = await getProfile();
   console.log(data);
   return (
     <MainWithNavbar>
