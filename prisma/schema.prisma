@@ -19,6 +19,9 @@ model User {
   hashPassword String
   info Info?
   number Number?
+
+  resetPasswordToken String?
+  resetPasswordTokenExpiry DateTime? 
 }
 
 model Info {

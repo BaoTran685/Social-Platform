@@ -12,7 +12,7 @@ export async function POST(request: Request) {
       data: {
         username: username,
         hashPassword: await hash(password, 10),
-        profile: {
+        info: {
           create: {
             name: name,
           },
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
         }
       },
       include: {
-        profile: true,
+        info: true,
         number: true,
       }
     });

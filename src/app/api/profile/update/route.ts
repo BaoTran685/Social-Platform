@@ -10,7 +10,7 @@ export async function GET (request: NextRequest) {
       await connectToDatabase()
       const response = await prisma.info.findUnique({
         where: {
-          infoId: id
+          infoId: id,
         }
       })
       console.log(response)
@@ -38,10 +38,19 @@ export async function GET (request: NextRequest) {
 export async function POST (request: Request) {
   try {
     const { email, name, description, id } = await request.json()
-
     console.log(id)
     if (id) {
-      await connectToDatabase()
+      await connectToDatabase();
+      // make sure that email is unique
+      let isEmailExist = await prisma.info.findFirst({
+        where: {
+          email: email,
+        }
+      });
+      if (isEmailExist) {
+        return NextResponse.json({message: 'already exist email'}, {status: 401});
+      }
+      // if email is unique, i.e. does not exist, we update the profile
       const response = await prisma.info.update({
         where: {
           infoId: id

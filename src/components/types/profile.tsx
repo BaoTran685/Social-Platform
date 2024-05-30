@@ -10,7 +10,7 @@ export type ProfileObj = {
 }
 
 export type ObjectKey = 'username' | 'email' | 'name' | 'number_post' | 'number_following' | 'number_follower' | 'description'
-export type ProfileItem = {
+export type ProfileItems = {
   objectKey: Array<ObjectKey>,
   initProfile: ProfileObj,
 }

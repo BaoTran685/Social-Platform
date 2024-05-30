@@ -1,10 +1,10 @@
-
-import Link from "next/link";
 import FormSection from "@/components/Form/formSection";
+import { FORGOT_PASSWORD_ITEMS } from "@/components/constants/auth/forgot-password";
+import Link from "next/link";
 
-import { REGISTER_ITEMS } from "@/components/constants/login&&register";
 
-const RegisterPage = async () => {
+
+const ForgotPasswordPage = () => {
   return (
     <main className="min-h-screen">
       <div className="">
@@ -14,10 +14,10 @@ const RegisterPage = async () => {
               <div className="place-self-center text-[#37352F] text-xl text-center">
                 Social Media
               </div>
-              <FormSection items={REGISTER_ITEMS}/>
+              <FormSection items={FORGOT_PASSWORD_ITEMS} />
               <div className="text-center mt-3">
-                <Link href="/login" className="text-[#37352F] underline">
-                  Already have an account?
+                <Link href="/auth/register" className="text-[#37352F] underline">
+                  Create an account
                 </Link>
               </div>
             </div>
@@ -28,4 +28,4 @@ const RegisterPage = async () => {
   )
 }
 
-export default RegisterPage;
+export default ForgotPasswordPage;

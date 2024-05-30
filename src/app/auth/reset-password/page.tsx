@@ -1,10 +1,8 @@
+import FormSection from "@/components/Form/formSection"
+import Link from "next/link"
 
-import Link from "next/link";
-import FormSection from "@/components/Form/formSection";
 
-import { LOGIN_ITEMS } from "@/components/constants/login&&register";
-
-const LoginPage = async () => {
+const ResetPasswordPage = () => {
   return (
     <main className="min-h-screen">
       <div className="">
@@ -14,9 +12,9 @@ const LoginPage = async () => {
               <div className="place-self-center text-[#37352F] text-xl text-center">
                 Social Media
               </div>
-              <FormSection items={LOGIN_ITEMS}/>
+              <FormSection items={LOGIN_ITEMS} />
               <div className="text-center mt-3">
-                <Link href="/register" className="text-[#37352F] underline">
+                <Link href="/auth/register" className="text-[#37352F] underline">
                   Create an account
                 </Link>
               </div>
@@ -27,5 +25,3 @@ const LoginPage = async () => {
     </main>
   )
 }
-
-export default LoginPage;

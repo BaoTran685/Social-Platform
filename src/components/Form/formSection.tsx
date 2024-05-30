@@ -2,12 +2,63 @@
 
 import { signIn } from "next-auth/react";
 import { FormEvent, useState } from "react";
-import { ErrorMessageObj, IsErrorObj, LoginRegisterItem, ObjectKey, UserObj } from "@/components/types/login&&register";
 import { useRouter } from "next/navigation";
 import LoadingButton from "../loadingButton";
 import { InputItem, InputItemPassword } from "./inputItem";
+import { ErrorMessageObj, IsErrorObj, Items, ObjectKey, UserObj } from "../types/auth/auth";
+import { resetPassword } from "@/app/actions/users/reset-password";
 
-const FormSection = ({ items }: { items: LoginRegisterItem }) => {
+interface FormSectionProps {
+  items: Items,
+};
+
+const processSubmit = async (formType: string, endPoint: string, user: UserObj, setIsError: Function, setErrorMessage: Function, ) => {
+  let response;
+
+  console.log("MY END POINT", endPoint);
+  if (formType === 'register') {
+    response = await fetch(endPoint, {
+      method: 'POST',
+      body: JSON.stringify(user),
+    });
+    if (response?.ok === false) {
+      // used username -> invalid
+      setIsError((prev: IsErrorObj) => ({
+        ...prev,
+        username: true,
+      }));
+      setErrorMessage((prev: ErrorMessageObj) => ({
+        ...prev,
+        username: 'Invalid Username',
+      }));
+    }
+  }
+  else if (formType === 'login') {
+    response = await signIn('credentials', {
+      ...user,
+      redirect: false,
+    });
+    if (response?.ok === false) {
+      // invalid credentials
+      setIsError((prev: IsErrorObj) => ({
+        ...prev,
+        username: true,
+        password: true,
+      }));
+      setErrorMessage((prev: ErrorMessageObj) => ({
+        ...prev,
+        username: 'Invalid Username',
+        password: 'Invalid Password',
+      }));
+    }
+  } else if (formType === 'forgotPassword') {
+    response = await resetPassword((user as any).email)
+  }
+
+  console.log(response);
+  return response;
+}
+const FormSection = ({ items }: FormSectionProps) => {
   const { objectKey, initUser, initIsError, initErrorMessage, field, formType, endPoint, buttonName, callback } = items;
 
   const router = useRouter();
@@ -27,60 +78,20 @@ const FormSection = ({ items }: { items: LoginRegisterItem }) => {
       [event.currentTarget.name]: false,
     });
   }
-  
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setProcess(true);
     // check for empty input
-    let ok = await checkInput(user, isError, setIsError, setErrorMessage, setProcess, objectKey, formType);
+    let ok = checkInput(user, setIsError, setErrorMessage, setProcess, objectKey);
     console.log('ok', ok);
     if (ok === false) {
       setProcess(false);
       return;
     }
-    let response;
-
-    console.log("MY END POINT", endPoint);
-    if (formType === 'register') {
-      response = await fetch(endPoint, {
-        method: 'POST',
-        body: JSON.stringify(user),
-      });
-      if (response?.ok === false) {
-        // used username -> invalid
-        setIsError((prev: IsErrorObj) => ({
-          ...prev,
-          username: true,
-        }));
-        setErrorMessage((prev: ErrorMessageObj) => ({
-          ...prev,
-          username: 'Invalid Username',
-        }));
-      }
-    }
-    else if (formType === 'login') {
-      response = await signIn('credentials', {
-        ...user,
-        redirect: false,
-      });
-      if (response?.ok === false) {
-        // invalid credentials
-        setIsError((prev: IsErrorObj) => ({
-          ...prev,
-          username: true,
-          password: true,
-        }));
-        setErrorMessage((prev: ErrorMessageObj) => ({
-          ...prev,
-          username: 'Invalid Username',
-          password: 'Invalid Password',
-        }));
-      }
-    }
-
-    console.log(response);
+    let response = await processSubmit(formType, endPoint, user, setIsError, setErrorMessage);
     setProcess(false);
-    if (response?.ok === true) {
+    if (response?.ok === true && callback) {
       router.push(callback);
       router.refresh();
     }
@@ -92,12 +103,12 @@ const FormSection = ({ items }: { items: LoginRegisterItem }) => {
         return (
           <div key={index}>
             {item === "password" ? (
-              <InputItemPassword object={field[item]} value={user[item]} isError={isError[item]} handleChange={handleChange} />
+              <InputItemPassword object={(field as any)[item]} value={(user as any)[item]} isError={(isError as any)[item]} handleChange={handleChange} />
             ) : (
               <InputItem object={(field as any)[item]} value={(user as any)[item]} isError={(isError as any)[item]} handleChange={handleChange} />
             )}
-            {isError[item] && (
-              <div className="text-sm font-medium text-red-600 pt-1">{errorMessage[item]}</div>
+            {(isError as any)[item] && (
+              <div className="text-sm font-medium text-red-600 pt-1">{(errorMessage as any)[item]}</div>
             )}
           </div>
         )
@@ -110,11 +121,11 @@ const FormSection = ({ items }: { items: LoginRegisterItem }) => {
 
 export default FormSection;
 
-export const checkInput = (user: UserObj, isError: IsErrorObj, setIsError: Function, setErrorMessage: Function, setProcess: Function, objectKey: Array<ObjectKey>, formType: string,) => {
+export const checkInput = (user: UserObj, setIsError: Function, setErrorMessage: Function, setProcess: Function, objectKey: Array<ObjectKey>) => {
   let error = false;
   // check for empty input
   objectKey.forEach((item) => {
-    if (user[item] === '') {
+    if ((user as any)[item] === '') {
       setIsError((prev: IsErrorObj) => ({
         ...prev,
         [item]: true,

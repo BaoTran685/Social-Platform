@@ -1,6 +1,6 @@
-import { ProfileItem } from "../types/profile";
+import { ProfileItems } from "../types/profile";
 
-export const PROFILE_ITEMS: ProfileItem = {
+export const PROFILE_ITEMS: ProfileItems = {
   objectKey: ['username', 'name', 'email', 'number_post', 'number_following', 'number_follower', 'description'],
   initProfile: { username: '', name: '', email: '', number_post: '', number_follower: '', number_following: '', description: '' },
 }

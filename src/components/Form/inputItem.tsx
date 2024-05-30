@@ -1,7 +1,8 @@
 import { useState } from "react";
 import InputBox from "./inputBox"
 import { EyeClose, EyeOpen } from "@/components/Icon/icons";
-import { InputObj } from "@/components/types/login&&register";
+import { InputObj } from "../types/auth/auth";
+
 
 
 export const InputItem = ({ object, value, isError, handleChange }: { object: InputObj, value: string, isError: boolean, handleChange: Function }) => {

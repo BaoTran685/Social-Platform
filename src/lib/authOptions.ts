@@ -5,8 +5,6 @@ import prisma from "./prisma";
 import { compare } from "bcrypt";
 import { JWT } from "next-auth/jwt";
 
-
-
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
@@ -48,7 +46,7 @@ export const authOptions: NextAuthOptions = {
     })
   ],
   pages: {
-    signIn: "/login",
+    signIn: "/auth/login",
   },
   callbacks: {
     async jwt({ token, user} : {token: JWT, user: User}) {
