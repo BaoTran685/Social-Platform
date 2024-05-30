@@ -25,7 +25,7 @@ export type Login_Items = {
   initErrorMessage: Login_ErrorMessageObj,
   field: Login_FieldObj,
   formType: string,
-  endPoint: string,
+  endPoint: null,
   buttonName: string,
   callback: string,
 }

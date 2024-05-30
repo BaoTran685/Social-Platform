@@ -10,7 +10,7 @@ export const FORGOT_PASSWORD_ITEMS: ForgotPassword_Items = {
     email: {name: 'email', type: 'text', placeholder: 'Email'},
   },
   formType: 'forgotPassword',
-  endPoint: process.env.BASE_URL + '/api/auth/forgot-password',
+  endPoint: null,
   buttonName: 'Forgot Password',
   callback: null,
 }

@@ -12,6 +12,8 @@ export async function POST(request: Request) {
       data: {
         username: username,
         hashPassword: await hash(password, 10),
+        resetPasswordToken: null,
+        resetPasswordTokenExpiry: null,
         info: {
           create: {
             name: name,

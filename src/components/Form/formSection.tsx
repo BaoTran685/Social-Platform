@@ -6,17 +6,19 @@ import { useRouter } from "next/navigation";
 import LoadingButton from "../loadingButton";
 import { InputItem, InputItemPassword } from "./inputItem";
 import { ErrorMessageObj, IsErrorObj, Items, ObjectKey, UserObj } from "../types/auth/auth";
+import { changePassword } from "@/app/actions/users/change-password";
 import { resetPassword } from "@/app/actions/users/reset-password";
 
 interface FormSectionProps {
   items: Items,
+  resetPasswordToken?: string,
 };
 
-const processSubmit = async (formType: string, endPoint: string, user: UserObj, setIsError: Function, setErrorMessage: Function, ) => {
+const processSubmit = async (formType: string, endPoint: string | null, user: UserObj, resetPasswordToken: string | undefined, setIsError: Function, setErrorMessage: Function,) => {
   let response;
 
   console.log("MY END POINT", endPoint);
-  if (formType === 'register') {
+  if (formType === 'register' && endPoint) {
     response = await fetch(endPoint, {
       method: 'POST',
       body: JSON.stringify(user),
@@ -53,12 +55,15 @@ const processSubmit = async (formType: string, endPoint: string, user: UserObj, 
     }
   } else if (formType === 'forgotPassword') {
     response = await resetPassword((user as any).email)
+  } else if (formType === 'changePassword' && resetPasswordToken) {
+    response = await changePassword(resetPasswordToken, (user as any).password);
   }
 
   console.log(response);
   return response;
 }
-const FormSection = ({ items }: FormSectionProps) => {
+
+const FormSection = ({ items, resetPasswordToken }: FormSectionProps) => {
   const { objectKey, initUser, initIsError, initErrorMessage, field, formType, endPoint, buttonName, callback } = items;
 
   const router = useRouter();
@@ -83,13 +88,13 @@ const FormSection = ({ items }: FormSectionProps) => {
     event.preventDefault();
     setProcess(true);
     // check for empty input
-    let ok = checkInput(user, setIsError, setErrorMessage, setProcess, objectKey);
+    let ok = checkInput(user, setIsError, setErrorMessage, setProcess, objectKey, formType);
     console.log('ok', ok);
     if (ok === false) {
       setProcess(false);
       return;
     }
-    let response = await processSubmit(formType, endPoint, user, setIsError, setErrorMessage);
+    let response = await processSubmit(formType, endPoint, user, resetPasswordToken, setIsError, setErrorMessage);
     setProcess(false);
     if (response?.ok === true && callback) {
       router.push(callback);
@@ -121,7 +126,7 @@ const FormSection = ({ items }: FormSectionProps) => {
 
 export default FormSection;
 
-export const checkInput = (user: UserObj, setIsError: Function, setErrorMessage: Function, setProcess: Function, objectKey: Array<ObjectKey>) => {
+export const checkInput = (user: UserObj, setIsError: Function, setErrorMessage: Function, setProcess: Function, objectKey: Array<ObjectKey>, formType: string,) => {
   let error = false;
   // check for empty input
   objectKey.forEach((item) => {
@@ -138,5 +143,21 @@ export const checkInput = (user: UserObj, setIsError: Function, setErrorMessage:
       setProcess(false);
     }
   });
+  if (formType === 'changePassword') {
+    if ((user as any).password !== (user as any).confirmPassword) {
+      // unmatched password
+      setIsError((prev: IsErrorObj) => ({
+        ...prev,
+        password: true,
+        confirmPassword: true,
+      }));
+      setErrorMessage((prev: ErrorMessageObj) => ({
+        ...prev,
+        password: 'Unmatched Password',
+        confirmPassword: 'UnMatched Password',
+      }));
+      error = true;
+    }
+  }
   return error === false;
 }

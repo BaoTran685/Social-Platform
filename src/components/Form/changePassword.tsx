@@ -1,10 +1,10 @@
-import FormSection from "@/components/Form/formSection";
-import { FORGOT_PASSWORD_ITEMS } from "@/components/constants/auth/forgot-password";
 import Link from "next/link";
+import FormSection from "./formSection";
+import { CHANGE_PASSWORD_ITEMS } from "../constants/auth/reset-password";
 
 
 
-const ForgotPasswordPage = () => {
+const ChangePassword = ({ resetPasswordToken }: { resetPasswordToken: string }) => {
   return (
     <main className="min-h-screen">
       <div className="">
@@ -14,7 +14,7 @@ const ForgotPasswordPage = () => {
               <div className="place-self-center text-[#37352F] text-xl text-center">
                 Social Media
               </div>
-              <FormSection items={FORGOT_PASSWORD_ITEMS} />
+              <FormSection items={CHANGE_PASSWORD_ITEMS} resetPasswordToken={resetPasswordToken} />
               <div className="text-center mt-3">
                 <Link href="/auth/register" className="text-[#37352F] underline">
                   Create an account
@@ -28,4 +28,4 @@ const ForgotPasswordPage = () => {
   )
 }
 
-export default ForgotPasswordPage;
+export default ChangePassword;

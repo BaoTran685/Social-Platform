@@ -11,7 +11,7 @@ export const resetPassword = async (email: string) => {
     console.log('Resetting password for ' + email);
     await connectToDatabase();
     // find the user, and when register email we always make sure that email is unqiue
-    const user = await prisma.info.findFirst({
+    const user = await prisma.user.findFirst({
       where: {
         email: email,
       }
@@ -42,7 +42,7 @@ export const resetPassword = async (email: string) => {
     // update the user with the token and expiry inserted
     const newUser = await prisma.user.update({
       where: {
-        id: user.infoId,
+        id: user.id,
       },
       data: {
         resetPasswordToken: resetPasswordToken,
@@ -52,7 +52,7 @@ export const resetPassword = async (email: string) => {
     console.log(newUser);
     // send the token to the user
     await sendEmail({
-      from: 'Acme <onboarding@resend.dev>',
+      from: 'Bot <admin@baotran.ca>',
       to: [email],
       subject: 'Reset Password',
       react: ResetPasswordEmailTemplate({ email, resetPasswordToken }) as React.ReactElement,

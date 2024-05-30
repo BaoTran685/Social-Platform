@@ -51,16 +51,21 @@ export async function POST (request: Request) {
         return NextResponse.json({message: 'already exist email'}, {status: 401});
       }
       // if email is unique, i.e. does not exist, we update the profile
-      const response = await prisma.info.update({
+      const response = await prisma.user.update({
         where: {
-          infoId: id
+          id: id
         },
         data: {
-          name: name,
           email: email,
-          description: description
+          info: {
+            update: {
+              email: email,
+              name: name,
+              description: description,
+            }
+          }
         }
-      })
+      });
       return NextResponse.json(
         { message: 'success', content: response },
         { status: 200 }

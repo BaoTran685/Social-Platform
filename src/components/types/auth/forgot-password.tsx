@@ -22,7 +22,7 @@ export type ForgotPassword_Items = {
   initErrorMessage: ForgotPassword_ErrorMessageObj,
   field: ForgotPassword_FieldObj,
   formType: string,
-  endPoint: string,
+  endPoint: null,
   buttonName: string,
   callback: null,
 }

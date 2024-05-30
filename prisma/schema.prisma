@@ -20,6 +20,7 @@ model User {
   info Info?
   number Number?
 
+  email String @default(value: "")
   resetPasswordToken String?
   resetPasswordTokenExpiry DateTime? 
 }

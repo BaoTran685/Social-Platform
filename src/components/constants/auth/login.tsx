@@ -10,7 +10,7 @@ export const LOGIN_ITEMS: Login_Items = {
     password: { name: 'password', type: 'password', placeholder: 'Password' }
   },
   formType: 'login',
-  endPoint: process.env.BASE_URL + '/api/auth/[...nextauth]',
+  endPoint: null,
   buttonName: 'Log In',
   callback: '/profile',
 }
