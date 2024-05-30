@@ -9,7 +9,7 @@ export const CHANGE_PASSWORD_ITEMS: ChangePassword_Items = {
   initErrorMessage: {password: '', confirmPassword: ''},
   field: {
     password: {name: 'password', type: 'password', placeholder: 'Password'},
-    confirmPassword: {name: 'password', type: 'password', placeholder: 'Confirm Password'},
+    confirmPassword: {name: 'confirmPassword', type: 'password', placeholder: 'Confirm Password'},
   },
   formType: 'changePassword',
   endPoint: null,

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import FormSection from "./formSection";
-import { CHANGE_PASSWORD_ITEMS } from "../constants/auth/reset-password";
+import { CHANGE_PASSWORD_ITEMS } from "../constants/auth/change-password";
 
 
 

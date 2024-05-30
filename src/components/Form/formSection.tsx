@@ -107,7 +107,7 @@ const FormSection = ({ items, resetPasswordToken }: FormSectionProps) => {
       {objectKey.map((item, index) => {
         return (
           <div key={index}>
-            {item === "password" ? (
+            {(item === "password" || item === 'confirmPassword') ? (
               <InputItemPassword object={(field as any)[item]} value={(user as any)[item]} isError={(isError as any)[item]} handleChange={handleChange} />
             ) : (
               <InputItem object={(field as any)[item]} value={(user as any)[item]} isError={(isError as any)[item]} handleChange={handleChange} />

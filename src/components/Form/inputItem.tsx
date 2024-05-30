@@ -4,7 +4,6 @@ import { EyeClose, EyeOpen } from "@/components/Icon/icons";
 import { InputObj } from "../types/auth/auth";
 
 
-
 export const InputItem = ({ object, value, isError, handleChange }: { object: InputObj, value: string, isError: boolean, handleChange: Function }) => {
   return (
     <InputBox name={object.name} type={object.type} placeholder={object.placeholder} value={value} isError={isError} onChange={handleChange} />
