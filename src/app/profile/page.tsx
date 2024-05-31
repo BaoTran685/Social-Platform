@@ -1,9 +1,10 @@
-import ContentSection from "@/components/profile/contentSection"
-import PostSection from "@/components/profile/postSection"
-import SettingSection from "@/components/profile/settingSection"
-import MainWithNavbar from "@/layouts/pageWithNav"
-import { ProfileObj } from "@/components/types/profile/profile"
+
 import { getProfile } from "@/app/actions/data/getProfile"
+import ContentSection from "@/components/profileFolder/contentSection";
+import PostSection from "@/components/profileFolder/postSection";
+import SettingSection from "@/components/profileFolder/settingSection";
+import { ProfileObj } from "@/components/typesFolder/profileFolder/profile";
+import PageWithNavbar from "@/layouts/pageWithNav";
 
 interface ServerDataProps {
   message: string,
@@ -14,7 +15,7 @@ const ProfilePage = async () => {
   const data: ServerDataProps = await getProfile();
   console.log(data);
   return (
-    <MainWithNavbar>
+    <PageWithNavbar>
       <section className="text-[#37352F] mt-20">
         <div className="layout">
           <div />
@@ -33,7 +34,7 @@ const ProfilePage = async () => {
           <div />
         </div>
       </section>
-    </MainWithNavbar>
+    </PageWithNavbar>
   )
 }
 

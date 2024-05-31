@@ -1,9 +1,9 @@
 
 import { ReactNode } from "react";
-import SideNav from "../components/nav/sideNav";
-import TopHeader from "../components/nav/topHeader";
 import MarginWidthWrapper from "./marginWidthWrapper";
 import PageWrapper from "./pageWrapper";
+import SideNav from "@/components/navFolder/sideNav";
+import TopHeader from "@/components/navFolder/topHeader";
 
 export default function PageWithNavbar({
   children,
