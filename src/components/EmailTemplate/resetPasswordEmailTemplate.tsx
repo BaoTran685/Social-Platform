@@ -20,3 +20,4 @@ export const ResetPasswordEmailTemplate: React.FC<Readonly<ResetPasswordEmailTem
     </a>
   </div>
 );
+
