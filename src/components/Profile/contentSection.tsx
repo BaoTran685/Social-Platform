@@ -1,4 +1,4 @@
-import { ProfileObj } from "@/components/types/profile/profile";
+import { ProfileObj } from "@/components/Types/Profile/profile";
 
 const ContentSection = ({ profile }: { profile: ProfileObj }) => {
   const { username, number_post, number_following, number_follower, description } = profile;

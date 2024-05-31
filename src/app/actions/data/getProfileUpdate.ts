@@ -1,6 +1,6 @@
 'use server'
 import { getServerSession } from 'next-auth'
-import { PROFILE_UPDATE_ITEMS } from '@/components/constants/profile/profileUpdate';
+import { PROFILE_UPDATE_ITEMS } from '@/components/Constants/Profile/profileUpdate';
 import { authOptions } from '@/lib/authOptions';
 
 const endPoint = process.env.BASE_URL + '/api/profile/update'

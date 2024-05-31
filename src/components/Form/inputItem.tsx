@@ -1,6 +1,6 @@
 import { useState } from "react";
 import InputBox from "./inputBox"
-import { EyeClose, EyeOpen } from "@/components/icon/icons";
+import { EyeClose, EyeOpen } from "@/components/Icon/icons";
 import { InputObj } from "../types/auth/auth";
 
 

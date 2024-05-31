@@ -1,6 +1,6 @@
-import InputBox from "@/components/form/inputBox";
-import TextAreaBox from "@/components/form/textAreaBox";
-import { InputObj } from "@/components/types/profile/profileUpdate";
+import InputBox from "@/components/Form/inputBox";
+import TextAreaBox from "@/components/Form/textAreaBox";
+import { InputObj } from "@/components/Types/Profile/profileUpdate";
 
 
 const UpdateInputItem = ({ object, onChange, value, isError }: { object: InputObj, value: string, isError: boolean, onChange: Function, }) => {
