@@ -1,6 +1,7 @@
+import PostSkeleton from "@/components/Loading/postSkeleton";
+import SettingSection from "@/components/Profile/settingSection";
 import PageWithNavbar from "@/layouts/pageWithNav";
-import SettingSection from "@/components/profile/settingSection"
-import PostSkeleton from "@/components/loading/postSkeleton";
+
 const Loading = () => {
   return (
     <PageWithNavbar>
