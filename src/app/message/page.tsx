@@ -7,13 +7,13 @@ const MessagePage = () => {
     <PageWithNavbar>
       <section className="text-[#37352F] mt-12">
         <div className="layout">
-        <div />
+          <div />
 
           <div className="flex flex-col">
             <div className="flex flex-row justify-between">
               {/* Profile name and settings */}
               <div className="h-14 bg-gray-300 rounded-full animate-pulse w-1/3" />
-              
+
               {/* Setting */}
               <SettingSection />
             </div>
@@ -56,7 +56,7 @@ const MessagePage = () => {
             <PostSkeleton />
           </div>
 
-          <div/>
+          <div />
         </div>
       </section>
     </PageWithNavbar>

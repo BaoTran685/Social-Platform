@@ -1,7 +1,7 @@
 import PageWithNavbar from "@/layouts/pageWithNav";
 import UpdateFormSection from "@/components/Profile/Update/updateFormSection";
 import { ProfileUpdateItems, UserObj } from "@/components/types/profileUpdate";
-import { PROFILE_UPDATE_ITEMS } from "@/components/constants/profileUpdate";
+import { PROFILE_UPDATE_ITEMS } from "@/components/Constants/profileUpdate";
 import { getProfileUpdate } from "@/lib/getProfileUpdate";
 
 interface ServerDataProps {
