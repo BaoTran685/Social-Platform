@@ -5,7 +5,7 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import LoadingButton from "../loadingButton";
 import { InputItem, InputItemPassword } from "./inputItem";
-import { ErrorMessageObj, IsErrorObj, Items, ObjectKey, UserObj } from "../types/auth/auth";
+import { ErrorMessageObj, IsErrorObj, Items, ObjectKey, UserObj } from "../Types/Auth/auth";
 import { changePassword } from "@/app/actions/users/change-password";
 import { resetPassword } from "@/app/actions/users/reset-password";
 

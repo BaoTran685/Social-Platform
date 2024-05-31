@@ -1,4 +1,4 @@
-import { ForgotPassword_Items } from "@/components/types/auth/forgot-password";
+import { ForgotPassword_Items } from "@/components/Types/auth/forgotPassword";
 
 
 export const FORGOT_PASSWORD_ITEMS: ForgotPassword_Items = {

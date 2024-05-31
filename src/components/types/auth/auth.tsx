@@ -1,5 +1,5 @@
-import { ChangePassword_ErrorMessageObj, ChangePassword_InputObj, ChangePassword_IsErrorObj, ChangePassword_Items, ChangePassword_ObjectKey, ChangePassword_UserObj } from "./change-password";
-import { ForgotPassword_ErrorMessageObj, ForgotPassword_InputObj, ForgotPassword_IsErrorObj, ForgotPassword_Items, ForgotPassword_ObjectKey, ForgotPassword_UserObj } from "./forgot-password";
+import { ChangePassword_ErrorMessageObj, ChangePassword_InputObj, ChangePassword_IsErrorObj, ChangePassword_Items, ChangePassword_ObjectKey, ChangePassword_UserObj } from "./changePassword";
+import { ForgotPassword_ErrorMessageObj, ForgotPassword_InputObj, ForgotPassword_IsErrorObj, ForgotPassword_Items, ForgotPassword_ObjectKey, ForgotPassword_UserObj } from "./forgotPassword";
 import { Login_ErrorMessageObj, Login_InputObj, Login_IsErrorObj, Login_Items, Login_ObjectKey, Login_UserObj } from "./login";
 import { Register_ErrorMessageObj, Register_InputObj, Register_IsErrorObj, Register_Items, Register_ObjectKey, Register_UserObj } from "./register";
 

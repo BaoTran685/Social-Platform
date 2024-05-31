@@ -5,14 +5,14 @@ import prisma from '@/lib/prisma'
 // getting the data to the profile/update page
 export async function GET (request: NextRequest) {
   try {
-    const id = request.nextUrl.searchParams.get('id')
+    const id = request.nextUrl.searchParams.get('id');
     if (id) {
-      await connectToDatabase()
+      await connectToDatabase();
       const response = await prisma.info.findUnique({
         where: {
           infoId: id,
         }
-      })
+      });
       console.log(response)
       if (response) {
         const info = {
@@ -34,11 +34,11 @@ export async function GET (request: NextRequest) {
   return NextResponse.json({ message: 'fail' }, { status: 401 })
 }
 
-// updating the data
+// updating the data to the database
 export async function POST (request: Request) {
   try {
-    const { email, name, description, id } = await request.json()
-    console.log(id)
+    const { email, name, description, id } = await request.json();
+    console.log(id);
     if (id) {
       await connectToDatabase();
       // make sure that email is unique
@@ -47,10 +47,10 @@ export async function POST (request: Request) {
           email: email,
         }
       });
-      if (isEmailExist) {
+      if (isEmailExist && isEmailExist.infoId !== id) {
         return NextResponse.json({message: 'already exist email'}, {status: 401});
       }
-      // if email is unique, i.e. does not exist, we update the profile
+      // if email is unique, we update the profile
       const response = await prisma.user.update({
         where: {
           id: id
@@ -72,9 +72,9 @@ export async function POST (request: Request) {
       )
     }
   } catch (e) {
-    console.log(e)
+    console.log(e);
   } finally {
-    prisma.$disconnect()
+    prisma.$disconnect();
   }
   return NextResponse.json({ message: 'fail' }, { status: 401 })
 }

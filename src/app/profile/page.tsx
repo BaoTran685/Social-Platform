@@ -2,8 +2,8 @@ import ContentSection from "@/components/Profile/contentSection"
 import PostSection from "@/components/Profile/postSection"
 import SettingSection from "@/components/Profile/settingSection"
 import MainWithNavbar from "@/layouts/pageWithNav"
-import { ProfileObj } from "@/components/types/profile"
-import { getProfile } from "@/lib/getProfile"
+import { ProfileObj } from "@/components/Types/Profile/profile"
+import { getProfile } from "@/app/actions/data/getProfile"
 
 interface ServerDataProps {
   message: string,

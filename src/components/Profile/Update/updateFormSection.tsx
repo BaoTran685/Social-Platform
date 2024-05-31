@@ -1,6 +1,6 @@
 'use client'
 import { FormEvent, useState } from "react";
-import { ProfileUpdateItems, UserObj } from "@/components/types/profileUpdate";
+import { ProfileUpdateItems, UserObj } from "@/components/Types/Profile/profileUpdate";
 import LoadingButton from "@/components/loadingButton";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";

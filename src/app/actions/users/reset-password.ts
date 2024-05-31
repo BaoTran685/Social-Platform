@@ -3,7 +3,7 @@ import { connectToDatabase } from "@/helper/server-helper";
 import prisma from "@/lib/prisma";
 import crypto from 'crypto';
 import { sendEmail } from "../emails/send-email";
-import { ResetPasswordEmailTemplate } from "@/components/email-templates/resetPasswordEmailTemplate";
+import { ResetPasswordEmailTemplate } from "@/components/EmailTemplate/resetPasswordEmailTemplate";
 import * as React from 'react';
 
 export const resetPassword = async (email: string) => {

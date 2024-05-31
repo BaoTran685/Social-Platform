@@ -1,4 +1,4 @@
-import { Register_Items } from "@/components/types/auth/register";
+import { Register_Items } from "@/components/Types/auth/register";
 
 
 export const REGISTER_ITEMS: Register_Items = {

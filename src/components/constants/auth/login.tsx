@@ -1,4 +1,4 @@
-import { Login_Items } from "@/components/types/auth/login"
+import { Login_Items } from "@/components/Types/auth/login"
 
 export const LOGIN_ITEMS: Login_Items = {
   objectKey: ['username', 'password'],
