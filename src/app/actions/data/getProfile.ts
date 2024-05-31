@@ -7,8 +7,8 @@ const endPoint = process.env.BASE_URL + '/api/profile/profile'
 
 export const getProfile = async () => {
   const session = await getServerSession(authOptions);
-  const id = session?.user?.id
-  console.log('session', session)
+  const id = session?.user?.id;
+  console.log('session', session);
   if (id) {
     const response = await fetch(endPoint + `?id=${id}`, {
       method: 'GET',
