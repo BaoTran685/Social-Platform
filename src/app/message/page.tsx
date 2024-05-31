@@ -1,6 +1,6 @@
 import PageWithNavbar from "@/layouts/pageWithNav";
 import SettingSection from "@/components/profile/settingSection"
-import PostSkeleton from "@/components/Loading/postSkeleton";
+import PostSkeleton from "@/components/loading/postSkeleton";
 
 const MessagePage = () => {
   return (

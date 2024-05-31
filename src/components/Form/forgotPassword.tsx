@@ -1,5 +1,5 @@
 import FormSection from "@/components/form/formSection";
-import { FORGOT_PASSWORD_ITEMS } from "@/components/constants/Auth/forgotPassword";
+import { FORGOT_PASSWORD_ITEMS } from "@/components/constants/auth/forgotPassword";
 import Link from "next/link";
 
 
