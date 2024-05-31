@@ -1,8 +1,8 @@
-import ContentSection from "@/components/Profile/contentSection"
-import PostSection from "@/components/Profile/postSection"
-import SettingSection from "@/components/Profile/settingSection"
+import ContentSection from "@/components/profile/contentSection"
+import PostSection from "@/components/profile/postSection"
+import SettingSection from "@/components/profile/settingSection"
 import MainWithNavbar from "@/layouts/pageWithNav"
-import { ProfileObj } from "@/components/Types/Profile/profile"
+import { ProfileObj } from "@/components/types/profile/profile"
 import { getProfile } from "@/app/actions/data/getProfile"
 
 interface ServerDataProps {

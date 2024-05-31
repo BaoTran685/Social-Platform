@@ -1,7 +1,7 @@
 
 import { ReactNode } from "react";
-import SideNav from "../components/Nav/sideNav";
-import TopHeader from "../components/Nav/topHeader";
+import SideNav from "../components/nav/sideNav";
+import TopHeader from "../components/nav/topHeader";
 import MarginWidthWrapper from "./marginWidthWrapper";
 import PageWrapper from "./pageWrapper";
 

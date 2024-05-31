@@ -1,4 +1,4 @@
-import { Spinner } from "./Icon/icons"
+import { Spinner } from "./icon/icons"
 
 
 interface Props {

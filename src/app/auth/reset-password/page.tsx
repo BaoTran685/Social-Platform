@@ -1,5 +1,5 @@
-import ForgotPassword from "@/components/Form/forgotPassword";
-import ChangePassword from "@/components/Form/changePassword";
+import ForgotPassword from "@/components/form/forgotPassword";
+import ChangePassword from "@/components/form/changePassword";
 import { connectToDatabase } from "@/helper/server-helper";
 import prisma from "@/lib/prisma";
 

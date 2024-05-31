@@ -1,5 +1,5 @@
-import { HomeIcon, ProfileIcon, MessageIcon } from "../Icon/icons"
-import { SideNavArray } from "../Types/sideNav"
+import { HomeIcon, ProfileIcon, MessageIcon } from "../icon/icons"
+import { SideNavArray } from "../types/sideNav"
 
 export const SIDENAV_ARRAY: SideNavArray[] = [
   {

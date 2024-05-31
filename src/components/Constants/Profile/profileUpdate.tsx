@@ -1,5 +1,5 @@
 
-import { ProfileUpdateItems } from "@/components/Types/Profile/profileUpdate"
+import { ProfileUpdateItems } from "@/components/types/profile/profileUpdate"
 
 export const PROFILE_UPDATE_ITEMS: ProfileUpdateItems = {
   objectKey: ['name', 'email', 'description'],
