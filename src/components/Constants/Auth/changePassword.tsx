@@ -1,4 +1,4 @@
-import { ChangePassword_Items } from "@/components/types/auth/changePassword";
+import { ChangePassword_Items } from "@/components/Types/Auth/changePassword";
 
 
 
