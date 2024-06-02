@@ -15,7 +15,7 @@ export const CHANGE_PASSWORD_ITEMS: ChangePassword_Items = {
   formType: 'changePassword',
   endPoint: null,
   buttonName: 'Update Password',
-  callback: null,
+  callback: '/auth/login',
 }
 
 export const CHANGE_PASSWORD_LINKS: LinkObj[] = []

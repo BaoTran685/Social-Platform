@@ -7,6 +7,7 @@ import { InputItem, InputItemPassword } from "./inputItem";
 import { Items } from "../Types/Auth/auth";
 import { processSubmit } from "./HandleSubmit/process-submit";
 import { checkInput } from "./HandleSubmit/check-input";
+import { cn } from "@/lib/tailwind-merge";
 
 
 interface FormSectionProps {
@@ -22,6 +23,10 @@ const FormSection = ({ items, resetPasswordToken }: FormSectionProps) => {
   const [isError, setIsError] = useState(initIsError);
   const [errorMessage, setErrorMessage] = useState(initErrorMessage);
 
+  const [processMessage, setProcessMessage] = useState('');
+  const [isProcessSuccess, setIsProcessSuccess] = useState(false);
+  const [isProcessMessage, setIsProcessMessage] = useState(false);
+
   const [process, setProcess] = useState(false);
 
   const handleChange = (event: FormEvent<HTMLFormElement>) => {
@@ -33,6 +38,7 @@ const FormSection = ({ items, resetPasswordToken }: FormSectionProps) => {
       ...isError,
       [event.currentTarget.name]: false,
     });
+    setIsProcessMessage(false);
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -45,7 +51,7 @@ const FormSection = ({ items, resetPasswordToken }: FormSectionProps) => {
       setProcess(false);
       return;
     }
-    let response = await processSubmit(formType, endPoint, user, resetPasswordToken, setIsError, setErrorMessage);
+    let response = await processSubmit({ formType, endPoint, user, resetPasswordToken, setIsError, setErrorMessage, setProcessMessage, setIsProcessSuccess, setIsProcessMessage });
     setProcess(false);
     if (response?.ok === true && callback) {
       router.push(callback);
@@ -70,7 +76,13 @@ const FormSection = ({ items, resetPasswordToken }: FormSectionProps) => {
         )
       }
       )}
-      <LoadingButton type="submit" text={buttonName} isLoading={process} />
+      <LoadingButton type="submit" text={buttonName} isLoading={process} isSuccess={isProcessSuccess} />
+      {isProcessMessage && (
+        <div className={cn('text-sm font-medium', {
+          'text-[#21A179]': isProcessSuccess,
+          'text-red-600': !isProcessSuccess,
+        })}>{processMessage}</div>
+      )}
     </form>
   )
 }

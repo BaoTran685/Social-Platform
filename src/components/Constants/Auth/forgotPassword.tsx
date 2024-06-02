@@ -18,7 +18,7 @@ export const FORGOT_PASSWORD_ITEMS: ForgotPassword_Items = {
 
 export const FORGOT_PASSWORD_LINKS: LinkObj[] = [
   {
-    name: 'Create an account',
-    path: '/auth/register',
+    name: 'Already have an account?',
+    path: '/auth/login',
   }
 ]

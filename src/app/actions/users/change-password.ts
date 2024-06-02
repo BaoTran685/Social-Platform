@@ -39,9 +39,11 @@ export const changePassword = async ({
         resetPasswordTokenExpiry: null
       }
     })
+    return {message: 'Successfully Update Password', ok: true}
   } catch (e) {
     console.log('Error in change-password', e)
   } finally {
     await prisma.$disconnect()
   }
+  return {message: 'fail', ok: false}
 }

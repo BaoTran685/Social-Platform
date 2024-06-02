@@ -6,6 +6,7 @@ import { sendEmail } from '../emails/send-email'
 import { ResetPasswordEmailTemplate } from '@/components/email-templates/resetPasswordEmailTemplate'
 import * as React from 'react'
 import { generateToken } from '../token/generateToken'
+import { NextResponse } from 'next/server'
 
 interface resetPasswordProps {
   email: string
@@ -59,7 +60,7 @@ export const resetPassword = async ({ email }: resetPasswordProps) => {
     })
 
     if (data?.data) {
-      return { message: 'email sent successfully', ok: true }
+      return { message: 'Successfully Send Email', ok: true }
     }
   } catch (e) {
     console.log('Error in reset-password', e)

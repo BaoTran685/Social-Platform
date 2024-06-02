@@ -27,5 +27,5 @@ export type ChangePassword_Items = {
   formType: string,
   endPoint: null,
   buttonName: string,
-  callback: null,
+  callback: string,
 }
