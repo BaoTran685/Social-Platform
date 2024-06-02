@@ -3,9 +3,9 @@ export type ProfileObj = {
   username: string,
   email: string,
   name: string,
-  number_post: string,
-  number_following: string,
-  number_follower: string,
+  number_post: number,
+  number_following: number,
+  number_follower: number,
   description: string,
 }
 

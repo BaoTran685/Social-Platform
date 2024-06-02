@@ -1,3 +1,4 @@
+import { LinkObj } from "@/components/Types/Auth/auth";
 import { ChangePassword_Items } from "@/components/Types/Auth/changePassword";
 
 
@@ -16,3 +17,5 @@ export const CHANGE_PASSWORD_ITEMS: ChangePassword_Items = {
   buttonName: 'Update Password',
   callback: null,
 }
+
+export const CHANGE_PASSWORD_LINKS: LinkObj[] = []

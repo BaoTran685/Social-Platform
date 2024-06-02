@@ -1,3 +1,4 @@
+import { LinkObj } from "@/components/Types/Auth/auth"
 import { Login_Items } from "@/components/Types/Auth/login"
 
 export const LOGIN_ITEMS: Login_Items = {
@@ -15,3 +16,13 @@ export const LOGIN_ITEMS: Login_Items = {
   callback: '/profile',
 }
 
+export const LOGIN_LINKS: LinkObj[] = [
+  {
+    name: 'Create an account',
+    path: '/auth/register',
+  },
+  {
+    name: 'Login with email',
+    path: '/auth/login-with-email',
+  }
+]

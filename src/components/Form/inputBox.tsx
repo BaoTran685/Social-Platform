@@ -20,7 +20,9 @@ const InputBox = ({ name, type, placeholder, value, isError, onChange }: Props) 
       placeholder={placeholder}
       value={value}
       onChange={(e) => onChange(e)}
-      autoComplete="off"
+      autoComplete='off'
+      autoCorrect='off'
+      spellCheck='false'
     />
   )
 }

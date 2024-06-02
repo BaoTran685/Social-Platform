@@ -5,6 +5,7 @@ import LoadingButton from "@/components/loadingButton";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import UpdateInputItem from "./updateInputItem";
+import { updateProfileUpdate } from "@/app/actions/data/update-data/updateProfileUpdate";
 
 
 const UpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, info: UserObj }) => {
@@ -41,13 +42,7 @@ const UpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, info: U
     setProcess(true);
 
     console.log("MY END POINT", endPoint);
-    const response = await fetch(endPoint, {
-      method: 'POST',
-      body: JSON.stringify({
-        id: session.user.id,
-        ...newInfo,
-      }),
-    });
+    const response = await updateProfileUpdate({id: session.user.id, ...newInfo});
     console.log(response);
     setProcess(false);
     if (response?.ok === false) {
@@ -58,7 +53,7 @@ const UpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, info: U
     }
   }
   return (
-    <form className="flex flex-col" onSubmit={(e) => handleSubmit(e)}>
+    <form className="flex flex-col" onSubmit={(e) => handleSubmit(e)} autoComplete="off">
       <div className="grid grid-cols-2 gap-4">
         <div>
           <UpdateInputItem object={field.name} value={newInfo.name} isError={isError.name} onChange={handleChange} />

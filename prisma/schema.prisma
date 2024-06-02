@@ -22,7 +22,10 @@ model User {
 
   email String @default(value: "")
   resetPasswordToken String?
-  resetPasswordTokenExpiry DateTime? 
+  resetPasswordTokenExpiry DateTime?
+
+  emailVerified Boolean @default(value: false)
+  verifyEmailToken String? 
 }
 
 model Info {
@@ -30,6 +33,7 @@ model Info {
   user User @relation(fields: [infoId], references: [id])
   name String @default(value: "")
   email String @default(value: "")
+  emailVerified Boolean @default(value: false)
   description String @default(value: "")
 }
 

@@ -2,12 +2,12 @@
 
 import * as React from 'react';
 
-interface ResetPasswordEmailTemplate {
+interface ResetPasswordEmailTemplateProps {
   email: string,
   resetPasswordToken: string
 }
 
-export const ResetPasswordEmailTemplate: React.FC<Readonly<ResetPasswordEmailTemplate>> = ({
+export const ResetPasswordEmailTemplate: React.FC<Readonly<ResetPasswordEmailTemplateProps>> = ({
   email, resetPasswordToken,
 }) => (
   <div>

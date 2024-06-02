@@ -1,28 +1,34 @@
-"use server"
+'use server'
 
-import { connectToDatabase } from "@/helper/server-helper"
-import prisma from "@/lib/prisma";
-import { hash } from 'bcrypt';
+import { connectToDatabase } from '@/helper/server-helper'
+import prisma from '@/lib/prisma'
+import { hash } from 'bcrypt'
 
-
-export const changePassword = async (resetPasswordToken: string, password: string) => {
+interface changePasswordProps {
+  resetPasswordToken: string
+  password: string
+}
+export const changePassword = async ({
+  resetPasswordToken,
+  password
+}: changePasswordProps) => {
   try {
-    await connectToDatabase();
+    await connectToDatabase()
     const user = await prisma.user.findFirst({
       where: {
-        resetPasswordToken: resetPasswordToken,
+        resetPasswordToken: resetPasswordToken
       }
-    });
+    })
     if (!user) {
-      throw new Error('User not found');
+      throw new Error('User not found')
     }
-    const resetPasswordTokenExpiry = user.resetPasswordTokenExpiry;
-    const today = new Date();
+    const resetPasswordTokenExpiry = user.resetPasswordTokenExpiry
+    const today = new Date()
 
     if (!resetPasswordTokenExpiry || today > resetPasswordTokenExpiry) {
-      throw new Error('Token expired');
+      throw new Error('Token expired')
     }
-    
+
     await prisma.user.update({
       where: {
         id: user.id
@@ -30,12 +36,12 @@ export const changePassword = async (resetPasswordToken: string, password: strin
       data: {
         hashPassword: await hash(password, 10),
         resetPasswordToken: null,
-        resetPasswordTokenExpiry: null,
+        resetPasswordTokenExpiry: null
       }
     })
-  } catch(e) {
-    console.log(e);
+  } catch (e) {
+    console.log('Error in change-password', e)
   } finally {
-    await prisma.$disconnect();
+    await prisma.$disconnect()
   }
 }

@@ -1,18 +1,19 @@
 import PageWithNavbar from "@/layouts/pageWithNav";
 
-import { getProfileUpdate } from "@/app/actions/data/getProfileUpdate";
+import { getProfileUpdate } from "@/app/actions/data/get-data/getProfileUpdate";
 import { ProfileUpdateItems, UserObj } from "@/components/Types/Profile/profileUpdate";
 import { PROFILE_UPDATE_ITEMS } from "@/components/Constants/Profile/profileUpdate";
 import UpdateFormSection from "@/components/Profile/Update/updateFormSection";
 
 
-interface ServerDataProps {
-  message: string,
-  content: UserObj,
-}
 
 let profileUpdateItems: ProfileUpdateItems = PROFILE_UPDATE_ITEMS;
 
+interface ServerDataProps {
+  message: string,
+  content: UserObj,
+  ok: boolean,
+}
 const ProfileUpdatePage = async () => {
   const data: ServerDataProps = await getProfileUpdate();
 

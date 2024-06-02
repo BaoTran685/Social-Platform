@@ -1,3 +1,4 @@
+import { LinkObj } from "@/components/Types/Auth/auth";
 import { Register_Items } from "@/components/Types/Auth/register";
 
 
@@ -13,6 +14,13 @@ export const REGISTER_ITEMS: Register_Items = {
   },
   formType: 'register',
   endPoint: process.env.BASE_URL + '/api/auth/register',
-  buttonName: 'Sign In',
+  buttonName: 'Register',
   callback: '/auth/login',
 }
+
+export const REGISTER_LINKS: LinkObj[] = [
+  {
+    name: 'Already have an account?',
+    path: '/auth/login'
+  },
+]

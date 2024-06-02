@@ -1,5 +1,5 @@
 
-import { getProfile } from "@/app/actions/data/getProfile"
+import { getProfile } from "@/app/actions/data/get-data/getProfile"
 import ContentSection from "@/components/Profile/contentSection";
 import PostSection from "@/components/Profile/postSection";
 import SettingSection from "@/components/Profile/settingSection";
@@ -9,8 +9,8 @@ import PageWithNavbar from "@/layouts/pageWithNav";
 interface ServerDataProps {
   message: string,
   content: ProfileObj,
+  ok: boolean
 }
-
 const ProfilePage = async () => {
   const data: ServerDataProps = await getProfile();
   console.log(data);

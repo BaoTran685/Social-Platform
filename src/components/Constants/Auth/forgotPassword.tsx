@@ -1,3 +1,4 @@
+import { LinkObj } from "@/components/Types/Auth/auth";
 import { ForgotPassword_Items } from "@/components/Types/Auth/forgotPassword";
 
 
@@ -14,3 +15,10 @@ export const FORGOT_PASSWORD_ITEMS: ForgotPassword_Items = {
   buttonName: 'Forgot Password',
   callback: null,
 }
+
+export const FORGOT_PASSWORD_LINKS: LinkObj[] = [
+  {
+    name: 'Create an account',
+    path: '/auth/register',
+  }
+]
