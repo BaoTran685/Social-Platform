@@ -1,9 +1,11 @@
-import { connectToDatabase } from '@/helper/server-helper'
 import { NextAuthOptions, User } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import prisma from './prisma'
 import { compare } from 'bcrypt'
 import { JWT } from 'next-auth/jwt'
+import { validateEmail } from './validateEmail'
+
+
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -14,28 +16,24 @@ export const authOptions: NextAuthOptions = {
       name: 'Credentials',
       credentials: {
         username: {},
-        email: {},
-        password: {},
-        type: {}
+        password: {}
       },
       async authorize (credentials, req) {
         try {
           if (credentials) {
-            const { username, email, password, type } = credentials
-            console.log(username, email, password, type)
+            const { username, password } = credentials
+
             let user
-            if (type === 'username') {
+            if (validateEmail(username)) {
+              user = await prisma.user.findFirst({
+                where: {
+                  email: username
+                }
+              })
+            } else {
               user = await prisma.user.findUnique({
                 where: {
                   username: username
-                }
-              })
-            }
-            else if (type === 'email') {
-              user = await prisma.user.findFirst({
-                where: {
-                  email: email,
-                  emailVerified: true,
                 }
               })
             }

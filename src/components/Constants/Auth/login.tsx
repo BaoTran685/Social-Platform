@@ -7,7 +7,7 @@ export const LOGIN_ITEMS: Login_Items = {
   initIsError: {username: false, password: false},
   initErrorMessage: {username: '', password: ''},
   field: {
-    username: { name: 'username', type: 'text', placeholder: 'Username' },
+    username: { name: 'username', type: 'text', placeholder: 'Username or Email' },
     password: { name: 'password', type: 'password', placeholder: 'Password' }
   },
   formType: 'login',
@@ -22,7 +22,7 @@ export const LOGIN_LINKS: LinkObj[] = [
     path: '/auth/register',
   },
   {
-    name: 'Login with email',
-    path: '/auth/login-with-email',
+    name: 'Forgot password?',
+    path: '/auth/reset-password',
   }
 ]
