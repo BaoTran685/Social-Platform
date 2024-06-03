@@ -4,7 +4,6 @@ import { Login_Items } from "@/components/Types/Auth/login"
 export const LOGIN_ITEMS: Login_Items = {
   objectKey: ['username', 'password'],
   initUser: {username: '', password: ''},
-  initIsError: {username: false, password: false},
   initErrorMessage: {username: '', password: ''},
   field: {
     username: { name: 'username', type: 'text', placeholder: 'Username or Email' },

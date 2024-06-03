@@ -4,7 +4,6 @@ import { ProfileUpdateItems } from "@/components/Types/Profile/profileUpdate"
 export const PROFILE_UPDATE_ITEMS: ProfileUpdateItems = {
   objectKey: ['name', 'email', 'description'],
   initNewInfo: { name: '', email: '', description: '' },
-  initIsError: { name: false, email: false, description: false },
   initErrorMessage: { name: '', email: '', description: '' },
   field: {
     name: {

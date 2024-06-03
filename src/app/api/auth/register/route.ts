@@ -1,13 +1,22 @@
-import { NextResponse } from "next/server";
-import { hash } from 'bcrypt';
-import { connectToDatabase } from "@/helper/server-helper";
-import prisma from "@/lib/prisma";
+import { NextResponse } from 'next/server'
+import { hash } from 'bcrypt'
+import prisma from '@/lib/prisma'
 
-export async function POST(request: Request) {
+export async function POST (request: Request) {
   try {
-    const { username, name, password } = await request.json();
+    const { username, name, password } = await request.json()
 
-    await connectToDatabase();
+    const user = await prisma.user.findUnique({
+      where: {
+        username: username
+      }
+    })
+    if (user) {
+      return NextResponse.json(
+        { errorMessage: { username: 'Used Username' }, message: '', ok: false },
+        { status: 401 }
+      )
+    }
     const newUser = await prisma.user.create({
       data: {
         username: username,
@@ -16,25 +25,24 @@ export async function POST(request: Request) {
         resetPasswordTokenExpiry: null,
         info: {
           create: {
-            name: name,
-          },
+            name: name
+          }
         },
         number: {
-          create: {},
+          create: {}
         }
       },
       include: {
         info: true,
-        number: true,
+        number: true
       }
-    });
-    console.log(newUser);
-    return NextResponse.json({message: 'success', content: newUser}, {status: 200});
-  } catch(e) {
-    console.log(e);
-    return NextResponse.json({message: 'fail', content: null}, {status: 401});
-  } finally {
-    await prisma.$disconnect();
+    })
+    return NextResponse.json(
+      { errorMessage: {}, message: 'Successfully Register', ok: true },
+      { status: 200 }
+    )
+  } catch (e) {
+    console.log(e)
+    return NextResponse.json({ message: 'fail' }, { status: 500 })
   }
-  
 }

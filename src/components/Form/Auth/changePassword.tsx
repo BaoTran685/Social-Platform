@@ -1,4 +1,4 @@
-import { CHANGE_PASSWORD_ITEMS, CHANGE_PASSWORD_LINKS } from "../Constants/Auth/changePassword";
+import { CHANGE_PASSWORD_ITEMS, CHANGE_PASSWORD_LINKS } from "../../Constants/Auth/changePassword";
 import AuthFormWrapper from "./authFormWrapper";
 
 

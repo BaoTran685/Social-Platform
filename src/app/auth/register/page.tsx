@@ -1,5 +1,5 @@
 import { REGISTER_ITEMS, REGISTER_LINKS } from "@/components/Constants/Auth/register";
-import AuthFormWrapper from "@/components/Form/authFormWrapper";
+import AuthFormWrapper from "@/components/Form/Auth/authFormWrapper";
 
 const RegisterPage = async () => {
   return (

@@ -2,9 +2,9 @@
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import LoadingButton from "../loadingButton";
-import { InputItem, InputItemPassword } from "./inputItem";
-import { Items } from "../Types/Auth/auth";
+import LoadingButton from "../../loadingButton";
+import { InputItem, InputItemPassword } from "../inputItem";
+import { ErrorMessageObj, Items, UserObj } from "../../Types/Auth/auth";
 import { processSubmit } from "./HandleSubmit/process-submit";
 import { checkInput } from "./HandleSubmit/check-input";
 import { cn } from "@/lib/tailwind-merge";
@@ -16,16 +16,14 @@ interface FormSectionProps {
 };
 
 const FormSection = ({ items, resetPasswordToken }: FormSectionProps) => {
-  const { objectKey, initUser, initIsError, initErrorMessage, field, formType, endPoint, buttonName, callback } = items;
+  const { objectKey, initUser, initErrorMessage, field, formType, endPoint, buttonName, callback } = items;
 
   const router = useRouter();
-  const [user, setUser] = useState(initUser);
-  const [isError, setIsError] = useState(initIsError);
-  const [errorMessage, setErrorMessage] = useState(initErrorMessage);
+  const [user, setUser] = useState<UserObj>(initUser);
+  const [errorMessage, setErrorMessage] = useState<ErrorMessageObj>(initErrorMessage);
 
-  const [processMessage, setProcessMessage] = useState('');
-  const [isProcessSuccess, setIsProcessSuccess] = useState(false);
-  const [isProcessMessage, setIsProcessMessage] = useState(false);
+  const [processMessage, setProcessMessage] = useState<string>('');
+  const [isProcessSuccess, setIsProcessSuccess] = useState<boolean>(false);
 
   const [process, setProcess] = useState(false);
 
@@ -34,26 +32,27 @@ const FormSection = ({ items, resetPasswordToken }: FormSectionProps) => {
       ...user,
       [event.currentTarget.name]: event.currentTarget.value,
     });
-    setIsError({
-      ...isError,
-      [event.currentTarget.name]: false,
+    setErrorMessage({
+      ...errorMessage,
+      [event.currentTarget.name]: '',
     });
-    setIsProcessMessage(false);
+    setProcessMessage('');
+    setIsProcessSuccess(false);
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setProcess(true);
     // check for empty input
-    let ok = checkInput(user, setIsError, setErrorMessage, setProcess, objectKey, formType);
+    let ok:boolean = checkInput({ user, objectKey, formType, setErrorMessage, setProcess,  });
     console.log('ok', ok);
-    if (ok === false) {
+    if (!ok) {
       setProcess(false);
       return;
     }
-    let response = await processSubmit({ formType, endPoint, user, resetPasswordToken, setIsError, setErrorMessage, setProcessMessage, setIsProcessSuccess, setIsProcessMessage });
+    let responseOk:boolean = await processSubmit({ user, resetPasswordToken, formType, endPoint, setErrorMessage, setProcessMessage, setIsProcessSuccess, });
     setProcess(false);
-    if (response?.ok === true && callback) {
+    if (responseOk && callback) {
       router.push(callback);
       router.refresh();
     }
@@ -65,11 +64,11 @@ const FormSection = ({ items, resetPasswordToken }: FormSectionProps) => {
         return (
           <div key={index}>
             {(item === "password" || item === 'confirmPassword') ? (
-              <InputItemPassword object={(field as any)[item]} value={(user as any)[item]} isError={(isError as any)[item]} handleChange={handleChange} />
+              <InputItemPassword object={(field as any)[item]} value={(user as any)[item]} isError={Boolean((errorMessage as any)[item])} handleChange={handleChange} />
             ) : (
-              <InputItem object={(field as any)[item]} value={(user as any)[item]} isError={(isError as any)[item]} handleChange={handleChange} />
+              <InputItem object={(field as any)[item]} value={(user as any)[item]} isError={Boolean((errorMessage as any)[item])} handleChange={handleChange} />
             )}
-            {(isError as any)[item] && (
+            {Boolean((errorMessage as any)[item]) && (
               <div className="text-sm font-medium text-red-600 pt-1">{(errorMessage as any)[item]}</div>
             )}
           </div>
@@ -77,7 +76,7 @@ const FormSection = ({ items, resetPasswordToken }: FormSectionProps) => {
       }
       )}
       <LoadingButton type="submit" text={buttonName} isLoading={process} isSuccess={isProcessSuccess} />
-      {isProcessMessage && (
+      {Boolean(processMessage) && (
         <div className={cn('text-sm font-medium', {
           'text-[#21A179]': isProcessSuccess,
           'text-red-600': !isProcessSuccess,

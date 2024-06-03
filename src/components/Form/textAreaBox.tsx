@@ -13,7 +13,7 @@ const TextAreaBox = ({ name, type, placeholder, value, isError, onChange }: Prop
   return (
     <textarea
       name={name}
-      className={cn('text-sm text-black input--box border-2 resize-none h-20', {
+      className={cn('text-sm text-black input--box border-2 resize-none h-24', {
         'border-red-600': isError === true,
         'border-[#A1A1AA]': isError === false,
       })}

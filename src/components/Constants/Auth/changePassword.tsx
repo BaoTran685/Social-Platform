@@ -6,7 +6,6 @@ import { ChangePassword_Items } from "@/components/Types/Auth/changePassword";
 export const CHANGE_PASSWORD_ITEMS: ChangePassword_Items = {
   objectKey: ['password', 'confirmPassword'],
   initUser: {password: '', confirmPassword: ''},
-  initIsError: {password: false, confirmPassword: false},
   initErrorMessage: {password: '', confirmPassword: ''},
   field: {
     password: {name: 'password', type: 'password', placeholder: 'Password'},

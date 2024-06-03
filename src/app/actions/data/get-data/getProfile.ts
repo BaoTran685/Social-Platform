@@ -28,11 +28,11 @@ export const getProfile = async () => {
           ...info,
           ...number
         }
-        return {message: 'success', content: profile, ok: true}
+        return { message: 'success', content: profile, ok: true }
       }
     }
   } catch (e) {
     console.log('Error in getProfile', e)
   }
-  return {message: 'fail', content: PROFILE_ITEMS.initProfile, ok: false};
+  return { message: 'fail', content: PROFILE_ITEMS.initProfile, ok: false }
 }

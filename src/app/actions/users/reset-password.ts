@@ -1,20 +1,18 @@
 'use server'
-import { connectToDatabase } from '@/helper/server-helper'
 import prisma from '@/lib/prisma'
 
 import { sendEmail } from '../emails/send-email'
 import { ResetPasswordEmailTemplate } from '@/components/email-templates/resetPasswordEmailTemplate'
 import * as React from 'react'
 import { generateToken } from '../token/generateToken'
-import { NextResponse } from 'next/server'
+import { Auth_ResponseFromServer } from '@/components/Types/Auth/auth'
 
 interface resetPasswordProps {
   email: string
 }
-export const resetPassword = async ({ email }: resetPasswordProps) => {
+export const resetPassword = async ({ email }: resetPasswordProps) : Promise<Auth_ResponseFromServer> => {
   try {
     console.log('Resetting password for ' + email)
-    await connectToDatabase()
     // find the user, and when register email we always make sure that email is unqiue
     const user = await prisma.user.findFirst({
       where: {
@@ -23,7 +21,11 @@ export const resetPassword = async ({ email }: resetPasswordProps) => {
     })
     // if no user exist, return
     if (!user) {
-      throw new Error('User not found')
+      return {
+        errorMessage: { email: 'User Not Found' },
+        message: '',
+        ok: false
+      }
     }
     const resetPasswordToken = await generateToken({
       tokenName: 'resetPasswordToken'
@@ -47,7 +49,6 @@ export const resetPassword = async ({ email }: resetPasswordProps) => {
         resetPasswordTokenExpiry: resetPasswordTokenExpiry
       }
     })
-    console.log(newUser)
     // send the token to the user
     const data = await sendEmail({
       from: 'Bot <admin@baotran.ca>',
@@ -60,10 +61,10 @@ export const resetPassword = async ({ email }: resetPasswordProps) => {
     })
 
     if (data?.data) {
-      return { message: 'Successfully Send Email', ok: true }
+      return { errorMessage: {}, message: 'Successfully Send Email', ok: true }
     }
   } catch (e) {
     console.log('Error in reset-password', e)
   }
-  return { message: 'fail', ok: false }
+  return { errorMessage: {}, message: 'fail', ok: false }
 }

@@ -4,6 +4,7 @@ import { sendEmail } from '../../emails/send-email'
 import { VerifyEmailEmailTemplate } from '@/components/email-templates/verifyEmailEmailTemplate'
 import { generateToken } from '../../token/generateToken'
 import React from 'react'
+import { ProfileUpdate_ResponseFromServer } from '@/components/Types/Profile/profileUpdate'
 
 interface updateProfileUpdateProps {
   email: string
@@ -16,7 +17,7 @@ export const updateProfileUpdate = async ({
   name,
   description,
   id
-}: updateProfileUpdateProps) => {
+}: updateProfileUpdateProps) : Promise<ProfileUpdate_ResponseFromServer> => {
   try {
     if (id) {
       let user = await prisma.user.findFirst({
@@ -26,7 +27,7 @@ export const updateProfileUpdate = async ({
       })
       // if there is an user with such email
       if (user && user.id !== id) {
-        return { message: 'email already exist', ok: false }
+        return { errorMessage: { email: 'Used Email' }, message: '', ok: false }
       }
       // if no user, we get the token to verify for the email
       let verifyEmailToken = null
@@ -69,15 +70,16 @@ export const updateProfileUpdate = async ({
         })
         if (data?.data) {
           return {
-            message: 'update successfully -- verify email sent',
+            errorMessage: {},
+            message: 'Successfully Update -- Verify Email Sent',
             ok: true
           }
         }
       }
-      return { message: 'update successfully', ok: true }
+      return { errorMessage: {}, message: 'Successfully Update', ok: true }
     }
   } catch (e) {
     console.log('Error in updateProfielUpdate', e)
   }
-  return { message: 'update fail', ok: false }
+  return { errorMessage: {}, message: 'fail', ok: false }
 }

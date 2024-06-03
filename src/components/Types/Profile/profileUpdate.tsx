@@ -3,11 +3,6 @@ export type UserObj = {
   email: string,
   description: string,
 }
-export type FillErrorObj = {
-  name: boolean,
-  email: boolean,
-  description: boolean,
-}
 export type InputObj = {
   label: string,
   name: string,
@@ -26,8 +21,13 @@ export type ObjectKey = 'name' | 'email' | 'description'
 export type ProfileUpdateItems = {
   objectKey: Array<ObjectKey>
   initNewInfo: UserObj,
-  initIsError: FillErrorObj,
   initErrorMessage: ErrorMessageObj,
   field: FieldObj,
   endPoint: string,
+}
+
+export type ProfileUpdate_ResponseFromServer = {
+  errorMessage: Object;
+  message: string,
+  ok: boolean,
 }

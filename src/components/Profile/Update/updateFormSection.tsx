@@ -1,35 +1,40 @@
 'use client'
 import { FormEvent, useState } from "react";
-import { ProfileUpdateItems, UserObj } from "@/components/Types/Profile/profileUpdate";
+import { ErrorMessageObj, ProfileUpdateItems, ProfileUpdate_ResponseFromServer, UserObj } from "@/components/Types/Profile/profileUpdate";
 import LoadingButton from "@/components/loadingButton";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import UpdateInputItem from "./updateInputItem";
 import { updateProfileUpdate } from "@/app/actions/data/update-data/updateProfileUpdate";
+import { cn } from "@/lib/tailwind-merge";
 
 
 const UpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, info: UserObj }) => {
   const router = useRouter();
   const { data: session } = useSession();
 
-  const { objectKey, initIsError, initErrorMessage, field, endPoint } = items;
-  // data from the db
-  const { name, email, description } = info;
+  const { objectKey, initErrorMessage, field, endPoint } = items;
 
-  const [newInfo, setNewInfo] = useState({ name, email, description });
-  const [isError, setIsError] = useState(initIsError);
-  const [errorMessage, setErrorMessage] = useState(initErrorMessage);
-  const [process, setProcess] = useState(false);
+  // data from the db
+  const [newInfo, setNewInfo] = useState<UserObj>(info);
+  const [errorMessage, setErrorMessage] = useState<ErrorMessageObj>(initErrorMessage);
+
+  const [processMessage, setProcessMessage] = useState<string>('');
+  const [isProcessSuccess, setIsProcessSuccess] = useState<boolean>(false);
+
+  const [process, setProcess] = useState<boolean>(false);
 
   const handleChange = (event: FormEvent<HTMLFormElement>) => {
     setNewInfo({
       ...newInfo,
       [event.currentTarget.name]: event.currentTarget.value,
     });
-    setIsError({
-      ...isError,
-      [event.currentTarget.name]: false,
-    });
+    setErrorMessage({
+      ...errorMessage,
+      [event.currentTarget.name]: '',
+    })
+    setProcessMessage('');
+    setIsProcessSuccess(false);
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -37,44 +42,47 @@ const UpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, info: U
     if (session === null) {
       return;
     }
-
-    console.log(newInfo);
     setProcess(true);
-
-    console.log("MY END POINT", endPoint);
-    const response = await updateProfileUpdate({id: session.user.id, ...newInfo});
-    console.log(response);
+    const response: ProfileUpdate_ResponseFromServer = await updateProfileUpdate({ id: session.user.id, ...newInfo });
     setProcess(false);
-    if (response?.ok === false) {
-      console.log('error');
-    } else {
-      router.push('/profile');
-      router.refresh();
-    }
+    setErrorMessage({
+      ...errorMessage,
+      ...response.errorMessage,
+    });
+    setProcessMessage(response.message);
+    setIsProcessSuccess(response.ok);
   }
   return (
-    <form className="flex flex-col" onSubmit={(e) => handleSubmit(e)} autoComplete="off">
+    <form className="flex flex-col space-y-6" onSubmit={(e) => handleSubmit(e)} autoComplete="off">
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <UpdateInputItem object={field.name} value={newInfo.name} isError={isError.name} onChange={handleChange} />
-          {isError.name && (
+          <UpdateInputItem object={field.name} value={newInfo.name} isError={Boolean(errorMessage.name)} onChange={handleChange} />
+          {Boolean(errorMessage.name) && (
             <div className="text-sm font-medium text-red-600 pt-1">{errorMessage.name}</div>
           )}
         </div>
         <div>
-          <UpdateInputItem object={field.email} value={newInfo.email} isError={isError.email} onChange={handleChange} />
-          {isError.email && (
+          <UpdateInputItem object={field.email} value={newInfo.email} isError={Boolean(errorMessage.email)} onChange={handleChange} />
+          {Boolean(errorMessage.email) && (
             <div className="text-sm font-medium text-red-600 pt-1">{errorMessage.email}</div>
           )}
         </div>
       </div>
       <div>
-        <UpdateInputItem object={field.description} value={newInfo.description} isError={isError.description} onChange={handleChange} />
-        {isError.description && (
+        <UpdateInputItem object={field.description} value={newInfo.description} isError={Boolean(errorMessage.description)} onChange={handleChange} />
+        {Boolean(errorMessage.description) && (
           <div className="text-sm font-medium text-red-600 pt-1">{errorMessage.description}</div>
         )}
       </div>
-      <LoadingButton type="submit" text="Update" isLoading={process} />
+      <>
+        <LoadingButton type="submit" text="Update" isLoading={process} isSuccess={isProcessSuccess} />
+        {Boolean(processMessage) && (
+          <div className={cn('text-sm font-medium mt-2', {
+            'text-[#21A179]': isProcessSuccess,
+            'text-red-600': !isProcessSuccess,
+          })}>{processMessage}</div>
+        )}
+      </>
     </form>
   )
 }

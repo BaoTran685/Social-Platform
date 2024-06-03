@@ -8,11 +8,6 @@ export type Register_UserObj = {
   name: string,
   password: string,
 }
-export type Register_IsErrorObj = {
-  username: boolean,
-  name: boolean,
-  password: boolean,
-}
 export type Register_ErrorMessageObj = Register_UserObj
 export type Register_FieldObj = {
   username: Register_InputObj,
@@ -24,7 +19,6 @@ export type Register_ObjectKey = 'username' | 'password' | 'name'
 export type Register_Items = {
   objectKey: Array<Register_ObjectKey>,
   initUser: Register_UserObj,
-  initIsError: Register_IsErrorObj,
   initErrorMessage: Register_ErrorMessageObj,
   field: Register_FieldObj,
   formType: string,

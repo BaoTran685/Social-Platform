@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Items, LinkObj } from "../Types/Auth/auth"
+import { Items, LinkObj } from "@/components/Types/Auth/auth"
 import FormSection from "./formSection"
 
 interface AuthFormWrapperProps {

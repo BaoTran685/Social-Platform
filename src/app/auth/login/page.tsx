@@ -1,5 +1,5 @@
 import { LOGIN_ITEMS, LOGIN_LINKS } from "@/components/Constants/Auth/login";
-import AuthFormWrapper from "@/components/Form/authFormWrapper";
+import AuthFormWrapper from "@/components/Form/Auth/authFormWrapper";
 
 const LoginPage = async () => {
   return (

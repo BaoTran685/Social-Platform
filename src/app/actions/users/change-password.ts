@@ -1,6 +1,6 @@
 'use server'
 
-import { connectToDatabase } from '@/helper/server-helper'
+import { Auth_ResponseFromServer } from '@/components/Types/Auth/auth'
 import prisma from '@/lib/prisma'
 import { hash } from 'bcrypt'
 
@@ -11,16 +11,19 @@ interface changePasswordProps {
 export const changePassword = async ({
   resetPasswordToken,
   password
-}: changePasswordProps) => {
+}: changePasswordProps): Promise<Auth_ResponseFromServer> => {
   try {
-    await connectToDatabase()
     const user = await prisma.user.findFirst({
       where: {
         resetPasswordToken: resetPasswordToken
       }
     })
     if (!user) {
-      throw new Error('User not found')
+      return {
+        errorMessage: { email: 'User Not Found' },
+        message: '',
+        ok: false
+      }
     }
     const resetPasswordTokenExpiry = user.resetPasswordTokenExpiry
     const today = new Date()
@@ -39,11 +42,13 @@ export const changePassword = async ({
         resetPasswordTokenExpiry: null
       }
     })
-    return {message: 'Successfully Update Password', ok: true}
+    return {
+      errorMessage: {},
+      message: 'Successfully Update Password',
+      ok: true
+    }
   } catch (e) {
     console.log('Error in change-password', e)
-  } finally {
-    await prisma.$disconnect()
   }
-  return {message: 'fail', ok: false}
+  return { errorMessage: {}, message: 'fail', ok: false }
 }
