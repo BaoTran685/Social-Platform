@@ -12,7 +12,7 @@ const SettingSection = () => {
 
   const { data: session } = useSession();
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-end">
       <div className="relative">
         <div onClick={() => handleClick()}>
           <Cor />

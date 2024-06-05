@@ -17,11 +17,10 @@ const ProfilePage = async () => {
   return (
     <PageWithNavbar>
       <section className="text-[#37352F] mt-20">
-        <div className="layout">
-          <div />
+        <div className="my--container mx-auto">
           <div className="flex flex-col">
             <div className="flex flex-row justify-between">
-              <div className="text-4xl sm:text-5xl lg:text-6xl font-semibold">
+              <div className="text--main--header">
                 {data?.content.name}
               </div>
               <SettingSection />
@@ -31,7 +30,6 @@ const ProfilePage = async () => {
             <div className="w-full h-0.5 bg-[#ddd] mt-2" />
             <PostSection />
           </div>
-          <div />
         </div>
       </section>
     </PageWithNavbar>

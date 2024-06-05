@@ -1,6 +1,7 @@
 import React from 'react';
 import InputBox from "./components/InputBox";
 import ToolBox from "./components/ToolBox";
+import PageWithNavbar from '@/layouts/pageWithNav';
 
 
 const POST = {
@@ -11,14 +12,16 @@ const POST = {
 
 const CreatePostPage = () => {
   return (
-    <main className="pt-6">
-      <div className="w-full">
-        <div className="flex items-center space-x-1">
-          <ToolBox />
-          <InputBox items={POST} />
+    <PageWithNavbar>
+      <section className="">
+        <div className="w-full">
+          <div className="flex items-center space-x-1">
+            <InputBox items={POST} />
+          </div>
         </div>
-      </div>
-    </main>
+      </section>
+    </PageWithNavbar>
+
   );
 };
 

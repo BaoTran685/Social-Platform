@@ -13,7 +13,7 @@ const InputBox = ({ name, type, placeholder, value, isError, onChange }: Props) 
     <input
       name={name}
       type={type}
-      className={cn(`text-sm text-black input--line`, {
+      className={cn(`text--content text-black input--line p-2`, {
         'border-b-red-600': isError === true,
         'border-b-[#A1A1AA]': isError === false,
       })}

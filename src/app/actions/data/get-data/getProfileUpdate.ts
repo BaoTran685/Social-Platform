@@ -6,10 +6,9 @@ import prisma from '@/lib/prisma'
 import { UserObj } from '@/components/Types/Profile/profileUpdate'
 
 export const getProfileUpdate = async () => {
-  try {
-    const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions)
     const id = session?.user?.id
-
+  try {
     if (id) {
       const info = await prisma.info.findUnique({
         where: {

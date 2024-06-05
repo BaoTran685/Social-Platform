@@ -34,7 +34,7 @@ export const processSubmit = async ({
   if (formType === 'register' && endPoint) {
     ok = await handleRegister(user, endPoint, setMessage, setErrorMessage)
   } else if (formType === 'login') {
-    ok = await handleLogin(user, setMessage)
+    ok = await handleLogin(user, setMessage, setErrorMessage)
   } else if (formType === 'forgotPassword') {
     ok = await handleForgotPassword(user, setMessage, setErrorMessage)
   } else if (formType === 'changePassword' && resetPasswordToken) {
@@ -63,7 +63,7 @@ const handleRegister = async (
   return response.ok
 }
 
-const handleLogin = async (user: UserObj, setMessage: Function) => {
+const handleLogin = async (user: UserObj, setMessage: Function, setErrorMessage: Function) => {
   const response = await signIn('credentials', {
     ...user,
     redirect: false
@@ -73,7 +73,11 @@ const handleLogin = async (user: UserObj, setMessage: Function) => {
     return true
   } else {
     // invalid credentials
-    setMessage('Invalid Username or Password', false)
+    setErrorMessage((prev: ErrorMessageObj) => ({
+      ...prev,
+      username: 'Invalid Username or Password',
+      password: 'Invalid Username or Password',
+    }))
     return false
   }
 }

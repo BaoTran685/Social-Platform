@@ -54,7 +54,7 @@ const UpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, info: U
   }
   return (
     <form className="flex flex-col space-y-6" onSubmit={(e) => handleSubmit(e)} autoComplete="off">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-10">
         <div>
           <UpdateInputItem object={field.name} value={newInfo.name} isError={Boolean(errorMessage.name)} onChange={handleChange} />
           {Boolean(errorMessage.name) && (

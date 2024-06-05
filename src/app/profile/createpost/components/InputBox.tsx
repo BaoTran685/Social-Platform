@@ -35,7 +35,7 @@ const InputBox = ({ items }: { items: Props }) => {
 
         <textarea
           name={name}
-          className=" flex-1 bg-white shadow rounded-lg text-sm text-black notebook input--box"
+          className=" flex-1 bg-white shadow rounded-lg text-black notebook input--box"
           required
           autoComplete="off"
           placeholder={placeholder}
@@ -45,7 +45,7 @@ const InputBox = ({ items }: { items: Props }) => {
           <div className="w-full md:w-2/3 md:pl-3">
             <button
               type="button"
-              className="rounded-lg bg-[#21A179] shadow-inner transition-transform ease-in duration-300 hover:scale-105 mt-6 text-white p-2 rounded-lg md:float-right"
+              className="bg-[#21A179] shadow-inner transition-transform ease-in duration-300 hover:scale-105 mt-6 text-white p-2 rounded-lg md:float-right"
             >
               Submit
             </button>

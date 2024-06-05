@@ -6,10 +6,9 @@ import prisma from '@/lib/prisma'
 import { ProfileObj } from '@/components/Types/Profile/profile'
 
 export const getProfile = async () => {
-  try {
-    const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions)
     const id = session?.user?.id
-
+  try {
     if (id) {
       const user = await prisma.user.findUnique({
         where: {
