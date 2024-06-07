@@ -5,6 +5,7 @@ import "./globals.css";
 import { getServerSession } from "next-auth";
 import SessionProvider from "@/provider/sessionProvider";
 import ProgressProvider from "@/provider/progressProvider";
+import InnerRootLayout from "@/layouts/innerRootLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +26,9 @@ export default async function RootLayout({
       <body className={inter.className}>
         <SessionProvider session={session}>
           <ProgressProvider>
-            {children}
+            <InnerRootLayout>
+              {children}
+            </InnerRootLayout>
           </ProgressProvider>
         </SessionProvider>
       </body>

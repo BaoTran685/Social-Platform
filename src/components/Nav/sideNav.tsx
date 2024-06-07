@@ -5,19 +5,23 @@ import { SideNavArray } from '../Types/sideNav'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '../../lib/tailwind-merge'
+import { useSideNavContext } from '../Context/sideNavContext'
 
 const SideNav = () => {
+  const { isSideNavOpen } = useSideNavContext();
   return (
-    <div className='fixed hidden md:flex flex-1 md:w-20 lg:w-60 h-screen border-r-2 border-r-[#ddd]'>
-      <div className='flex flex-col items-center justify-start h-full w-full space-y-2 bg-[var(--background-grey-color)] mx-auto p-3'>
-        <Link href="/" className='flex items-center justify-center w-full h-20 border-b-2 border-b-[#ddd]'>
-          <span className='font-bold text-xl'>Logo</span>
-        </Link>
-        {SIDENAV_ARRAY.map((item, index) => (
-          <NavItem key={index} item={item} />
-        ))}
+    isSideNavOpen && (
+      <div className='fixed hidden md:flex flex-1 md:w-20 lg:w-52 h-screen border-r-2 border-r-[#ddd]'>
+        <div className='flex flex-col items-center justify-start h-full w-full space-y-2 bg-[var(--background-grey-color)] mx-auto px-3'>
+          <Link href="/" className='flex items-center justify-center w-full h-[50px] border-b-2 border-b-[#ddd]'>
+            <span className='font-bold text-xl'>Logo</span>
+          </Link>
+          {SIDENAV_ARRAY.map((item, index) => (
+            <NavItem key={index} item={item} />
+          ))}
+        </div>
       </div>
-    </div>
+    )
   )
 }
 

@@ -1,22 +1,21 @@
 'use client'
-import useScroll from "@/hooks/use-scroll";
-import { cn } from "@/lib/tailwind-merge";
-import { useSelectedLayoutSegment } from "next/navigation";
+
+import { DoubleArrow } from "../Icon/icons";
+import { useSideNavContext } from "../Context/sideNavContext";
 
 const TopHeader = () => {
-  const scrolled = useScroll(5);
-  const selectedLayout = useSelectedLayoutSegment();
+  const {isSideNavOpen, setIsSideNavOpen} = useSideNavContext();
+
+  const handleClick = () => {
+    setIsSideNavOpen(!isSideNavOpen)
+  }
   return (
-    <div className={cn("sticky top-0 left-0 right-0 z-30 w-full transition-all",
-      {
-        'bg-[white]/75 backdrop-blur-lg': scrolled,
-        'bg-[white]': selectedLayout,
-      })
-    }>
-      <div className="flex h-[50px]">
-
+    <div className="sticky top-0 left-0 right-0 z-30 w-full h-[50px] transition-all bg-[var(--background-grey-color)] backdrop-blur-sm border-b-2 border-b-[#ddd] px-3">
+      <div className="flex flex-row h-full items-center">
+        <div onClick={handleClick}>
+          <DoubleArrow />
+        </div>
       </div>
-
     </div>
   )
 }
