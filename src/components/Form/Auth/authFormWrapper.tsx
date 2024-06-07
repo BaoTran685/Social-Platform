@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { Items, LinkObj } from "@/components/Types/Auth/auth"
-import FormSection from "./formSection"
+import AuthFormSection from "./authFormSection"
 
 interface AuthFormWrapperProps {
   items: Items,
@@ -17,7 +17,7 @@ const AuthFormWrapper = ({ items, links, resetPasswordToken }: AuthFormWrapperPr
             <div className="place-self-center text-[#37352F] text-xl text-center">
               Social Media
             </div>
-            <FormSection items={items} resetPasswordToken={resetPasswordToken} />
+            <AuthFormSection items={items} resetPasswordToken={resetPasswordToken} />
             <div className="flex flex-col text-center space-y-1 mt-4">
               {links.map((link, index) => (
                 <Link key={index} href={link.path} className="text-[#37352F] underline">

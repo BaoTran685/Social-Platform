@@ -17,8 +17,8 @@ const ProfileUpdatePage = async () => {
 
   return (
     <section className="my--container mx-auto">
-      <div className="flex flex-col space-y-20">
-        <h1 className="text-center text-3xl underline">Update Profile</h1>
+      <div className="flex flex-col">
+        <h1 className="text-center text--header underline my-16">Update Profile</h1>
         <div className="w-full h-full">
           <UpdateFormSection items={profileUpdateItems} info={data?.content} />
         </div>

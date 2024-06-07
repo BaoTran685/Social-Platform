@@ -19,6 +19,7 @@ model User {
   hashPassword String
   info Info?
   number Number?
+  posts Post[]
 
   email String @default(value: "")
   resetPasswordToken String?
@@ -43,4 +44,14 @@ model Number {
   number_post Int @default(value: 0)
   number_follower Int @default(value: 0)
   number_following Int @default(value: 0)
+}
+
+model Post {
+  postId String @id @map("_id") @db.ObjectId
+  title String
+  content String?
+  authorId String @db.ObjectId
+  author User @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

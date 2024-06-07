@@ -13,7 +13,7 @@ const UpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, info: U
   const router = useRouter();
   const { data: session } = useSession();
 
-  const { objectKey, initErrorMessage, field, endPoint } = items;
+  const { objectKey, initErrorMessage, field } = items;
 
   // data from the db
   const [newInfo, setNewInfo] = useState<UserObj>(info);

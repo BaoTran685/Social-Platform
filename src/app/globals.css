@@ -21,6 +21,9 @@
   .text--main--header {
     @apply text-4xl sm:text-5xl lg:text-6xl font-semibold
   }
+  .text--header {
+    @apply text-2xl md:text-3xl
+  }
   .text--sub--header {
     @apply text-lg sm:text-xl lg:text-2xl;
   }

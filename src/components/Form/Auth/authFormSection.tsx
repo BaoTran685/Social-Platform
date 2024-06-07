@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import LoadingButton from "../../loadingButton";
-import { InputItem, InputItemPassword } from "../inputItem";
+import { InputItem, InputItemPassword } from "./inputItem";
 import { ErrorMessageObj, Items, UserObj } from "../../Types/Auth/auth";
 import { processSubmit } from "./HandleSubmit/process-submit";
 import { checkInput } from "./HandleSubmit/check-input";
@@ -15,7 +15,7 @@ interface FormSectionProps {
   resetPasswordToken?: string,
 };
 
-const FormSection = ({ items, resetPasswordToken }: FormSectionProps) => {
+const AuthFormSection = ({ items, resetPasswordToken }: FormSectionProps) => {
   const { objectKey, initUser, initErrorMessage, field, formType, endPoint, buttonName, callback } = items;
 
   const router = useRouter();
@@ -86,7 +86,7 @@ const FormSection = ({ items, resetPasswordToken }: FormSectionProps) => {
   )
 }
 
-export default FormSection;
+export default AuthFormSection;
 
 
 
