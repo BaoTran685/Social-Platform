@@ -1,8 +1,20 @@
 import { getUsername } from "@/app/actions/data/get-data/getUsername";
 import { CREATE_POST_ITEMS } from "@/components/Constants/Profile/CreatePost/createPost";
+import CreatePostPageLoading from "@/components/Loading/Profile/CreatePost/createPostPageLoading";
 import CreatePostFormSection from "@/components/Profile/CreatePost/createPostFormSection";
 import SettingSection from "@/components/Profile/settingSection";
 import { CreatePostItems } from "@/components/Types/Profile/CreatePost/createPost";
+import { Suspense } from "react";
+
+const CreatePostPage = async () => {
+  return (
+    <Suspense fallback={<CreatePostPageLoading />}>
+      <InnerCreatePostPage />
+    </Suspense>
+  )
+};
+
+export default CreatePostPage;
 
 
 const today = new Date();
@@ -21,7 +33,9 @@ interface ServerDataProps {
   },
   ok: boolean,
 }
-const CreatePostPage = async () => {
+
+
+const InnerCreatePostPage = async () => {
   const data: ServerDataProps = await getUsername();
   return (
     <section className="place-self-center flex-grow flex my--container text-[#37352F] mt-10">
@@ -42,6 +56,4 @@ const CreatePostPage = async () => {
       </div>
     </section>
   );
-};
-
-export default CreatePostPage;
+}
