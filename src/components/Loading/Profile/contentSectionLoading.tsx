@@ -23,13 +23,13 @@ const ContentSectionLoading = () => {
       </div>
       {/* Description */}
       <div className="flex flex-col space-y-2">
-        <div className="text--content text-transparent no--select bg-gray-300 rounded-full animate-pulse w-2/5">
+        <div className="text--content text-transparent no--select bg-gray-300 rounded-full animate-pulse w-full">
           t
         </div>
-        <div className="text--content text-transparent no--select bg-gray-300 rounded-full animate-pulse w-3/5">
+        <div className="text--content text-transparent no--select bg-gray-300 rounded-full animate-pulse w-full">
           t
         </div>
-        <div className="text--content text-transparent no--select bg-gray-300 rounded-full animate-pulse w-4/5">
+        <div className="text--content text-transparent no--select bg-gray-300 rounded-full animate-pulse w-full">
           t
         </div>
       </div>

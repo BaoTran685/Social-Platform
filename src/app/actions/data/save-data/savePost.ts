@@ -1,7 +1,7 @@
 'use server';
 
 import prisma from '@/lib/prisma'; // Import Prisma client
-import { CreatePost_ResponseFromServer } from "@/components/Types/Profile/createPost"; // Ensure this import path is correct
+import { CreatePost_ResponseFromServer } from "@/components/Types/Profile/CreatePost/createPost"; // Ensure this import path is correct
 
 interface savePostProps {
   title: string;
