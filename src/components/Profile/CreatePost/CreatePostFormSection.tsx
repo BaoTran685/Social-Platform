@@ -1,11 +1,12 @@
 'use client'
 import InputItem from "@/components/Form/Profile/inputItem";
-import { CreatePostItems, ErrorMessageObj, UserObj } from "@/components/Types/Profile/createPost";
+import { CreatePostItems, ErrorMessageObj, UserObj, CreatePost_ResponseFromServer } from "@/components/Types/Profile/createPost";
 import LoadingButton from "@/components/loadingButton";
 import { cn } from "@/lib/tailwind-merge";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { savePost } from "@/app/actions/data/save-data/savePost";
 
 
 
@@ -36,8 +37,20 @@ const CreatePostFormSection = ({items}: {items: CreatePostItems}) => {
     setIsProcessSuccess(false);
   }
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    
+  const handleSubmit = async  (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (session === null) {
+      return;
+    }
+    setProcess(true);
+    const response: CreatePost_ResponseFromServer = await savePost({ id: session.user.id, ...newInfo });
+    setProcess(false);
+    setErrorMessage({
+      ...errorMessage,
+      ...response.errorMessage,
+    });
+    setProcessMessage(response.message);
+    setIsProcessSuccess(response.ok);
   }
   return (
     <form className="flex flex-col space-y-6" onSubmit={(e) => handleSubmit(e)} autoComplete="off">

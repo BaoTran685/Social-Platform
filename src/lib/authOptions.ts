@@ -41,7 +41,7 @@ export const authOptions: NextAuthOptions = {
             if (user && (await compare(password, user.hashPassword))) {
               return {
                 id: user.id,
-                eamil: user.username
+                email: user.username
               }
             }
           }
