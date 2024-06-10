@@ -13,13 +13,14 @@
   --khaki-color: #C4AF9A;
   --blue-color: #81AE9D;
   --green-color: #21A179;
+  --dark-green-color: #2f7d65;
 
   --light-blue-color: #54b3d6;
   --dark-blue-color: #3b819d;
 }
 @layer components {
   .text--main--header {
-    @apply text-4xl sm:text-5xl lg:text-6xl font-semibold
+    @apply text-4xl sm:text-5xl lg:text-6xl
   }
   .text--header {
     @apply text-2xl md:text-3xl
@@ -44,7 +45,10 @@
     @apply block w-full bg-inherit border-b-2 focus:outline-none focus:border-b-[#1E1E24] transition-colors ease-linear placeholder:text-[#A1A1AA] appearance-none;
   }
   .box--shadow {
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 28px 0 rgba(0, 0, 0, 0.1), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  }
+  .brighter--shadow {
+    box-shadow: 0 0 0.7rem #81AE9D;
   }
   
   .loader-dot, .loader-div {

@@ -4,7 +4,7 @@ import { SideNavArray } from "../Types/sideNav"
 export const SIDENAV_ARRAY: SideNavArray[] = [
   {
     title: 'Home',
-    path: '/',
+    path: '/home',
     icon: <HomeIcon />,
   },
   {

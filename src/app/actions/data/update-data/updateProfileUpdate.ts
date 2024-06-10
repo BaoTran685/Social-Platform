@@ -4,7 +4,7 @@ import { sendEmail } from '../../emails/send-email'
 import { VerifyEmailEmailTemplate } from '@/components/email-templates/verifyEmailEmailTemplate'
 import { generateToken } from '../../token/generateToken'
 import React from 'react'
-import { ProfileUpdate_ResponseFromServer } from '@/components/Types/Profile/profileUpdate'
+import { ProfileUpdate_ResponseFromServer } from '@/components/Types/Profile/Update/update'
 
 interface updateProfileUpdateProps {
   email: string

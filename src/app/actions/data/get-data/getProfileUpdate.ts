@@ -1,25 +1,29 @@
 'use server'
 import { getServerSession } from 'next-auth'
-import { PROFILE_UPDATE_ITEMS } from '@/components/Constants/Profile/profileUpdate'
+import { PROFILE_UPDATE_ITEMS } from '@/components/Constants/Profile/Update/update'
 import { authOptions } from '@/lib/authOptions'
 import prisma from '@/lib/prisma'
-import { UserObj } from '@/components/Types/Profile/profileUpdate'
 
 export const getProfileUpdate = async () => {
   const session = await getServerSession(authOptions)
-    const id = session?.user?.id
+  const id = session?.user?.id
   try {
     if (id) {
-      const info = await prisma.info.findUnique({
+      const user = await prisma.user.findUnique({
         where: {
-          infoId: id
+          id: id,
+        },
+        include: {
+          info: true
         }
       })
-      if (info) {
-        const returnInfo: UserObj = {
+      if (user && user.info) {
+        const info = user.info;
+        const returnInfo = {
+          username: user.username,
           name: info.name,
           email: info.email,
-          description: info.description
+          description: info.description,
         }
         return { message: 'success', content: returnInfo, ok: true }
       }
@@ -29,7 +33,7 @@ export const getProfileUpdate = async () => {
   }
   return {
     message: 'fail',
-    content: PROFILE_UPDATE_ITEMS.initNewInfo,
+    content: {...PROFILE_UPDATE_ITEMS.initNewInfo, username: ''},
     ok: false
   }
 }

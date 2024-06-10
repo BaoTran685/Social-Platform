@@ -11,18 +11,17 @@ export default function InnerRootLayout({
   children: ReactNode
 }) {
   const path = usePathname();
-  console.log('path', path)
 
-  if (path.startsWith('/auth')) {
-    return (
+  return (
+    !path.startsWith('auth') ? (
+      <PageWithNavbar>
+        {children}
+      </PageWithNavbar>
+    ) : (
       <>
         {children}
       </>
     )
-  }
-  return (
-    <PageWithNavbar>
-      {children}
-    </PageWithNavbar>
+
   )
 }

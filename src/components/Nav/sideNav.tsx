@@ -35,7 +35,7 @@ const NavItem = ({ item }: { item: SideNavArray }) => {
       href={item.path}
       className=
       {cn(`flex flex-row space-x-4 w-full items-center rounded-lg mx-auto px-3 py-2 text-[#5F5E5B] hover:text-[#1E1E24] hover:bg-[#e4e4e7]`,
-        { 'bg-[#e4e4e7] text-[#1E1E24]': item.path === pathName })}
+        { 'bg-[#e4e4e7] text-[#1E1E24]': pathName.startsWith(item.path) })}
     >
       {item.icon}
       <span className="hidden lg:block font-medium text-xl">{item.title}</span>

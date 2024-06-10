@@ -1,6 +1,6 @@
 'use client'
 import InputItem from "@/components/Form/Profile/inputItem";
-import { CreatePostItems, ErrorMessageObj, UserObj } from "@/components/Types/Profile/createPost";
+import { CreatePostItems, ErrorMessageObj, UserObj } from "@/components/Types/Profile/CreatePost/createPost";
 import LoadingButton from "@/components/loadingButton";
 import { cn } from "@/lib/tailwind-merge";
 import { useSession } from "next-auth/react";
@@ -9,7 +9,7 @@ import { FormEvent, useState } from "react";
 
 
 
-const CreatePostFormSection = ({items}: {items: CreatePostItems}) => {
+const CreatePostFormSection = ({ items }: { items: CreatePostItems }) => {
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -37,10 +37,10 @@ const CreatePostFormSection = ({items}: {items: CreatePostItems}) => {
   }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    
+
   }
   return (
-    <form className="flex flex-col space-y-6" onSubmit={(e) => handleSubmit(e)} autoComplete="off">
+    <form className="flex-grow flex flex-col space-y-6" onSubmit={(e) => handleSubmit(e)} autoComplete="off">
       <div className="grid grid-cols-2 gap-10">
         <div>
           <InputItem object={field.title} value={newInfo.title} isError={Boolean(errorMessage.title)} onChange={handleChange} />
@@ -49,27 +49,27 @@ const CreatePostFormSection = ({items}: {items: CreatePostItems}) => {
           )}
         </div>
         <div>
-          <InputItem object={field.date} value={newInfo.date} isError={Boolean(errorMessage.date)} onChange={() => {}} readonly={true} />
+          <InputItem object={field.date} value={newInfo.date} isError={Boolean(errorMessage.date)} onChange={() => { }} readonly={true} />
           {Boolean(errorMessage.date) && (
             <div className="text-sm font-medium text-red-600 pt-1">{errorMessage.date}</div>
           )}
         </div>
       </div>
-      <div>
+      <div className="flex-grow flex flex-col space-y-6">
         <InputItem object={field.content} value={newInfo.content} isError={Boolean(errorMessage.content)} onChange={handleChange} />
         {Boolean(errorMessage.content) && (
           <div className="text-sm font-medium text-red-600 pt-1">{errorMessage.content}</div>
         )}
+        <>
+          <LoadingButton type="submit" text="Post" isLoading={process} isSuccess={isProcessSuccess} />
+          {Boolean(processMessage) && (
+            <div className={cn('text-sm font-medium mt-2', {
+              'text-[#21A179]': isProcessSuccess,
+              'text-red-600': !isProcessSuccess,
+            })}>{processMessage}</div>
+          )}
+        </>
       </div>
-      <>
-        <LoadingButton type="submit" text="Post" isLoading={process} isSuccess={isProcessSuccess} />
-        {Boolean(processMessage) && (
-          <div className={cn('text-sm font-medium mt-2', {
-            'text-[#21A179]': isProcessSuccess,
-            'text-red-600': !isProcessSuccess,
-          })}>{processMessage}</div>
-        )}
-      </>
     </form>
   )
 }

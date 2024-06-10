@@ -1,36 +1,47 @@
 
 import { getProfile } from "@/app/actions/data/get-data/getProfile"
+import ProfilePageLoading from "@/components/Loading/Profile/profilePageLoading";
 import ContentSection from "@/components/Profile/contentSection";
 import PostSection from "@/components/Profile/postSection";
 import SettingSection from "@/components/Profile/settingSection";
 import { ProfileObj } from "@/components/Types/Profile/profile";
+import { Suspense } from "react";
+
+const ProfilePage = () => {
+
+  return (
+    <Suspense fallback={<ProfilePageLoading />}>
+      <InnerProfilePage />
+    </Suspense>
+  )
+}
+
+export default ProfilePage;
+
 
 interface ServerDataProps {
   message: string,
   content: ProfileObj,
   ok: boolean
 }
-const ProfilePage = async () => {
+
+const InnerProfilePage = async () => {
   const data: ServerDataProps = await getProfile();
-  console.log(data);
+
   return (
-    <section className="text-[#37352F] mt-20">
-      <div className="my--container mx-auto">
-        <div className="flex flex-col">
-          <div className="flex flex-row justify-between">
-            <div className="text--main--header">
-              {data?.content.name}
-            </div>
-            <SettingSection />
+    <section className="my--container mx-auto text-[#37352F] mt-10">
+      <div className="flex flex-col">
+        <div className="flex flex-row justify-between">
+          <div className="text--main--header font-semibold">
+            {data?.content.name}
           </div>
-          <div className="w-full h-0.5 bg-[#ddd] mt-2" />
-          <ContentSection profile={data?.content} />
-          <div className="w-full h-0.5 bg-[#ddd] mt-2" />
-          <PostSection />
+          <SettingSection />
         </div>
+        <div className="w-full h-0.5 bg-[#ddd] mt-2" />
+        <ContentSection profile={data?.content} />
+        <div className="w-full h-0.5 bg-[#ddd] mt-2" />
+        <PostSection />
       </div>
     </section>
   )
 }
-
-export default ProfilePage;

@@ -1,6 +1,6 @@
 import InputBox from "@/components/Form/inputBox";
 import TextAreaBox from "@/components/Form/textAreaBox";
-import { InputObj } from "@/components/Types/Profile/profileUpdate";
+import { InputObj } from "@/components/Types/Profile/Update/update";
 
 
 interface InputItemProps {
@@ -16,7 +16,7 @@ const InputItem = ({ object, onChange, value, isError, readonly }: InputItemProp
     <>
       <label
         htmlFor={name}
-        className='text-black block mb-2 text-sm font-medium'
+        className='text-black text-sm font-medium block mb-2'
       >
         {label}
       </label>

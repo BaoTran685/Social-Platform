@@ -1,4 +1,4 @@
-import { CreatePostItems } from "@/components/Types/Profile/createPost";
+import { CreatePostItems } from "@/components/Types/Profile/CreatePost/createPost";
 
 
 export const CREATE_POST_ITEMS: CreatePostItems = {
