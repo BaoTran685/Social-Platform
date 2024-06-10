@@ -2,16 +2,14 @@
 import { FormEvent, useState } from "react";
 import { ErrorMessageObj, ProfileUpdateItems, ProfileUpdate_ResponseFromServer, UserObj } from "@/components/Types/Profile/Update/update";
 import LoadingButton from "@/components/loadingButton";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { updateProfileUpdate } from "@/app/actions/data/update-data/updateProfileUpdate";
+import { updateProfileUpdate } from "@/app/actions/data/save-data/updateProfileUpdate";
 import { cn } from "@/lib/tailwind-merge";
 import InputItem  from "@/components/Form/Profile/inputItem";
 
 
 const ProfileUpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, info: UserObj }) => {
   const router = useRouter();
-  const { data: session } = useSession();
 
   const { objectKey, initErrorMessage, field } = items;
 
@@ -39,11 +37,9 @@ const ProfileUpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, 
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (session === null) {
-      return;
-    }
+
     setProcess(true);
-    const response: ProfileUpdate_ResponseFromServer = await updateProfileUpdate({ id: session.user.id, ...newInfo });
+    const response: ProfileUpdate_ResponseFromServer = await updateProfileUpdate(newInfo);
     setProcess(false);
     setErrorMessage({
       ...errorMessage,

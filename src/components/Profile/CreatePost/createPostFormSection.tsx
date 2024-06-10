@@ -1,16 +1,13 @@
 'use client'
 import InputItem from "@/components/Form/Profile/inputItem";
-import { CreatePostItems, ErrorMessageObj, UserObj, CreatePost_ResponseFromServer } from "@/components/Types/Profile/CreatePost/createPost";
+import { CreatePostItems, ErrorMessageObj, UserObj, CreatePost_ResponseFromServer, ObjectKey } from "@/components/Types/Profile/CreatePost/createPost";
 import LoadingButton from "@/components/loadingButton";
 import { cn } from "@/lib/tailwind-merge";
-import { useSession } from "next-auth/react";
 import { FormEvent, useState } from "react";
-import { savePost } from "@/app/actions/data/save-data/savePost";
-
+import { createPost } from "@/app/actions/data/save-data/createPost";
 
 
 const CreatePostFormSection = ({ items }: { items: CreatePostItems }) => {
-  const { data: session } = useSession();
 
   const { objectKey, initNewInfo, initErrorMessage, field } = items;
 
@@ -35,13 +32,15 @@ const CreatePostFormSection = ({ items }: { items: CreatePostItems }) => {
     setIsProcessSuccess(false);
   }
 
-  const handleSubmit = async  (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (session === null) {
+
+    setProcess(true);
+    let ok: boolean = checkInput({ newInfo, objectKey, setErrorMessage, setProcess });
+    if (!ok) {
       return;
     }
-    setProcess(true);
-    const response: CreatePost_ResponseFromServer = await savePost({ id: session.user.id, ...newInfo });
+    const response: CreatePost_ResponseFromServer = await createPost(newInfo);
     setProcess(false);
     setErrorMessage({
       ...errorMessage,
@@ -50,6 +49,7 @@ const CreatePostFormSection = ({ items }: { items: CreatePostItems }) => {
     setProcessMessage(response.message);
     setIsProcessSuccess(response.ok);
   }
+
   return (
     <form className="flex-grow flex flex-col space-y-6" onSubmit={(e) => handleSubmit(e)} autoComplete="off">
       <div className="grid grid-cols-2 gap-10">
@@ -86,3 +86,31 @@ const CreatePostFormSection = ({ items }: { items: CreatePostItems }) => {
 }
 
 export default CreatePostFormSection;
+
+
+interface checkInputProps {
+  newInfo: UserObj,
+  objectKey: Array<ObjectKey>
+  setErrorMessage: Function,
+  setProcess: Function,
+}
+const checkInput = ({ newInfo, objectKey, setErrorMessage, setProcess }: checkInputProps) => {
+  const setError = (item: string, message: string) => {
+    setErrorMessage((prev: ErrorMessageObj) => ({
+      ...prev,
+      [item]: message
+    }))
+  }
+  let error = false;
+  // check for empty input
+  objectKey.forEach(item => {
+    if (newInfo[item] === '') {
+      setError(item, 'Required Field')
+      error = true
+    }
+  })
+  if (error) {
+    setProcess(false);
+  }
+  return error === false;
+}

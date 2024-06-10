@@ -26,7 +26,6 @@ export const checkInput = ({
     if ((user as any)[item] === '') {
       setError(setErrorMessage, item, 'Required Field')
       error = true
-      setProcess(false)
     }
   })
   if (formType === 'changePassword') {
@@ -43,6 +42,9 @@ export const checkInput = ({
       setError(setErrorMessage, 'username', 'Invalid Username')
       error = true
     }
+  }
+  if (error) {
+    setProcess(false);
   }
   return error === false
 }

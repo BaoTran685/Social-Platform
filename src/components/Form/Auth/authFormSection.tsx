@@ -44,13 +44,12 @@ const AuthFormSection = ({ items, resetPasswordToken }: FormSectionProps) => {
     event.preventDefault();
     setProcess(true);
     // check for empty input
-    let ok:boolean = checkInput({ user, objectKey, formType, setErrorMessage, setProcess,  });
+    let ok: boolean = checkInput({ user, objectKey, formType, setErrorMessage, setProcess, });
     console.log('ok', ok);
     if (!ok) {
-      setProcess(false);
       return;
     }
-    let responseOk:boolean = await processSubmit({ user, resetPasswordToken, formType, endPoint, setErrorMessage, setProcessMessage, setIsProcessSuccess, });
+    let responseOk: boolean = await processSubmit({ user, resetPasswordToken, formType, endPoint, setErrorMessage, setProcessMessage, setIsProcessSuccess, });
     setProcess(false);
     if (responseOk && callback) {
       router.push(callback);
