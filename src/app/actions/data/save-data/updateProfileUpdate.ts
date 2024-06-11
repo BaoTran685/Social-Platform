@@ -9,9 +9,9 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/authOptions'
 
 interface updateProfileUpdateProps {
-  email: string
-  name: string
-  description: string
+  email?: string
+  name?: string
+  description?: string
 }
 export const updateProfileUpdate = async ({
   email,
@@ -24,62 +24,85 @@ export const updateProfileUpdate = async ({
     return { errorMessage: {}, message: 'fail', ok: false }
   }
   try {
-    let user = await prisma.user.findFirst({
-      where: {
-        email: email
-      }
-    })
-    // if there is an user with such email
-    if (user && user.id !== id) {
-      return { errorMessage: { email: 'Used Email' }, message: '', ok: false }
-    }
-    // if no user, we get the token to verify for the email
     let verifyEmailToken = null
-    if (!user || !user.emailVerified) {
-      verifyEmailToken = await generateToken({
-        tokenName: 'verifyEmailToken'
+    // if there is such email, then we find the user with that email
+    if (email) {
+      const user = await prisma.user.findFirst({
+        where: {
+          email,
+          emailVerified: true
+        }
       })
-      if (!verifyEmailToken) {
-        throw new Error('verifyEmailToken cannot be generated')
+      // if there is an user with such email and the id is different from the current user id,
+      // the email is already used
+      if (user && user.id !== id) {
+        return { errorMessage: { email: 'Used Email' }, message: '', ok: false }
+      }
+      // if no user, we get the token to verify for the email
+      if (!user) {
+        verifyEmailToken = await generateToken({
+          tokenName: 'verifyEmailToken'
+        })
+        if (!verifyEmailToken) {
+          throw new Error('verifyEmailToken cannot be generated')
+        }
+      }
+      await prisma.user.update({
+        where: {
+          id: id
+        },
+        data: {
+          email,
+          emailVerified: verifyEmailToken === null, // no token generated mean email already verified
+          verifyEmailToken: verifyEmailToken,
+          info: {
+            update: {
+              email,
+              name,
+              description,
+              emailVerified: verifyEmailToken === null // no token generated mean email already verified
+            }
+          }
+        }
+      })
+      // if there is a new email and such token
+      if (verifyEmailToken) {
+        const data = await sendEmail({
+          from: 'Bot <admin@baotran.ca>',
+          to: [email],
+          subject: 'Verify Email',
+          react: VerifyEmailEmailTemplate({
+            email,
+            verifyEmailToken
+          }) as React.ReactElement
+        })
+        if (data?.data) {
+          return {
+            errorMessage: {},
+            message: 'Successfully Update -- Verify Email Sent',
+            ok: true
+          }
+        }
       }
     }
-
+    // at this point, it means that email is ''
     await prisma.user.update({
       where: {
         id: id
       },
       data: {
-        email: email,
-        emailVerified: verifyEmailToken === null,
-        verifyEmailToken: verifyEmailToken,
+        email,
+        emailVerified: false,
         info: {
           update: {
-            email: email,
-            name: name,
-            description: description,
-            emailVerified: verifyEmailToken === null
+            email,
+            name,
+            description,
+            emailVerified: false,
           }
         }
       }
     })
-    if (verifyEmailToken) {
-      const data = await sendEmail({
-        from: 'Bot <admin@baotran.ca>',
-        to: [email],
-        subject: 'Verify Email',
-        react: VerifyEmailEmailTemplate({
-          email,
-          verifyEmailToken
-        }) as React.ReactElement
-      })
-      if (data?.data) {
-        return {
-          errorMessage: {},
-          message: 'Successfully Update -- Verify Email Sent',
-          ok: true
-        }
-      }
-    }
     return { errorMessage: {}, message: 'Successfully Update', ok: true }
   } catch (e) {
     console.log('Error in updateProfielUpdate', e)

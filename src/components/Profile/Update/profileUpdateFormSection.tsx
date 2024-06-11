@@ -1,11 +1,12 @@
 'use client'
 import { FormEvent, useState } from "react";
-import { ErrorMessageObj, ProfileUpdateItems, ProfileUpdate_ResponseFromServer, UserObj } from "@/components/Types/Profile/Update/update";
+import { ErrorMessageObj, ObjectKey, ProfileUpdateItems, ProfileUpdate_ResponseFromServer, UserObj } from "@/components/Types/Profile/Update/update";
 import LoadingButton from "@/components/loadingButton";
 import { useRouter } from "next/navigation";
 import { updateProfileUpdate } from "@/app/actions/data/save-data/updateProfileUpdate";
 import { cn } from "@/lib/tailwind-merge";
-import InputItem  from "@/components/Form/Profile/inputItem";
+import InputItem from "@/components/Form/Profile/inputItem";
+import { validateEmail } from "@/lib/validateEmail";
 
 
 const ProfileUpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, info: UserObj }) => {
@@ -39,14 +40,12 @@ const ProfileUpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, 
     event.preventDefault();
 
     setProcess(true);
-    const response: ProfileUpdate_ResponseFromServer = await updateProfileUpdate(newInfo);
+    const ok: boolean = checkInput({ newInfo, setErrorMessage, setProcess })
+    if (!ok) {
+      return;
+    }
+    const responseOk: boolean = await processSubmit({ newInfo, setErrorMessage, setProcessMessage, setIsProcessSuccess })
     setProcess(false);
-    setErrorMessage({
-      ...errorMessage,
-      ...response.errorMessage,
-    });
-    setProcessMessage(response.message);
-    setIsProcessSuccess(response.ok);
   }
   return (
     <form className="flex-grow flex flex-col space-y-6" onSubmit={(e) => handleSubmit(e)} autoComplete="off">
@@ -88,3 +87,39 @@ export default ProfileUpdateFormSection;
 
 
 
+interface checkInputProps {
+  newInfo: UserObj,
+  setErrorMessage: Function,
+  setProcess: Function,
+}
+const checkInput = ({ newInfo, setErrorMessage, setProcess }: checkInputProps) => {
+  const setError = (item: string, message: string) => {
+    setErrorMessage((prev: ErrorMessageObj) => ({
+      ...prev,
+      [item]: message
+    }))
+  }
+  if (newInfo.email && !validateEmail(newInfo.email)) {
+    setError('email', 'Invalid Email');
+    setProcess(false)
+    return false;
+  }
+  return true;
+}
+
+interface processSubmitProps {
+  newInfo: UserObj,
+  setErrorMessage: Function,
+  setProcessMessage: Function,
+  setIsProcessSuccess: Function,
+}
+const processSubmit = async ({ newInfo, setErrorMessage, setProcessMessage, setIsProcessSuccess }: processSubmitProps) => {
+  const response: ProfileUpdate_ResponseFromServer = await updateProfileUpdate(newInfo);
+  setErrorMessage((prev: ErrorMessageObj) => ({
+    ...prev,
+    ...response.errorMessage
+  }))
+  setProcessMessage(response.message);
+  setIsProcessSuccess(response.ok);
+  return response.ok;
+}

@@ -22,7 +22,7 @@ export default ProfilePage;
 
 const InnerProfilePage = async () => {
   const data: Profile_DataFromServer = await getProfile();
-
+  
   return (
     <section className="my--container mx-auto text-[#37352F] mt-10">
       <div className="flex flex-col">
@@ -34,7 +34,7 @@ const InnerProfilePage = async () => {
         </div>
         <div className="w-full h-0.5 bg-[#ddd] mt-2" />
         <ContentSection profile={data?.content} />
-        <div className="w-full h-0.5 bg-[#ddd] mt-2" />
+        <div className="w-full h-0.5 bg-[#ddd]" />
         <PostSection username={data?.content.username}/>
       </div>
     </section>
