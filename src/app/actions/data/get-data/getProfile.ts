@@ -3,11 +3,14 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/authOptions'
 import { PROFILE_ITEMS } from '@/components/Constants/Profile/profile'
 import prisma from '@/lib/prisma'
-import { ProfileObj } from '@/components/Types/Profile/profile'
+import {
+  ProfileObj,
+  Profile_DataFromServer
+} from '@/components/Types/Profile/profile'
 
-export const getProfile = async () => {
+export const getProfile = async (): Promise<Profile_DataFromServer> => {
   const session = await getServerSession(authOptions)
-    const id = session?.user?.id
+  const id = session?.user?.id
   try {
     if (id) {
       const user = await prisma.user.findUnique({

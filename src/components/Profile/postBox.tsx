@@ -1,18 +1,29 @@
+import { dateToString } from "@/lib/date"
 
+type Post = {
+  title: string,
+  content: string,
+  createdAt: Date
+}
+interface PostBoxProps {
+  post: Post,
+  username: string,
 
-const PostBox = () => {
+}
+const PostBox = ({ post, username }: PostBoxProps) => {
+
   return (
-    <div className="flex flex-col w-full h-fit bg-[#e7e7e76b] rounded-lg shadow-md p-8">
-      <div className="text-2xl font-bold">Welcoming Post</div>
-      <div className="flex flex-col sm:flex-row justify-between">
-        <div className="">
-          <span className="text-base sm:text-lg font-medium cursor-pointer underline decoration-[#ec4899]">
-            @iambaotran.05
-          </span>
-        </div>
-        <div className="text-base sm:text-lg italic">May 12, 2024</div>
+    <div className="flex flex-col w-full h-fit bg-[var(--background-grey-color)] rounded-lg shadow-md py-5 px-6 relative overflow-hidden">
+      <div className="text--sub--header font-medium">{post.title}</div>
+      <div className="text--content font-medium underline decoration-[#ec4899]">
+        ~/{username}
       </div>
-      <div className="place-self-center font-medium cursor-pointer mt-4">See more...</div>
+      <p className="text--content mt-3">{post.content.slice(0, 200)}</p>
+      <div className="absolute bottom-0 right-0 inline-block rounded-tl-lg bg-[var(--khaki-color)] py-1 px-2">
+        <div className="text-lg font-medium">
+          {dateToString({today: post.createdAt})}
+        </div> 
+      </div> 
     </div>
   )
 }

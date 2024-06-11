@@ -3,8 +3,9 @@ import { getServerSession } from 'next-auth'
 import { PROFILE_UPDATE_ITEMS } from '@/components/Constants/Profile/Update/update'
 import { authOptions } from '@/lib/authOptions'
 import prisma from '@/lib/prisma'
+import { ProfileUpdate_DataFromServer } from '@/components/Types/Profile/Update/update'
 
-export const getProfileUpdate = async () => {
+export const getProfileUpdate = async (): Promise<ProfileUpdate_DataFromServer> => {
   const session = await getServerSession(authOptions)
   const id = session?.user?.id
   try {

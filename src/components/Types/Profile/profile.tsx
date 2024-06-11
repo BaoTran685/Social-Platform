@@ -14,3 +14,10 @@ export type ProfileItems = {
   objectKey: Array<ObjectKey>,
   initProfile: ProfileObj,
 }
+
+
+export type Profile_DataFromServer = {
+  message: string,
+  content: ProfileObj,
+  ok: boolean
+}

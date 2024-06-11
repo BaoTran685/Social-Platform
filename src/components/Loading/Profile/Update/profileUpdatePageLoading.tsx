@@ -18,7 +18,6 @@ const ProfileUpdatePageLoading = () => {
         <div className="w-full h-0.5 bg-[#ddd] mt-2" />
         <div className="flex-grow flex flex-col w-full space-y-8 my-8">
           <UsernameLoading />
-
           <ProfileUpdateFormSectionLoading field={PROFILE_UPDATE_ITEMS.field}/>
         </div>
       </div>

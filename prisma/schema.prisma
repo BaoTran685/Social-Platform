@@ -49,7 +49,7 @@ model Number {
 model Post {
   postId String @id @default(auto()) @map("_id") @db.ObjectId
   title String
-  content String?
+  content String @default(value: "")
   authorId String @db.ObjectId
   author User @relation(fields: [authorId], references: [id])
   createdAt DateTime @default(now())

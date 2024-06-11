@@ -3,7 +3,7 @@ import LoadingButton from "@/components/loadingButton";
 
 
 
-const ProfileUpdateFormSectionLoading = ({ field }: { field: FieldObj }) => {
+const ProfileUpdateFormSectionLoading = ({ field }: { field: FieldObj  }) => {
   return (
     <div className="flex-grow flex flex-col space-y-6">
       <div className="grid grid-cols-2 gap-10">

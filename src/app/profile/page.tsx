@@ -4,7 +4,7 @@ import ProfilePageLoading from "@/components/Loading/Profile/profilePageLoading"
 import ContentSection from "@/components/Profile/contentSection";
 import PostSection from "@/components/Profile/postSection";
 import SettingSection from "@/components/Profile/settingSection";
-import { ProfileObj } from "@/components/Types/Profile/profile";
+import { Profile_DataFromServer } from "@/components/Types/Profile/profile";
 import { Suspense } from "react";
 
 const ProfilePage = () => {
@@ -19,14 +19,9 @@ const ProfilePage = () => {
 export default ProfilePage;
 
 
-interface ServerDataProps {
-  message: string,
-  content: ProfileObj,
-  ok: boolean
-}
 
 const InnerProfilePage = async () => {
-  const data: ServerDataProps = await getProfile();
+  const data: Profile_DataFromServer = await getProfile();
 
   return (
     <section className="my--container mx-auto text-[#37352F] mt-10">
@@ -40,7 +35,7 @@ const InnerProfilePage = async () => {
         <div className="w-full h-0.5 bg-[#ddd] mt-2" />
         <ContentSection profile={data?.content} />
         <div className="w-full h-0.5 bg-[#ddd] mt-2" />
-        <PostSection />
+        <PostSection username={data?.content.username}/>
       </div>
     </section>
   )

@@ -31,3 +31,14 @@ export type ProfileUpdate_ResponseFromServer = {
   message: string,
   ok: boolean,
 }
+
+export type ProfileUpdate_DataFromServer = {
+  message: string,
+  content: {
+    username: string,
+    name: string,
+    email: string,
+    description: string,
+  },
+  ok: boolean,
+}
