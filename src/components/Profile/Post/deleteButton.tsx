@@ -1,6 +1,6 @@
 'use client'
 
-import removePost from "@/app/actions/data/save-data/post/removePost";
+import { removePost } from "@/app/actions/data/save-data/post/removePost";
 import { Spinner, Tick } from "@/components/Icon/icons";
 import { cn } from "@/lib/tailwind-merge";
 import { useState } from "react";

@@ -2,14 +2,13 @@
 import { authOptions } from '@/lib/authOptions'
 import prisma from '@/lib/prisma'
 import { getServerSession } from 'next-auth'
-import { revalidatePath } from 'next/cache'
 
 interface removePostProps {
   postId: string
   authorId: string
 }
 
-const removePost = async ({ postId, authorId }: removePostProps) => {
+export const removePost = async ({ postId, authorId }: removePostProps) => {
   const session = await getServerSession(authOptions)
   const id = session?.user?.id
   if (!id || id !== authorId) {
@@ -30,4 +29,3 @@ const removePost = async ({ postId, authorId }: removePostProps) => {
   return { message: 'fail', ok: false }
 }
 
-export default removePost

@@ -4,9 +4,9 @@ import { CreatePostItems, ErrorMessageObj, UserObj, CreatePost_ResponseFromServe
 import LoadingButton from "@/components/loadingButton";
 import { cn } from "@/lib/tailwind-merge";
 import { FormEvent, useState } from "react";
-import { createPost } from "@/app/actions/data/save-data/Post/createPost";
+import { createPost } from "@/app/actions/data/save-data/post/createPost";
 import { EditPostItems, EditPost_ResponseFromServer } from "@/components/Types/Profile/EditPost/editPost";
-import { editPost } from "@/app/actions/data/save-data/Post/editPost";
+import { editPost } from "@/app/actions/data/save-data/post/editPost";
 
 
 const PostFormSection = ({ items, postId, authorId }: { items: CreatePostItems | EditPostItems, postId?: string, authorId?: string }) => {
