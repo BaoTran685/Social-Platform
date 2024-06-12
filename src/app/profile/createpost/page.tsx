@@ -1,7 +1,7 @@
 import { getUsername } from "@/app/actions/data/get-data/getUsername";
 import { CREATE_POST_ITEMS } from "@/components/Constants/Profile/CreatePost/createPost";
 import UsernameLoading from "@/components/Loading/Profile/usernameLoading";
-import CreatePostFormSection from "@/components/Profile/CreatePost/createPostFormSection";
+import PostFormSection from "@/components/Profile/Post/postFormSection";
 import SettingSection from "@/components/Profile/settingSection";
 import { CreatePostItems } from "@/components/Types/Profile/CreatePost/createPost";
 import { dateToString } from "@/lib/lib";
@@ -22,7 +22,7 @@ const CreatePostPage = async () => {
           <Suspense fallback={<UsernameLoading />}>
             <InnerCreatePostPage />
           </Suspense>
-          <CreatePostFormSection items={CreatePost_Items} />
+          <PostFormSection items={CreatePost_Items} />
         </div>
       </div>
     </section>

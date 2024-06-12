@@ -1,5 +1,5 @@
 import { getPostArray } from "@/app/actions/data/get-data/getPost";
-import PostBox from "./postBox";
+import PostBox from "./Post/postBox";
 import Link from "next/link";
 
 const PostSection = async () => {

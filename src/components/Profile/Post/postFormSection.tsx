@@ -4,12 +4,14 @@ import { CreatePostItems, ErrorMessageObj, UserObj, CreatePost_ResponseFromServe
 import LoadingButton from "@/components/loadingButton";
 import { cn } from "@/lib/tailwind-merge";
 import { FormEvent, useState } from "react";
-import { createPost } from "@/app/actions/data/save-data/createPost";
+import { createPost } from "@/app/actions/data/save-data/Post/createPost";
+import { EditPostItems, EditPost_ResponseFromServer } from "@/components/Types/Profile/EditPost/editPost";
+import { editPost } from "@/app/actions/data/save-data/Post/editPost";
 
 
-const CreatePostFormSection = ({ items }: { items: CreatePostItems }) => {
+const PostFormSection = ({ items, postId, authorId }: { items: CreatePostItems | EditPostItems, postId?: string, authorId?: string }) => {
 
-  const { objectKey, initNewInfo, initErrorMessage, field } = items;
+  const { objectKey, initNewInfo, initErrorMessage, field, buttonName, formType } = items;
 
   const [newInfo, setNewInfo] = useState<UserObj>(initNewInfo);
   const [errorMessage, setErrorMessage] = useState<ErrorMessageObj>(initErrorMessage);
@@ -40,14 +42,8 @@ const CreatePostFormSection = ({ items }: { items: CreatePostItems }) => {
     if (!ok) {
       return;
     }
-    const response: CreatePost_ResponseFromServer = await createPost(newInfo);
+    const responseOk: boolean = await processSubmit({ newInfo, postId, authorId, formType, setErrorMessage, setProcessMessage, setIsProcessSuccess })
     setProcess(false);
-    setErrorMessage({
-      ...errorMessage,
-      ...response.errorMessage,
-    });
-    setProcessMessage(response.message);
-    setIsProcessSuccess(response.ok);
   }
 
   return (
@@ -72,7 +68,7 @@ const CreatePostFormSection = ({ items }: { items: CreatePostItems }) => {
           <div className="text-sm font-medium text-red-600 pt-1">{errorMessage.content}</div>
         )}
         <>
-          <LoadingButton type="submit" text="Post" isLoading={process} isSuccess={isProcessSuccess} />
+          <LoadingButton type="submit" text={buttonName} isLoading={process} isSuccess={isProcessSuccess} />
           {Boolean(processMessage) && (
             <div className={cn('text-sm font-medium mt-2', {
               'text-[#21A179]': isProcessSuccess,
@@ -85,7 +81,7 @@ const CreatePostFormSection = ({ items }: { items: CreatePostItems }) => {
   )
 }
 
-export default CreatePostFormSection;
+export default PostFormSection;
 
 
 interface checkInputProps {
@@ -115,3 +111,36 @@ const checkInput = ({ newInfo, objectKey, setErrorMessage, setProcess }: checkIn
   return error === false;
 }
 
+
+interface processSubmitProps {
+  newInfo: UserObj,
+  postId?: string,
+  authorId?: string,
+  formType: string,
+  setErrorMessage: Function,
+  setProcessMessage: Function,
+  setIsProcessSuccess: Function,
+}
+
+const processSubmit = async ({ newInfo, postId, authorId, formType, setErrorMessage, setProcessMessage, setIsProcessSuccess }: processSubmitProps) => {
+  const setMessage = (processMessge: string, isProcessSuccess: boolean) => {
+    setProcessMessage(processMessge)
+    setIsProcessSuccess(isProcessSuccess)
+  }
+  let response: CreatePost_ResponseFromServer | EditPost_ResponseFromServer | null = null
+  if (formType === 'createPost') {
+    response = await createPost(newInfo);
+  } else if (formType === 'editPost' && postId && authorId) {
+    response = await editPost({ ...newInfo, postId, authorId })
+  }
+  if (response) {
+    setErrorMessage((prev: ErrorMessageObj) => ({
+      ...prev,
+      ...response.errorMessage
+    }))
+    setMessage(response.message, response.ok)
+    return response.ok
+  }
+  return false
+
+}

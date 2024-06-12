@@ -1,7 +1,9 @@
 import { dateToString } from "@/lib/lib"
+import PostSettingSection from "./postSettingSection"
 
 type Post = {
   authorUsername: string,
+  postId: string,
   title: string,
   content: string,
   createdAt: Date
@@ -14,7 +16,9 @@ const PostBox = ({ post, displayFull }: PostBoxProps) => {
   const length = post.content.length;
   return (
     <div className="flex flex-col w-full h-fit bg-[var(--background-grey-color)] rounded-lg shadow-md py-5 px-6 relative overflow-hidden">
-      <div className="text--sub--header font-medium">{post.title}</div>
+      <div className="flex flex-row justify-between">
+        <div className="text--sub--header font-medium">{post.title}</div>
+      </div>
       <div className="text--content font-medium underline decoration-[#ec4899]">
         ~/{post.authorUsername}
       </div>
@@ -30,6 +34,9 @@ const PostBox = ({ post, displayFull }: PostBoxProps) => {
           {dateToString({ today: post.createdAt })}
         </div>
       </div>
+
+      {displayFull && <PostSettingSection postId={post.postId} />}
+
     </div >
   )
 }

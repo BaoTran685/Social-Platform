@@ -1,5 +1,5 @@
 import { getAllPostArray, getPost } from "@/app/actions/data/get-data/getPost";
-import PostBox from "@/components/Profile/postBox";
+import PostBox from "@/components/Profile/Post/postBox";
 import { notFound } from "next/navigation";
 
 

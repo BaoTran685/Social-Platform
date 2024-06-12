@@ -18,7 +18,7 @@ export type FieldObj = {
 export type ErrorMessageObj = UserObj
 export type ObjectKey = 'title' | 'date' | 'content'
 
-export type CreatePostItems = {
+export type EditPostItems = {
   objectKey: Array<ObjectKey>
   initNewInfo: UserObj,
   initErrorMessage: ErrorMessageObj,
@@ -27,7 +27,7 @@ export type CreatePostItems = {
   formType: string,
 }
 
-export type CreatePost_ResponseFromServer = {
+export type EditPost_ResponseFromServer = {
   errorMessage: Object;
   message: string,
   ok: boolean,

@@ -1,7 +1,7 @@
-import { CreatePostItems } from "@/components/Types/Profile/CreatePost/createPost";
+import { EditPostItems } from "@/components/Types/Profile/EditPost/editPost";
 
 
-export const CREATE_POST_ITEMS: CreatePostItems = {
+export const EDIT_POST_ITEMS: EditPostItems = {
   objectKey: ['title', 'date', 'content'],
   initNewInfo: {title: '', date: '', content: ''},
   initErrorMessage: {title: '', date: '', content: ''},
@@ -28,6 +28,6 @@ export const CREATE_POST_ITEMS: CreatePostItems = {
       isInput: false,
     }
   },
-  buttonName: 'Post',
-  formType: 'createPost'
+  buttonName: 'Update',
+  formType: 'editPost'
 }

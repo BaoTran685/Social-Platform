@@ -22,7 +22,6 @@ export const createPost = async ({
   const id = session?.user?.id
   const username = session?.user?.username
   if (!id || !username) {
-    console.log('no user', id, username, session)
     return { errorMessage: {}, message: 'fail', ok: false }
   }
   try {
