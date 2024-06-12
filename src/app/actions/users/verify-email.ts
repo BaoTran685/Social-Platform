@@ -20,12 +20,7 @@ export const verifyEmail = async ({ verifyEmailToken }: verifyEmailProps) => {
       },
       data: {
         emailVerified: true,
-        verifyEmailToken: null,
-        info: {
-          update: {
-            emailVerified: true
-          }
-        }
+        verifyEmailToken: null
       }
     })
     return { message: 'email verified successfully', ok: true }

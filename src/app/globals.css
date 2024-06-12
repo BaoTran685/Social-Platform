@@ -10,7 +10,7 @@
 
   --black-color: #1E1E24;
   --pink-color: #FB9F89;
-  --khaki-color: #C4AF9A;
+  --khaki-color: #D5C7B8;
   --blue-color: #81AE9D;
   --green-color: #21A179;
   --dark-green-color: #2f7d65;
@@ -31,9 +31,11 @@
   .text--content {
     @apply text-base sm:text-lg lg:text-xl;
   }
-  
+  .text--sub--content {
+    @apply text-sm sm:text-base lg:text-lg;
+  }
   .my--container {
-    @apply w-full sm:w-[600px] md:w-[600px] lg:w-[700px] xl:w-[800px]
+    @apply w-full sm:w-[600px] md:w-[600px] lg:w-[700px] xl:w-[800px];
   }
   .layout {
     @apply grid grid-cols-[minmax(40px,1fr)_minmax(auto,708px)_minmax(40px,1fr)] sm:grid-cols-[minmax(96px,1fr)_minmax(auto,708px)_minmax(96px,1fr)];

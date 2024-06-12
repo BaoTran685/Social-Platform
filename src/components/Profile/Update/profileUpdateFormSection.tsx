@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 import { updateProfileUpdate } from "@/app/actions/data/save-data/updateProfileUpdate";
 import { cn } from "@/lib/tailwind-merge";
 import InputItem from "@/components/Form/Profile/inputItem";
-import { validateEmail } from "@/lib/validateEmail";
+import { validateEmail } from "@/lib/lib";
+import { trimText } from "@/lib/lib";
 
 
 const ProfileUpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, info: UserObj }) => {
@@ -40,11 +41,13 @@ const ProfileUpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, 
     event.preventDefault();
 
     setProcess(true);
-    const ok: boolean = checkInput({ newInfo, setErrorMessage, setProcess })
+    const info = trimInput({ newInfo, objectKey });
+    setNewInfo(info);
+    const ok: boolean = checkInput({ newInfo: info, setErrorMessage, setProcess })
     if (!ok) {
       return;
     }
-    const responseOk: boolean = await processSubmit({ newInfo, setErrorMessage, setProcessMessage, setIsProcessSuccess })
+    const responseOk: boolean = await processSubmit({ newInfo: info, setErrorMessage, setProcessMessage, setIsProcessSuccess })
     setProcess(false);
   }
   return (
@@ -85,7 +88,17 @@ const ProfileUpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, 
 
 export default ProfileUpdateFormSection;
 
-
+interface trimInputProps {
+  newInfo: UserObj,
+  objectKey: Array<ObjectKey>
+}
+const trimInput = ({ newInfo, objectKey }: trimInputProps) => {
+  const tempInfo = { ...newInfo }
+  objectKey.forEach((item) => {
+    tempInfo[item] = trimText({ text: newInfo[item] })
+  })
+  return tempInfo
+}
 
 interface checkInputProps {
   newInfo: UserObj,

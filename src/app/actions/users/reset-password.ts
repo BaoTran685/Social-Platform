@@ -10,7 +10,9 @@ import { Auth_ResponseFromServer } from '@/components/Types/Auth/auth'
 interface resetPasswordProps {
   email: string
 }
-export const resetPassword = async ({ email }: resetPasswordProps) : Promise<Auth_ResponseFromServer> => {
+export const resetPassword = async ({
+  email
+}: resetPasswordProps): Promise<Auth_ResponseFromServer> => {
   try {
     console.log('Resetting password for ' + email)
     // find the user, and when register email we always make sure that email is unqiue
@@ -40,7 +42,7 @@ export const resetPassword = async ({ email }: resetPasswordProps) : Promise<Aut
       today.setDate(today.getDate() + 1)
     ) // 24 hours from this moment
     // update the user with the token and expiry inserted
-    const newUser = await prisma.user.update({
+    await prisma.user.update({
       where: {
         id: user.id
       },

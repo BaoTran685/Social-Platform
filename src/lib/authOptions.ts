@@ -3,9 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import prisma from './prisma'
 import { compare } from 'bcrypt'
 import { JWT } from 'next-auth/jwt'
-import { validateEmail } from './validateEmail'
-
-
+import { validateEmail } from './lib'
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -22,8 +20,7 @@ export const authOptions: NextAuthOptions = {
         try {
           if (credentials) {
             const { username, password } = credentials
-
-            let user
+            let user = null
             if (validateEmail(username)) {
               user = await prisma.user.findFirst({
                 where: {
@@ -37,19 +34,15 @@ export const authOptions: NextAuthOptions = {
                 }
               })
             }
-            console.log(user)
             if (user && (await compare(password, user.hashPassword))) {
               return {
                 id: user.id,
-                email: user.username
+                username: user.username
               }
             }
           }
         } catch (e) {
-          console.log(e)
-          throw new Error('Error in Authorizing')
-        } finally {
-          await prisma.$disconnect()
+          console.log('Error in nextauth authorizing', e)
         }
         return null
       }

@@ -4,7 +4,7 @@ import UsernameLoading from "@/components/Loading/Profile/usernameLoading";
 import CreatePostFormSection from "@/components/Profile/CreatePost/createPostFormSection";
 import SettingSection from "@/components/Profile/settingSection";
 import { CreatePostItems } from "@/components/Types/Profile/CreatePost/createPost";
-import { dateToString } from "@/lib/date";
+import { dateToString } from "@/lib/lib";
 import { Suspense } from "react";
 
 const CreatePostPage = async () => {

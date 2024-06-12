@@ -3,7 +3,7 @@ import {
   ObjectKey,
   UserObj
 } from '@/components/Types/Auth/auth'
-import { validateEmail } from '@/lib/validateEmail'
+import { validateEmail } from '@/lib/lib'
 
 interface checkInputProps {
   user: UserObj

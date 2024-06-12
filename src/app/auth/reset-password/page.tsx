@@ -3,10 +3,10 @@ import ChangePassword from "@/components/Form/Auth/changePassword";
 import { connectToDatabase } from "@/helper/server-helper";
 import prisma from "@/lib/prisma";
 
-interface ResetPasswordPageProps {
+interface ResetPasswordPageParams {
   searchParams: { [key: string]: string | string[] | undefined }
 }
-const ResetPasswordPage = async ({searchParams} : ResetPasswordPageProps) => {
+const ResetPasswordPage = async ({ searchParams }: ResetPasswordPageParams) => {
   const token = searchParams.token as string;
 
   if (token) {
@@ -18,7 +18,7 @@ const ResetPasswordPage = async ({searchParams} : ResetPasswordPageProps) => {
     });
     if (user) {
       return (
-        <ChangePassword resetPasswordToken={token}/>
+        <ChangePassword resetPasswordToken={token} />
       )
     } else {
       return <div>Invalid Token</div>

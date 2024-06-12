@@ -2,7 +2,7 @@ import { authOptions } from '@/lib/authOptions'
 import prisma from '@/lib/prisma'
 import { getServerSession } from 'next-auth'
 
-const getPost = async () => {
+export const getPostArray = async () => {
   const session = await getServerSession(authOptions)
   const id = session?.user?.id
   if (!id) {
@@ -21,11 +21,38 @@ const getPost = async () => {
       return { message: 'user not found', content: {}, ok: false }
     }
     const { posts } = user
-    return {message: 'success', content: {posts}, ok: true}
+    return { message: 'success', content: { posts }, ok: true }
   } catch (e) {
     console.log('Error in getPost', e)
   }
   return { message: 'fail', content: {}, ok: false }
 }
 
-export default getPost
+export const getAllPostArray = async () => {
+  try {
+    const posts = await prisma.post.findMany()
+    return { message: 'success', content: { posts }, ok: true }
+  } catch (e) {
+    console.log('Error in getPost', e)
+  }
+  return { message: 'fail', content: { posts: [] }, ok: false }
+}
+
+interface getPostProps {
+  postId: string
+}
+export const getPost = async ({ postId }: getPostProps) => {
+  try {
+    const post = await prisma.post.findUnique({
+      where: {
+        postId: postId
+      }
+    })
+    if (post) {
+      return { message: 'success', content: { post }, ok: true }
+    }
+  } catch (e) {
+    console.log('Error in getPost', e)
+  }
+  return { message: 'fail', content: {}, ok: false }
+}

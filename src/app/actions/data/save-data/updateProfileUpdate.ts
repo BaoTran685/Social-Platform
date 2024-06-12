@@ -7,11 +7,12 @@ import React from 'react'
 import { ProfileUpdate_ResponseFromServer } from '@/components/Types/Profile/Update/update'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/authOptions'
+import { revalidatePath } from 'next/cache'
 
 interface updateProfileUpdateProps {
-  email?: string
-  name?: string
-  description?: string
+  email: string
+  name: string
+  description: string
 }
 export const updateProfileUpdate = async ({
   email,
@@ -59,8 +60,7 @@ export const updateProfileUpdate = async ({
             update: {
               email,
               name,
-              description,
-              emailVerified: verifyEmailToken === null // no token generated mean email already verified
+              description
             }
           }
         }
@@ -97,8 +97,7 @@ export const updateProfileUpdate = async ({
           update: {
             email,
             name,
-            description,
-            emailVerified: false,
+            description
           }
         }
       }
@@ -106,6 +105,8 @@ export const updateProfileUpdate = async ({
     return { errorMessage: {}, message: 'Successfully Update', ok: true }
   } catch (e) {
     console.log('Error in updateProfielUpdate', e)
+  } finally {
+    revalidatePath('/profile')
   }
   return { errorMessage: {}, message: 'fail', ok: false }
 }

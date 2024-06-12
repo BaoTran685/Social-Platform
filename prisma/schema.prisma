@@ -27,6 +27,8 @@ model User {
 
   emailVerified Boolean @default(value: false)
   verifyEmailToken String? 
+
+  @@unique([id, username])
 }
 
 model Info {
@@ -34,7 +36,6 @@ model Info {
   user User @relation(fields: [infoId], references: [id])
   name String @default(value: "")
   email String @default(value: "")
-  emailVerified Boolean @default(value: false)
   description String @default(value: "")
 }
 
@@ -50,7 +51,8 @@ model Post {
   postId String @id @default(auto()) @map("_id") @db.ObjectId
   title String
   content String @default(value: "")
+  authorUsername String
   authorId String @db.ObjectId
-  author User @relation(fields: [authorId], references: [id])
+  author User @relation(fields: [authorId, authorUsername], references: [id, username])
   createdAt DateTime @default(now())
 }
