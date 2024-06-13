@@ -12,7 +12,7 @@ const LoadingButton = ({ type, text, isLoading, isSuccess }: Props) => {
   return (
     <button
       type={type}
-      className='text-white text-base w-full rounded-lg bg-[#2f7d65] shadow-inner hover:brighter--shadow--green hover:brightness-110'
+      className='text-white text--sub--small w-full rounded-lg bg-[#2f7d65] shadow-inner hover:brighter--shadow--green hover:brightness-110'
       disabled={isLoading}
     >
       <span className='flex items-center justify-center px-6 py-3'>

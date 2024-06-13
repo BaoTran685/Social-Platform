@@ -27,7 +27,7 @@ const DeleteButton = ({ type, text, postId, authorId, }: Props) => {
     <div className="flex flex-col space-y-1">
       <button
         type={type}
-        className="text-white text--sub--content min-w-36 rounded-lg bg-red-700 shadow-inner hover:brighter--shadow--red hover:brightness-105 px-3 py-1"
+        className="text-white text--sub--small min-w-32 rounded-lg bg-red-700 shadow-inner hover:brighter--shadow--red hover:brightness-105 px-3 py-1"
         onClick={handleClick}
         disabled={isLoading}>
         <span className="flex items-center justify-center h-7">
@@ -42,12 +42,12 @@ const DeleteButton = ({ type, text, postId, authorId, }: Props) => {
           }
         </span>
       </button>
-      {Boolean(processMessage) && (
+      {/* {Boolean(processMessage) && (
         <div className={cn('text-sm font-medium mt-2', {
           'text-[#21A179]': isProcessSuccess,
           'text-red-600': !isProcessSuccess,
         })}>{processMessage}</div>
-      )}
+      )} */}
     </div>
   )
 }

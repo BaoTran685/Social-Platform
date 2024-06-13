@@ -8,6 +8,7 @@ import { ProfileUpdate_ResponseFromServer } from '@/components/Types/Profile/Upd
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/authOptions'
 import { revalidatePath } from 'next/cache'
+import { validateEmail } from '@/lib/lib'
 
 interface updateProfileUpdateProps {
   email: string
@@ -27,10 +28,12 @@ export const updateProfileUpdate = async ({
   try {
     let verifyEmailToken = null
     // if there is such email, then we find the user with that email
-    if (email) {
+    if (validateEmail(email)) {
+      // note that we already validate email in the input before get to this point
+      // but this acts as a second barrier
       const user = await prisma.user.findFirst({
         where: {
-          email,
+          email: email,
           emailVerified: true
         }
       })
@@ -48,23 +51,24 @@ export const updateProfileUpdate = async ({
           throw new Error('verifyEmailToken cannot be generated')
         }
       }
-      await prisma.user.update({
+      const newUser = await prisma.user.update({
         where: {
           id: id
         },
         data: {
-          email,
+          email: email,
           emailVerified: verifyEmailToken === null, // no token generated mean email already verified
           verifyEmailToken: verifyEmailToken,
           info: {
             update: {
-              email,
-              name,
-              description
+              email: email,
+              name: name,
+              description: description
             }
           }
         }
       })
+      console.log(newUser)
       // if there is a new email and such token
       if (verifyEmailToken) {
         const data = await sendEmail({
@@ -84,24 +88,25 @@ export const updateProfileUpdate = async ({
           }
         }
       }
-    }
-    // at this point, it means that email is ''
-    await prisma.user.update({
-      where: {
-        id: id
-      },
-      data: {
-        email,
-        emailVerified: false,
-        info: {
-          update: {
-            email,
-            name,
-            description
+    } else {
+      // at this point, it means that email is ''
+      await prisma.user.update({
+        where: {
+          id: id
+        },
+        data: {
+          email: email,
+          emailVerified: false,
+          info: {
+            update: {
+              email,
+              name,
+              description
+            }
           }
         }
-      }
-    })
+      })
+    }
     return { errorMessage: {}, message: 'Successfully Update', ok: true }
   } catch (e) {
     console.log('Error in updateProfielUpdate', e)
