@@ -1,5 +1,6 @@
 import { dateToString } from "@/lib/lib"
 import PostSettingSection from "./postSettingSection"
+import Link from "next/link"
 
 type Post = {
   authorUsername: string,
@@ -16,9 +17,7 @@ const PostBox = ({ post, displayFull }: PostBoxProps) => {
   const length = post.content.length;
   return (
     <div className="flex flex-col w-full h-fit bg-[var(--background-grey-color)] rounded-lg shadow-md py-5 px-6 relative overflow-hidden">
-      <div className="flex flex-row justify-between">
-        <div className="text--sub--header font-medium">{post.title}</div>
-      </div>
+      <div className="text--sub--header font-medium">{post.title}</div>
       <div className="text--content font-medium underline decoration-[#ec4899]">
         ~/{post.authorUsername}
       </div>
@@ -29,13 +28,16 @@ const PostBox = ({ post, displayFull }: PostBoxProps) => {
           {length > 200 && ('...')}
         </p>
       )}
+      <Link href={`/profile/post/${post.postId}`} className='w-fit rounded-lg bg-[var(--khaki-color)] shadow-inner hover:brighter--shadow--khaki hover:brightness-105 px-3 py-1'>
+        <span className="text-[var(--black-color)] text--sub--content font-medium">see post</span>
+      </Link>
       <div className="absolute bottom-0 right-0 inline-block rounded-tl-lg bg-[var(--khaki-color)] py-1 px-3">
         <div className="text--sub--content font-medium">
           {dateToString({ today: post.createdAt })}
         </div>
       </div>
 
-      {displayFull && <PostSettingSection postId={post.postId} />}
+      <PostSettingSection postId={post.postId} />
 
     </div >
   )

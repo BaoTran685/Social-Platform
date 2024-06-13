@@ -52,10 +52,15 @@
   .box--shadow {
     box-shadow: 0 6px 28px 0 rgba(0, 0, 0, 0.1), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   }
-  .brighter--shadow {
+  .brighter--shadow--green {
     box-shadow: 0 0 0.7rem #81AE9D;
   }
-  
+  .brighter--shadow--khaki {
+    box-shadow: 0 0 0.3rem #D5C7B8;
+  }
+  .brighter--shadow--red {
+    box-shadow: 0 0 0.3rem #dc2626;
+  }
   .loader-dot, .loader-div {
     display: inline-block; /* Ensures it behaves like an inline element */
     width: 30px; /* Adjust as needed */
