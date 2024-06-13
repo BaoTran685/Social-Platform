@@ -3,8 +3,8 @@ import prisma from '@/lib/prisma'
 
 import { sendEmail } from '../emails/send-email'
 import { ResetPasswordEmailTemplate } from '@/components/email-templates/resetPasswordEmailTemplate'
+import crypto from 'crypto'
 import * as React from 'react'
-import { generateToken } from '../token/generateToken'
 import { Auth_ResponseFromServer } from '@/components/Types/Auth/auth'
 
 interface resetPasswordProps {
@@ -18,7 +18,8 @@ export const resetPassword = async ({
     // find the user, and when register email we always make sure that email is unqiue
     const user = await prisma.user.findFirst({
       where: {
-        email: email
+        email: email,
+        emailVerified: true
       }
     })
     // if no user exist, return
@@ -29,9 +30,7 @@ export const resetPassword = async ({
         ok: false
       }
     }
-    const resetPasswordToken = await generateToken({
-      tokenName: 'resetPasswordToken'
-    })
+    const resetPasswordToken = crypto.randomBytes(32).toString('base64url')
     // if there is no token, throw error
     if (!resetPasswordToken) {
       throw new Error('resetPasswordToken cannot be generated')

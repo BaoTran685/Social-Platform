@@ -2,7 +2,7 @@
 import prisma from '@/lib/prisma'
 import { sendEmail } from '../../emails/send-email'
 import { VerifyEmailEmailTemplate } from '@/components/email-templates/verifyEmailEmailTemplate'
-import { generateToken } from '../../token/generateToken'
+import crypto from 'crypto'
 import React from 'react'
 import { ProfileUpdate_ResponseFromServer } from '@/components/Types/Profile/Update/update'
 import { getServerSession } from 'next-auth'
@@ -63,9 +63,7 @@ export const updateProfileUpdate = async ({
       }
       // if no user, we get the token to verify for the email
       if (!user) {
-        verifyEmailToken = await generateToken({
-          tokenName: 'verifyEmailToken'
-        })
+        verifyEmailToken = crypto.randomBytes(32).toString('base64url')
         if (!verifyEmailToken) {
           throw new Error('verifyEmailToken cannot be generated')
         }
