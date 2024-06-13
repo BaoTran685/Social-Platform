@@ -11,9 +11,9 @@ export const VerifyEmailEmailTemplate: React.FC<Readonly<VerifyEmailEmailTemplat
   verifyEmailToken,
 }) => (
   <center style={{ width: '100%', fontFamily: 'Helvetica, Arial, sans-serif', backgroundColor: '#ffffff', padding: '20px' }}>
-    <table align="center" width="100%" role="presentation" style={{maxWidth:'40em',padding:'20px',margin: '0 auto' ,backgroundColor:'#FFD133'}}>
+    <table align="center" width="100%" role="presentation" style={{maxWidth:'40em',padding:'20px',margin: '0 auto' ,backgroundColor:'#f4f4f5'}}>
       <tr>
-        <td align="left" style={{ padding: '0', width: '100%', height: '10px', backgroundColor: '#FFD133',fontSize: '20px',fontWeight: 'bold' }}>
+        <td align="left" style={{ padding: '0', width: '100%', height: '10px', backgroundColor: '#f4f4f5',fontSize: '20px',fontWeight: 'bold' }}>
             <p className="text-xs">
               Chính m đã gửi mail
             </p>
@@ -22,7 +22,7 @@ export const VerifyEmailEmailTemplate: React.FC<Readonly<VerifyEmailEmailTemplat
         <table align="center" cellPadding="0" cellSpacing="0" width="100%" style={{backgroundColor:'#ffffff',margin: '0 auto'}}>
           <tbody>
             <tr>
-              <td align="left" style={{padding: '0 15px', backgroundColor: '#efa600',color: '#000000', height: '10px', lineHeight: '30px' }}>
+              <td align="left" style={{padding: '0 15px', backgroundColor: '#2f7d65',color: '#000000', height: '10px', lineHeight: '30px' }}>
               </td>
             </tr>  
             
@@ -58,8 +58,8 @@ export const VerifyEmailEmailTemplate: React.FC<Readonly<VerifyEmailEmailTemplat
                 <table cellPadding="0" cellSpacing="0" style={{ minWidth: '80%' }}>
                   <tbody>
                     <tr>
-                      <td align="center" style={{ backgroundColor: '#efa600', padding: '6px', border: '1px solid #000000' }}>
-                        <a href={`http://localhost:3000/auth/verify-email?token=${verifyEmailToken}`} style={{ fontSize: '15px', fontWeight: 'bold', color: '#000000', textDecoration: 'none' }}>Verify My Email Address</a>
+                      <td align="center" style={{ backgroundColor: '#2f7d65', padding: '6px', border: '1px solid #000000' }}>
+                        <a href={`http://localhost:3000/auth/verify-email?token=${verifyEmailToken}`} style={{ fontSize: '15px', fontWeight: 'bold', color: '#ffffff', textDecoration: 'none' }}>Verify My Email Address</a>
                       </td>
                     </tr>
                   </tbody>
@@ -72,7 +72,7 @@ export const VerifyEmailEmailTemplate: React.FC<Readonly<VerifyEmailEmailTemplat
             </td>
             
             <tr>
-              <td align="left" style={{padding: '0 15px', backgroundColor: '#efa600',color: '#000000', height: '15px', lineHeight: '30px' }}>
+              <td align="left" style={{padding: '0 15px', backgroundColor: '#2f7d65',color: '#ffffff', height: '15px', lineHeight: '30px' }}>
                 <p className="text-xs">
                   From Bao Chan Team with luv
                 </p>
@@ -80,7 +80,7 @@ export const VerifyEmailEmailTemplate: React.FC<Readonly<VerifyEmailEmailTemplat
             </tr>  
 
             <tr>
-               <td align="center" style={{ padding: '0 20px', width: '100%', height: '50px', backgroundColor: '#FFD133' }}>
+               <td align="center" style={{ padding: '0 20px', width: '100%', height: '50px', backgroundColor: '#f4f4f5' }}>
                   <p className="text-xs">
                   © Copyright Lmao Lmao.
                   </p>
