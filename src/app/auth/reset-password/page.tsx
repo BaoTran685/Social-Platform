@@ -1,5 +1,6 @@
 import ForgotPassword from "@/components/Form/Auth/forgotPassword";
 import ChangePassword from "@/components/Form/Auth/changePassword";
+import { connectToDatabase } from "@/helper/server-helper";
 import prisma from "@/lib/prisma";
 
 interface ResetPasswordPageParams {
@@ -7,20 +8,20 @@ interface ResetPasswordPageParams {
 }
 const ResetPasswordPage = async ({ searchParams }: ResetPasswordPageParams) => {
   const token = searchParams.token as string;
+
   if (token) {
-    const users = await prisma.user.findMany({
+    await connectToDatabase();
+    const user = await prisma.user.findFirst({
       where: {
         resetPasswordToken: token,
       }
     });
-    if (!users) {
-      return <div>Invalid Token</div>
-    } else if (users.length >= 2) {
-      return <div>Token fail</div>
-    } else {
+    if (user) {
       return (
         <ChangePassword resetPasswordToken={token} />
       )
+    } else {
+      return <div>Invalid Token</div>
     }
   }
 

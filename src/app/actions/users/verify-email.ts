@@ -7,20 +7,14 @@ interface verifyEmailProps {
 export const verifyEmail = async ({ verifyEmailToken }: verifyEmailProps) => {
   try {
     // we always make sure that the verifyEmailToken is unique when we create it
-    const users = await prisma.user.findMany({
+    const user = await prisma.user.findFirst({
       where: {
         verifyEmailToken: verifyEmailToken
       }
     })
-    if (!users) {
+    if (!user) {
       throw new Error('verifyEmailToken not invalid')
     }
-    if (users.length >= 2) {
-      // there is a coincidence in generating the token
-      // so we have to make the user generate another token
-      return { message: 'token fail', ok: false }
-    }
-    const user = users[0]
     await prisma.user.update({
       where: {
         id: user.id
@@ -35,11 +29,11 @@ export const verifyEmail = async ({ verifyEmailToken }: verifyEmailProps) => {
     await prisma.user.updateMany({
       where: {
         email: user.email,
-        emailVerified: false
+        emailVerified: false,
       },
       data: {
         verifyEmailToken: null,
-        email: ''
+        email: '',
       }
     })
     return { message: 'email verified successfully', ok: true }

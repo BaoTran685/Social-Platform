@@ -63,6 +63,7 @@ export const updateProfileUpdate = async ({
       }
       // if no user, we get the token to verify for the email
       if (!user) {
+        // in practice, the chance of getting two same token is negligible
         verifyEmailToken = crypto.randomBytes(32).toString('base64url')
         if (!verifyEmailToken) {
           throw new Error('verifyEmailToken cannot be generated')

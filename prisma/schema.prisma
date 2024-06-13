@@ -26,7 +26,7 @@ model User {
   resetPasswordTokenExpiry DateTime?
 
   emailVerified Boolean @default(value: false)
-  verifyEmailToken String? 
+  verifyEmailToken String?
 
   @@unique([id, username])
 }

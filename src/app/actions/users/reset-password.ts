@@ -30,6 +30,7 @@ export const resetPassword = async ({
         ok: false
       }
     }
+    // in practice, the chance of getting two same token is negligible
     const resetPasswordToken = crypto.randomBytes(32).toString('base64url')
     // if there is no token, throw error
     if (!resetPasswordToken) {

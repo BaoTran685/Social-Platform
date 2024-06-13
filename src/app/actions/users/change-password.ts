@@ -13,23 +13,23 @@ export const changePassword = async ({
   password
 }: changePasswordProps): Promise<Auth_ResponseFromServer> => {
   try {
-    const users = await prisma.user.findMany({
+    const user = await prisma.user.findFirst({
       where: {
         resetPasswordToken: resetPasswordToken
       }
     })
-    if (!users) {
-      return { errorMessage: {}, message: 'User Not Found', ok: false }
+    if (!user) {
+      return {
+        errorMessage: {},
+        message: 'User Not Found',
+        ok: false
+      }
     }
-    if (users.length >= 2) {
-      return { errorMessage: {}, message: 'token fail', ok: false }
-    }
-    const user = users[0]
     const resetPasswordTokenExpiry = user.resetPasswordTokenExpiry
     const today = new Date()
 
     if (!resetPasswordTokenExpiry || today > resetPasswordTokenExpiry) {
-      return { errorMessage: {}, message: 'token expired', ok: false }
+      throw new Error('Token expired')
     }
 
     await prisma.user.update({
