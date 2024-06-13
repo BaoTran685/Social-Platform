@@ -3,39 +3,41 @@
 import * as React from 'react';
 
 interface ResetPasswordEmailTemplateProps {
+  email: string,
   resetPasswordToken: string
 }
 
 export const ResetPasswordEmailTemplate: React.FC<Readonly<ResetPasswordEmailTemplateProps>> = ({
-   resetPasswordToken
+  email,
+  resetPasswordToken
 }) => (
   <center style={{ width: '100%', fontFamily: 'Helvetica, Arial, sans-serif', backgroundColor: '#ffffff', padding: '20px' }}>
-    <table align="center" width="100%" role="presentation" style={{maxWidth:'40em',padding:'20px',margin: '0 auto' ,backgroundColor:'#f4f4f5'}}>
-      
+    <table align="center" width="100%" role="presentation" style={{ maxWidth: '40em', padding: '20px', margin: '0 auto', backgroundColor: '#f4f4f5' }}>
+
       <tr>
-        <td align="left" style={{ padding: '0', width: '100%', height: '10px', backgroundColor: '#f4f4f5',fontSize: '20px',fontWeight: 'bold' }}>
+        <td align="left" style={{ padding: '0', width: '100%', height: '10px', backgroundColor: '#f4f4f5', fontSize: '20px', fontWeight: 'bold' }}>
           <p className="text-xs">
             Chính m đã quên pass
           </p>
         </td>
       </tr>
-      
-      <table align="center" cellPadding="0" cellSpacing="0" width="100%" style={{backgroundColor:'#ffffff',margin: '0 auto'}}>
+
+      <table align="center" cellPadding="0" cellSpacing="0" width="100%" style={{ backgroundColor: '#ffffff', margin: '0 auto' }}>
         <tbody>
           <tr>
-            <td align="left" style={{padding: '0 15px', backgroundColor: '#2f7d65',color: '#000000', height: '10px', lineHeight: '30px' }}>
+            <td align="left" style={{ padding: '0 15px', backgroundColor: '#2f7d65', color: '#000000', height: '10px', lineHeight: '30px' }}>
             </td>
-          </tr>  
-          
+          </tr>
+
           <tr>
             <td align="center" valign="top" style={{ backgroundColor: '#ffffff', padding: '20px 0' }}>
               <img src={'https://png.pngtree.com/png-vector/20230303/ourmid/pngtree-forgot-line-icon-vector-png-image_6628807.png'} width="70" height="70" style={{ border: '0' }} />
             </td>
           </tr>
-          
+
           <tr>
-            <td align="center" style={{backgroundColor: '#ffffff', padding: '0 15px' }}>
-              <span style={{color: '#000000', fontSize: '24px' }}>Forgot Your Password?</span>
+            <td align="center" style={{ backgroundColor: '#ffffff', padding: '0 15px' }}>
+              <span style={{ color: '#000000', fontSize: '24px' }}>Forgot Your Password?</span>
             </td>
           </tr>
 
@@ -68,21 +70,21 @@ export const ResetPasswordEmailTemplate: React.FC<Readonly<ResetPasswordEmailTem
           </tr>
 
           <td align="center">
-            <div  style={{ margin: '20px 0', borderTop: '1px solid #eaeaea', width: '90%', borderWidth: '1px 0 0 0', borderColor: '#eaeaea', borderStyle: 'solid', }}></div>
+            <div style={{ margin: '20px 0', borderTop: '1px solid #eaeaea', width: '90%', borderWidth: '1px 0 0 0', borderColor: '#eaeaea', borderStyle: 'solid', }}></div>
           </td>
 
           <tr>
-            <td align="left" style={{padding: '0 15px', backgroundColor: '#2f7d65',color: '#ffffff', height: '15px', lineHeight: '30px' }}>
+            <td align="left" style={{ padding: '0 15px', backgroundColor: '#2f7d65', color: '#ffffff', height: '15px', lineHeight: '30px' }}>
               <p className="text-xs">
-                  Contact Bao Chan Team For Further Assist.
+                Contact Bao Chan Team For Further Assist.
               </p>
             </td>
-          </tr>  
+          </tr>
 
           <tr>
             <td align="center" style={{ padding: '0 20px', width: '100%', height: '50px', backgroundColor: '#f4f4f5' }}>
               <p className="text-xs">
-              © Copyright Lmao Lmao.
+                © Copyright Lmao Lmao.
               </p>
             </td>
           </tr>
