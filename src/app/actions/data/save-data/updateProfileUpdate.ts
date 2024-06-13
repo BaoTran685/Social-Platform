@@ -11,9 +11,9 @@ import { revalidatePath } from 'next/cache'
 import { validateEmail } from '@/lib/lib'
 
 interface updateProfileUpdateProps {
-  email: string
-  name: string
-  description: string
+  email?: string
+  name?: string
+  description?: string
 }
 export const updateProfileUpdate = async ({
   email,
@@ -27,13 +27,32 @@ export const updateProfileUpdate = async ({
   }
   try {
     let verifyEmailToken = null
-    // if there is such email, then we find the user with that email
-    if (validateEmail(email)) {
+    if (email === undefined) {
+      // if email is undefined, it means that the email input has not changed so we dont need to deal with
+      // the emailVerified and verifyEmailToken
+      await prisma.user.update({
+        where: {
+          id: id
+        },
+        data: {
+          email,
+          info: {
+            update: {
+              email,
+              name,
+              description
+            }
+          }
+        }
+      })
+    }
+    // if there is such valid email, then we find the user with that email
+    else if (validateEmail(email)) {
       // note that we already validate email in the input before get to this point
       // but this acts as a second barrier
       const user = await prisma.user.findFirst({
         where: {
-          email: email,
+          email,
           emailVerified: true
         }
       })
@@ -51,24 +70,23 @@ export const updateProfileUpdate = async ({
           throw new Error('verifyEmailToken cannot be generated')
         }
       }
-      const newUser = await prisma.user.update({
+      await prisma.user.update({
         where: {
           id: id
         },
         data: {
-          email: email,
+          email,
           emailVerified: verifyEmailToken === null, // no token generated mean email already verified
           verifyEmailToken: verifyEmailToken,
           info: {
             update: {
-              email: email,
-              name: name,
-              description: description
+              email,
+              name,
+              description,
             }
           }
         }
       })
-      console.log(newUser)
       // if there is a new email and such token
       if (verifyEmailToken) {
         const data = await sendEmail({
@@ -95,7 +113,7 @@ export const updateProfileUpdate = async ({
           id: id
         },
         data: {
-          email: email,
+          email,
           emailVerified: false,
           info: {
             update: {

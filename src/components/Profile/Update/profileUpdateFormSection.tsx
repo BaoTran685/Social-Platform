@@ -41,13 +41,13 @@ const ProfileUpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, 
     event.preventDefault();
 
     setProcess(true);
-    const info = trimInput({ newInfo, objectKey });
-    setNewInfo(info);
-    const ok: boolean = checkInput({ newInfo: info, setErrorMessage, setProcess })
+    const trimInfo = trimInput({ newInfo, objectKey });
+    setNewInfo(trimInfo);
+    const ok: boolean = checkInput({ newInfo: trimInfo, setErrorMessage, setProcess })
     if (!ok) {
       return;
     }
-    const responseOk: boolean = await processSubmit({ newInfo: info, setErrorMessage, setProcessMessage, setIsProcessSuccess })
+    const responseOk: boolean = await processSubmit({ newInfo: trimInfo, dbInfo: info, objectKey, setErrorMessage, setProcessMessage, setIsProcessSuccess })
     setProcess(false);
   }
   return (
@@ -122,12 +122,25 @@ const checkInput = ({ newInfo, setErrorMessage, setProcess }: checkInputProps) =
 
 interface processSubmitProps {
   newInfo: UserObj,
+  dbInfo: UserObj,
+  objectKey: Array<ObjectKey>,
   setErrorMessage: Function,
   setProcessMessage: Function,
   setIsProcessSuccess: Function,
 }
-const processSubmit = async ({ newInfo, setErrorMessage, setProcessMessage, setIsProcessSuccess }: processSubmitProps) => {
-  const response: ProfileUpdate_ResponseFromServer = await updateProfileUpdate(newInfo);
+type PartialUserObj = {
+  email?: string,
+  name?: string,
+  description?: string,
+} 
+const processSubmit = async ({ newInfo, dbInfo, objectKey, setErrorMessage, setProcessMessage, setIsProcessSuccess }: processSubmitProps) => {
+  let differenceInfo: PartialUserObj = {}
+  objectKey.forEach((item) => {
+    if (dbInfo[item] !== newInfo[item]) {
+      differenceInfo[item] = newInfo[item];
+    }
+  })
+  const response: ProfileUpdate_ResponseFromServer = await updateProfileUpdate(differenceInfo);
   setErrorMessage((prev: ErrorMessageObj) => ({
     ...prev,
     ...response.errorMessage
