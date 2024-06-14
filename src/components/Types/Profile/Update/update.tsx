@@ -1,28 +1,31 @@
-export type UserObj = {
+import { Post_Option } from "../CreatePost/createPost"
+
+export type ProfileUpdate_UserObj = {
   name: string,
   email: string,
   description: string,
 }
-export type InputObj = {
+export type ProfileUpdate_InputObj = {
   label: string,
+  options?: Post_Option[],
   name: string,
   type: string,
   placeholder: string,
-  isInput: boolean,
+  typeInput: 'input' | 'textarea' | 'select',
 }
-export type FieldObj = {
-  name: InputObj,
-  email: InputObj,
-  description: InputObj,
+export type ProfileUpdate_FieldObj = {
+  name: ProfileUpdate_InputObj,
+  email: ProfileUpdate_InputObj,
+  description: ProfileUpdate_InputObj,
 }
-export type ErrorMessageObj = UserObj
-export type ObjectKey = 'name' | 'email' | 'description'
+export type ProfileUpdate_ErrorMessageObj = ProfileUpdate_UserObj
+export type ProfileUpdate_ObjectKey = 'name' | 'email' | 'description'
 
 export type ProfileUpdateItems = {
-  objectKey: Array<ObjectKey>
-  initNewInfo: UserObj,
-  initErrorMessage: ErrorMessageObj,
-  field: FieldObj,
+  objectKey: Array<ProfileUpdate_ObjectKey>
+  initNewInfo: ProfileUpdate_UserObj,
+  initErrorMessage: ProfileUpdate_ErrorMessageObj,
+  field: ProfileUpdate_FieldObj,
   endPoint: string,
 }
 

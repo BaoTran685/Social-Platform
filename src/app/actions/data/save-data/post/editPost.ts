@@ -9,17 +9,18 @@ interface editPostProps {
   authorId: string
   title: string
   content: string
-  date: string
+  privacy: string
 }
 export const editPost = async ({
   postId,
   authorId,
   title,
   content,
-  date
+  privacy
 }: editPostProps): Promise<EditPost_ResponseFromServer> => {
   const session = await getServerSession(authOptions)
   const id = session?.user?.id
+  // checking that only the author can edit the post
   if (!id || id !== authorId) {
     return { errorMessage: {}, message: 'fail', ok: false }
   }
@@ -32,7 +33,9 @@ export const editPost = async ({
       },
       data: {
         title: title,
-        content: content
+        content: content,
+        privacy: privacy,
+        createdAt: new Date()
       }
     })
     return { errorMessage: {}, message: 'Successfully Updated', ok: true }

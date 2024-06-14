@@ -11,21 +11,21 @@ export const PROFILE_UPDATE_ITEMS: ProfileUpdateItems = {
       name: 'name',
       type: 'text',
       placeholder: 'Your Name',
-      isInput: true,
+      typeInput: 'input',
     },
     email: {
       label: 'New Email',
       name: 'email',
       type: 'text',
       placeholder: 'Your Email',
-      isInput: true,
+      typeInput: 'input',
     },
     description: {
       label: 'New Description',
       name: 'description',
       type: 'text',
       placeholder: 'Say Something About Yourself',
-      isInput: false,
+      typeInput: 'textarea'
     }
   },
   endPoint: process.env.BASE_URL + '/api/profile/update',

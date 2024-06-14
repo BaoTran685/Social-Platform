@@ -1,31 +1,38 @@
-import { CreatePostItems } from "@/components/Types/Profile/CreatePost/createPost";
+import { CreatePostItems, Post_Option } from "@/components/Types/Profile/CreatePost/createPost";
 
+
+export const privacyOptions: Post_Option[] = [
+  { value: 'public', label: 'Public', color: '#21A179' },
+  { value: 'private', label: 'Private', color: '#ec5e06' },
+  { value: 'only me', label: 'Only me', color: '#dc2626' },
+]
 
 export const CREATE_POST_ITEMS: CreatePostItems = {
-  objectKey: ['title', 'date', 'content'],
-  initNewInfo: {title: '', date: '', content: ''},
-  initErrorMessage: {title: '', date: '', content: ''},
+  objectKey: ['title', 'privacy', 'content'],
+  initNewInfo: { title: '', privacy: 'public', content: '' },
+  initErrorMessage: { title: '', privacy: '', content: '' },
   field: {
     title: {
       label: 'Title',
       name: 'title',
       type: 'text',
       placeholder: 'Your Title',
-      isInput: true,
+      typeInput: 'input',
     },
-    date: {
-      label: 'Date',
-      name: 'date',
-      type: 'date',
-      placeholder: '',
-      isInput: true,
+    privacy: {
+      label: 'Privacy',
+      options: privacyOptions,
+      name: 'privacy',
+      type: 'text',
+      placeholder: 'Your Privacy',
+      typeInput: 'select',
     },
     content: {
       label: 'Content',
       name: 'content',
       type: 'text',
       placeholder: 'Type Something Here',
-      isInput: false,
+      typeInput: 'textarea',
     }
   },
   buttonName: 'Post',

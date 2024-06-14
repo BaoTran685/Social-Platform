@@ -1,17 +1,19 @@
 import InputBox from "@/components/Form/inputBox";
 import TextAreaBox from "@/components/Form/textAreaBox";
-import { InputObj } from "@/components/Types/Profile/Update/update";
+import { CreatePost_InputObj } from "@/components/Types/Profile/CreatePost/createPost";
+import { EditPost_InputObj } from "@/components/Types/Profile/EditPost/editPost";
+import { ProfileUpdate_InputObj } from "@/components/Types/Profile/Update/update";
 
 
 interface InputItemProps {
-  object: InputObj,
+  object: ProfileUpdate_InputObj | CreatePost_InputObj | EditPost_InputObj,
   value: string,
   isError: boolean,
   onChange: Function,
   readonly?: boolean,
 }
 const InputItem = ({ object, onChange, value, isError, readonly }: InputItemProps) => {
-  const { label, name, type, placeholder, isInput } = object;
+  const { label, name, typeInput } = object;
   return (
     <>
       <label
@@ -20,10 +22,12 @@ const InputItem = ({ object, onChange, value, isError, readonly }: InputItemProp
       >
         {label}
       </label>
-      {isInput === true ? (
-        <InputBox name={name} type={type} placeholder={placeholder} value={value} isError={isError} onChange={onChange} readonly={readonly} />
+      {typeInput === 'input' ? (
+        <InputBox {...object} value={value} isError={isError} onChange={onChange} readonly={readonly} />
+      ) : typeInput === 'textarea' ? (
+        <TextAreaBox {...object} value={value} isError={isError} onChange={onChange} readonly={readonly} />
       ) : (
-        <TextAreaBox name={name} type={type} placeholder={placeholder} value={value} isError={isError} onChange={onChange} readonly={readonly} />
+        null
       )}
 
     </>

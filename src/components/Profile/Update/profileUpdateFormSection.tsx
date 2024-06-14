@@ -1,6 +1,6 @@
 'use client'
 import { FormEvent, useState } from "react";
-import { ErrorMessageObj, ObjectKey, ProfileUpdateItems, ProfileUpdate_ResponseFromServer, UserObj } from "@/components/Types/Profile/Update/update";
+import { ProfileUpdate_ErrorMessageObj, ProfileUpdate_ObjectKey, ProfileUpdateItems, ProfileUpdate_ResponseFromServer, ProfileUpdate_UserObj } from "@/components/Types/Profile/Update/update";
 import LoadingButton from "@/components/loadingButton";
 import { useRouter } from "next/navigation";
 import { updateProfileUpdate } from "@/app/actions/data/save-data/updateProfileUpdate";
@@ -10,14 +10,14 @@ import { validateEmail } from "@/lib/lib";
 import { trimText } from "@/lib/lib";
 
 
-const ProfileUpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, info: UserObj }) => {
+const ProfileUpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, info: ProfileUpdate_UserObj }) => {
   const router = useRouter();
 
   const { objectKey, initErrorMessage, field } = items;
 
   // data from the db
-  const [newInfo, setNewInfo] = useState<UserObj>(info);
-  const [errorMessage, setErrorMessage] = useState<ErrorMessageObj>(initErrorMessage);
+  const [newInfo, setNewInfo] = useState<ProfileUpdate_UserObj>(info);
+  const [errorMessage, setErrorMessage] = useState<ProfileUpdate_ErrorMessageObj>(initErrorMessage);
 
   const [processMessage, setProcessMessage] = useState<string>('');
   const [isProcessSuccess, setIsProcessSuccess] = useState<boolean>(false);
@@ -89,8 +89,8 @@ const ProfileUpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, 
 export default ProfileUpdateFormSection;
 
 interface trimInputProps {
-  newInfo: UserObj,
-  objectKey: Array<ObjectKey>
+  newInfo: ProfileUpdate_UserObj,
+  objectKey: Array<ProfileUpdate_ObjectKey>
 }
 const trimInput = ({ newInfo, objectKey }: trimInputProps) => {
   const tempInfo = { ...newInfo }
@@ -101,13 +101,13 @@ const trimInput = ({ newInfo, objectKey }: trimInputProps) => {
 }
 
 interface checkInputProps {
-  newInfo: UserObj,
+  newInfo: ProfileUpdate_UserObj,
   setErrorMessage: Function,
   setProcess: Function,
 }
 const checkInput = ({ newInfo, setErrorMessage, setProcess }: checkInputProps) => {
   const setError = (item: string, message: string) => {
-    setErrorMessage((prev: ErrorMessageObj) => ({
+    setErrorMessage((prev: ProfileUpdate_ErrorMessageObj) => ({
       ...prev,
       [item]: message
     }))
@@ -121,9 +121,9 @@ const checkInput = ({ newInfo, setErrorMessage, setProcess }: checkInputProps) =
 }
 
 interface processSubmitProps {
-  newInfo: UserObj,
-  dbInfo: UserObj,
-  objectKey: Array<ObjectKey>,
+  newInfo: ProfileUpdate_UserObj,
+  dbInfo: ProfileUpdate_UserObj,
+  objectKey: Array<ProfileUpdate_ObjectKey>,
   setErrorMessage: Function,
   setProcessMessage: Function,
   setIsProcessSuccess: Function,
@@ -141,7 +141,7 @@ const processSubmit = async ({ newInfo, dbInfo, objectKey, setErrorMessage, setP
     }
   })
   const response: ProfileUpdate_ResponseFromServer = await updateProfileUpdate(differenceInfo);
-  setErrorMessage((prev: ErrorMessageObj) => ({
+  setErrorMessage((prev: ProfileUpdate_ErrorMessageObj) => ({
     ...prev,
     ...response.errorMessage
   }))

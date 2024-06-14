@@ -1,11 +1,10 @@
 import { getPost } from "@/app/actions/data/get-data/getPost";
 import { EDIT_POST_ITEMS } from "@/components/Constants/Profile/EditPost/editPost";
 import DeleteButton from "@/components/Profile/Post/deleteButton";
-import CreatePostFormSection from "@/components/Profile/Post/postFormSection";
+import PostFormSection from "@/components/Profile/Post/postFormSection";
 import SettingSection from "@/components/Profile/settingSection";
 import { EditPostItems } from "@/components/Types/Profile/EditPost/editPost";
 import { authOptions } from "@/lib/authOptions";
-import { dateToString } from "@/lib/lib";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
 
@@ -39,7 +38,7 @@ const InnerEditPostPage = async ({ postId }: { postId: string }) => {
   if (id === null || post === undefined || id !== post.authorId) {
     return notFound(); // will need to return unauthorized page
   }
-  const EditPost_Items: EditPostItems = { ...EDIT_POST_ITEMS, initNewInfo: { title: post.title, date: dateToString({ today: post.createdAt }), content: post.content, } }
+  const EditPost_Items: EditPostItems = { ...EDIT_POST_ITEMS, initNewInfo: { title: post.title, privacy: post.privacy, content: post.content, } }
   console.log(post)
   return (
     <div className="flex-grow flex flex-col w-full space-y-8 my-8">
@@ -47,7 +46,7 @@ const InnerEditPostPage = async ({ postId }: { postId: string }) => {
         <span className="flex flex-col items-center justify-center text--sub--header font-medium underline decoration-[#ec4899]">~/{post.authorUsername}</span>
         <DeleteButton type='button' text='Remove Post' postId={postId} authorId={post.authorId} />
       </div>
-      <CreatePostFormSection items={EditPost_Items} postId={post.postId} authorId={post.authorId} />
+      <PostFormSection items={EditPost_Items} postId={post.postId} authorId={post.authorId} />
     </div>
   )
 }

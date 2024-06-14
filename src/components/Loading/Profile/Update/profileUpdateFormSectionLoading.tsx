@@ -1,9 +1,9 @@
-import { FieldObj, InputObj } from "@/components/Types/Profile/Update/update";
+import { ProfileUpdate_FieldObj, ProfileUpdate_InputObj } from "@/components/Types/Profile/Update/update";
 import LoadingButton from "@/components/loadingButton";
 
 
 
-const ProfileUpdateFormSectionLoading = ({ field }: { field: FieldObj  }) => {
+const ProfileUpdateFormSectionLoading = ({ field }: { field: ProfileUpdate_FieldObj  }) => {
   return (
     <div className="flex-grow flex flex-col space-y-6">
       <div className="grid grid-cols-2 gap-10">
@@ -26,14 +26,14 @@ const ProfileUpdateFormSectionLoading = ({ field }: { field: FieldObj  }) => {
 export default ProfileUpdateFormSectionLoading;
 
 
-const InputItemLoading = ({ object }: { object: InputObj }) => {
-  const { label, isInput } = object;
+const InputItemLoading = ({ object }: { object: ProfileUpdate_InputObj }) => {
+  const { label, typeInput } = object;
   return (
     <>
       <div className="text-black text-sm font-md block mb-2">
         {label}
       </div>
-      {isInput ? (
+      {typeInput === 'input' ? (
         <div className="text--content text-transparent no--select bg-gray-300 rounded-full animate-pulse w-full">
           t
         </div>

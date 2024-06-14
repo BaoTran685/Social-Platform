@@ -1,28 +1,31 @@
-export type UserObj = {
+import { Post_Option } from "../CreatePost/createPost"
+
+export type EditPost_UserObj = {
   title: string,
-  date: string,
+  privacy: string,
   content: string,
 }
-export type InputObj = {
+export type EditPost_InputObj = {
   label: string,
+  options?: Post_Option[],
   name: string,
   type: string,
   placeholder: string,
-  isInput: boolean,
+  typeInput: 'input' | 'textarea' | 'select',
 }
-export type FieldObj = {
-  title: InputObj,
-  date: InputObj,
-  content: InputObj,
+export type EditPost_FieldObj = {
+  title: EditPost_InputObj,
+  privacy: EditPost_InputObj,
+  content: EditPost_InputObj,
 }
-export type ErrorMessageObj = UserObj
-export type ObjectKey = 'title' | 'date' | 'content'
+export type EditPost_ErrorMessageObj = EditPost_UserObj
+export type EditPost_ObjectKey = 'title' | 'privacy' | 'content'
 
 export type EditPostItems = {
-  objectKey: Array<ObjectKey>
-  initNewInfo: UserObj,
-  initErrorMessage: ErrorMessageObj,
-  field: FieldObj,
+  objectKey: Array<EditPost_ObjectKey>
+  initNewInfo: EditPost_UserObj,
+  initErrorMessage: EditPost_ErrorMessageObj,
+  field: EditPost_FieldObj,
   buttonName: string,
   formType: string,
 }

@@ -20,16 +20,16 @@
 }
 @layer components {
   .text--main--header {
-    @apply text-4xl sm:text-5xl lg:text-6xl
+    @apply text-3xl md:text-4xl lg:text-5xl;
   }
   .text--header {
-    @apply text-2xl md:text-3xl
+    @apply text-2xl md:text-3xl;
   }
   .text--sub--header {
-    @apply text-lg sm:text-xl lg:text-2xl;
+    @apply text-lg md:text-xl lg:text-2xl;
   }
   .text--content {
-    @apply text-base sm:text-lg lg:text-xl;
+    @apply text-base md:text-lg lg:text-xl;
   }
   .text--sub--content {
     @apply text-sm sm:text-base lg:text-lg;
@@ -38,16 +38,22 @@
     @apply text-sm lg:text-base
   }
   .my--container {
-    @apply w-full sm:w-[600px] md:w-[600px] lg:w-[700px] xl:w-[800px];
+    @apply w-full sm:w-[600px] md:w-[600px] lg:w-[700px] xl:w-[800px] 2xl:w-[900px];
   }
   .layout {
     @apply grid grid-cols-[minmax(40px,1fr)_minmax(auto,708px)_minmax(40px,1fr)] sm:grid-cols-[minmax(96px,1fr)_minmax(auto,708px)_minmax(96px,1fr)];
   }
   .input--box {
-    @apply block w-full rounded-lg bg-inherit focus:outline-none focus:border-[#1E1E24] transition-colors ease-linear placeholder-[#A1A1AA] appearance-none;
+    @apply block w-full rounded-lg bg-inherit focus:outline-none focus:border-[#1E1E24] transition-colors ease-linear placeholder:text-[#A1A1AA] appearance-none;
   }
   .input--line {
     @apply block w-full bg-inherit border-b-2 focus:outline-none focus:border-b-[#1E1E24] transition-colors ease-linear placeholder:text-[#A1A1AA] appearance-none;
+  }
+  .custom--select--container {
+    @apply relative inline-block w-full
+  }
+  .input--select {
+    @apply w-full bg-[#f4f4f5] rounded-lg focus:outline-none focus:border-[#1E1E24] transition-colors ease-linear cursor-pointer p-2;
   }
   .box--shadow {
     box-shadow: 0 6px 28px 0 rgba(0, 0, 0, 0.1), 0 2px 4px 0 rgba(0, 0, 0, 0.2);

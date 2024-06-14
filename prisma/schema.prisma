@@ -51,8 +51,10 @@ model Post {
   postId String @id @default(auto()) @map("_id") @db.ObjectId
   title String
   content String @default(value: "")
+  privacy String
   authorUsername String
   authorId String @db.ObjectId
   author User @relation(fields: [authorId, authorUsername], references: [id, username])
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

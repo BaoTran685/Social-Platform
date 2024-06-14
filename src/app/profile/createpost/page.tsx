@@ -31,10 +31,7 @@ const CreatePostPage = async () => {
 
 export default CreatePostPage;
 
-
-const today = new Date();
-
-const CreatePost_Items: CreatePostItems = { ...CREATE_POST_ITEMS, initNewInfo: { ...CREATE_POST_ITEMS.initNewInfo, date: dateToString({ today }) } };
+const CreatePost_Items: CreatePostItems = { ...CREATE_POST_ITEMS };
 
 interface ServerDataProps {
   message: string,
@@ -43,8 +40,6 @@ interface ServerDataProps {
   },
   ok: boolean,
 }
-
-
 const InnerCreatePostPage = async () => {
   // to load the username
   const data: ServerDataProps = await getUsername();

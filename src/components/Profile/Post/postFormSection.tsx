@@ -1,20 +1,31 @@
 'use client'
 import InputItem from "@/components/Form/Profile/inputItem";
-import { CreatePostItems, ErrorMessageObj, UserObj, CreatePost_ResponseFromServer, ObjectKey } from "@/components/Types/Profile/CreatePost/createPost";
+import { CreatePostItems, CreatePost_ErrorMessageObj, CreatePost_ObjectKey, CreatePost_ResponseFromServer, CreatePost_UserObj, Post_Option } from "@/components/Types/Profile/CreatePost/createPost";
 import LoadingButton from "@/components/loadingButton";
 import { cn } from "@/lib/tailwind-merge";
 import { FormEvent, useState } from "react";
 import { createPost } from "@/app/actions/data/save-data/post/createPost";
-import { EditPostItems, EditPost_ResponseFromServer } from "@/components/Types/Profile/EditPost/editPost";
+import { EditPostItems, EditPost_ErrorMessageObj, EditPost_ObjectKey, EditPost_ResponseFromServer, EditPost_UserObj } from "@/components/Types/Profile/EditPost/editPost";
 import { editPost } from "@/app/actions/data/save-data/post/editPost";
+import { MultiValue, SingleValue } from "react-select";
+import SelectBox from "@/components/Form/selectBox";
+import { privacyOptions } from "@/components/Constants/Profile/CreatePost/createPost";
 
 
 const PostFormSection = ({ items, postId, authorId }: { items: CreatePostItems | EditPostItems, postId?: string, authorId?: string }) => {
 
   const { objectKey, initNewInfo, initErrorMessage, field, buttonName, formType } = items;
+  // get the default value of privacy from the db
+  let defaultSelectedOption = null;
+  privacyOptions.forEach((option) => {
+    if (option.value === initNewInfo.privacy) {
+      defaultSelectedOption = option;
+    }
+  })
 
-  const [newInfo, setNewInfo] = useState<UserObj>(initNewInfo);
-  const [errorMessage, setErrorMessage] = useState<ErrorMessageObj>(initErrorMessage);
+  const [newInfo, setNewInfo] = useState<CreatePost_UserObj | EditPost_UserObj>(initNewInfo);
+  const [selectedOption, setSelectedOption] = useState<SingleValue<Post_Option>>(defaultSelectedOption);
+  const [errorMessage, setErrorMessage] = useState<CreatePost_ErrorMessageObj | EditPost_ErrorMessageObj>(initErrorMessage);
 
   const [processMessage, setProcessMessage] = useState<string>('');
   const [isProcessSuccess, setIsProcessSuccess] = useState<boolean>(false);
@@ -34,10 +45,25 @@ const PostFormSection = ({ items, postId, authorId }: { items: CreatePostItems |
     setIsProcessSuccess(false);
   }
 
+  const handleSelectChange = (selectedOption: SingleValue<Post_Option>) => {
+    setSelectedOption(selectedOption);
+    console.log(selectedOption)
+    setNewInfo({
+      ...newInfo,
+      privacy: selectedOption?.value as string,
+    });
+    setErrorMessage({
+      ...errorMessage,
+      privacy: '',
+    })
+    setProcessMessage('');
+    setIsProcessSuccess(false);
+  };
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     setProcess(true);
+    console.log(newInfo)
     let ok: boolean = checkInput({ newInfo, objectKey, setErrorMessage, setProcess });
     if (!ok) {
       return;
@@ -56,9 +82,17 @@ const PostFormSection = ({ items, postId, authorId }: { items: CreatePostItems |
           )}
         </div>
         <div>
-          <InputItem object={field.date} value={newInfo.date} isError={Boolean(errorMessage.date)} onChange={() => { }} readonly={true} />
-          {Boolean(errorMessage.date) && (
-            <div className="text-sm font-medium text-red-600 pt-1">{errorMessage.date}</div>
+          <>
+            <label
+              htmlFor={field.privacy.name}
+              className='text-black text-sm font-medium block mb-2'
+            >
+              {field.privacy.label}
+            </label>
+            <SelectBox name={field.privacy.name} options={field.privacy.options} placeholder={field.privacy.placeholder} type={field.privacy.type} value={selectedOption} isError={Boolean(errorMessage.privacy)} onChange={(e) => handleSelectChange(e)} />
+          </>
+          {Boolean(errorMessage.privacy) && (
+            <div className="text-sm font-medium text-red-600 pt-1">{errorMessage.privacy}</div>
           )}
         </div>
       </div>
@@ -85,14 +119,14 @@ export default PostFormSection;
 
 
 interface checkInputProps {
-  newInfo: UserObj,
-  objectKey: Array<ObjectKey>
+  newInfo: CreatePost_UserObj | EditPost_UserObj,
+  objectKey: Array<CreatePost_ObjectKey | EditPost_ObjectKey>
   setErrorMessage: Function,
   setProcess: Function,
 }
 const checkInput = ({ newInfo, objectKey, setErrorMessage, setProcess }: checkInputProps) => {
   const setError = (item: string, message: string) => {
-    setErrorMessage((prev: ErrorMessageObj) => ({
+    setErrorMessage((prev: CreatePost_ErrorMessageObj | EditPost_ErrorMessageObj) => ({
       ...prev,
       [item]: message
     }))
@@ -100,7 +134,7 @@ const checkInput = ({ newInfo, objectKey, setErrorMessage, setProcess }: checkIn
   let error = false;
   // check for empty input
   objectKey.forEach(item => {
-    if (newInfo[item] === '') {
+    if (newInfo[item] === '' && item !== 'content') {
       setError(item, 'Required Field')
       error = true
     }
@@ -113,7 +147,7 @@ const checkInput = ({ newInfo, objectKey, setErrorMessage, setProcess }: checkIn
 
 
 interface processSubmitProps {
-  newInfo: UserObj,
+  newInfo: CreatePost_UserObj | EditPost_UserObj,
   postId?: string,
   authorId?: string,
   formType: string,
@@ -134,7 +168,7 @@ const processSubmit = async ({ newInfo, postId, authorId, formType, setErrorMess
     response = await editPost({ ...newInfo, postId, authorId })
   }
   if (response) {
-    setErrorMessage((prev: ErrorMessageObj) => ({
+    setErrorMessage((prev: CreatePost_ErrorMessageObj | EditPost_ErrorMessageObj) => ({
       ...prev,
       ...response.errorMessage
     }))

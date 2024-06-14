@@ -9,14 +9,14 @@ import { revalidatePath } from 'next/cache'
 interface createPostProps {
   title: string
   content: string
-  date: string
+  privacy: string
 }
 
 //createPost function
 export const createPost = async ({
   title,
   content,
-  date
+  privacy
 }: createPostProps): Promise<CreatePost_ResponseFromServer> => {
   const session = await getServerSession(authOptions)
   const id = session?.user?.id
@@ -30,9 +30,10 @@ export const createPost = async ({
       data: {
         title: title,
         content: content,
+        privacy: privacy,
         authorId: id,
         authorUsername: username,
-        createdAt: new Date(date)
+        createdAt: new Date()
       }
     })
     // Success response if the post is created

@@ -1,33 +1,35 @@
 import { EditPostItems } from "@/components/Types/Profile/EditPost/editPost";
+import { privacyOptions } from "../CreatePost/createPost";
 
 
 export const EDIT_POST_ITEMS: EditPostItems = {
-  objectKey: ['title', 'date', 'content'],
-  initNewInfo: {title: '', date: '', content: ''},
-  initErrorMessage: {title: '', date: '', content: ''},
+  objectKey: ['title', 'privacy', 'content'],
+  initNewInfo: { title: '', privacy: 'public', content: '' },
+  initErrorMessage: { title: '', privacy: '', content: '' },
   field: {
     title: {
       label: 'Title',
       name: 'title',
       type: 'text',
       placeholder: 'Your Title',
-      isInput: true,
+      typeInput: 'input',
     },
-    date: {
-      label: 'Date',
-      name: 'date',
-      type: 'date',
-      placeholder: '',
-      isInput: true,
+    privacy: {
+      label: 'Privacy',
+      options: privacyOptions,
+      name: 'privacy',
+      type: 'text',
+      placeholder: 'Your Privacy',
+      typeInput: 'select',
     },
     content: {
       label: 'Content',
       name: 'content',
       type: 'text',
       placeholder: 'Type Something Here',
-      isInput: false,
+      typeInput: 'textarea',
     }
   },
-  buttonName: 'Update',
+  buttonName: 'Post',
   formType: 'editPost'
 }
