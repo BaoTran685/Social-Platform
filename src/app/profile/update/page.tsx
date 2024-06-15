@@ -7,10 +7,9 @@ import { Suspense } from "react";
 import ProfileUpdatePageLoading from "@/components/Loading/Profile/Update/profileUpdatePageLoading";
 
 const ProfileUpdatePage = async () => {
+  // space for Suspense if needed
   return (
-    <Suspense fallback={<ProfileUpdatePageLoading />}>
-      <InnerProfileUpdatePage />
-    </Suspense>
+    <InnerProfileUpdatePage />
   )
 }
 

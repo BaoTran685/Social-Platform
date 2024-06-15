@@ -1,4 +1,4 @@
-import { getPost } from "@/app/actions/data/get-data/getPost";
+import { getAllPostArray, getPost } from "@/app/actions/data/get-data/getPost";
 import { EDIT_POST_ITEMS } from "@/components/Constants/Profile/EditPost/editPost";
 import DeleteButton from "@/components/Profile/Post/deleteButton";
 import PostFormSection from "@/components/Profile/Post/postFormSection";
@@ -8,6 +8,13 @@ import { authOptions } from "@/lib/authOptions";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
 
+export const generateStaticParams = async () => {
+  const data = await getAllPostArray();
+  const posts = data.content.posts
+  return posts.map((post) => ({
+    postId: post.postId
+  }))
+}
 
 const EditPostPage = ({ params }: { params: { postId: string } }) => {
   return (

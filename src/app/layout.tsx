@@ -22,6 +22,7 @@ export default async function RootLayout({
   const session = await getServerSession();
 
   return (
+
     <html lang="en" className="bg-[var(--background-white-color)]">
       <body className={inter.className}>
         <SessionProvider session={session}>
@@ -32,6 +33,6 @@ export default async function RootLayout({
           </ProgressProvider>
         </SessionProvider>
       </body>
-    </html>
+    </html >
   );
 }

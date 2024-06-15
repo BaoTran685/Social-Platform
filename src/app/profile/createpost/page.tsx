@@ -19,9 +19,8 @@ const CreatePostPage = async () => {
         </div>
         <div className="w-full h-0.5 bg-[#ddd] mt-2" />
         <div className="flex-grow flex flex-col w-full space-y-8 my-8">
-          <Suspense fallback={<UsernameLoading />}>
-            <InnerCreatePostPage />
-          </Suspense>
+          {/* space for suspense if needed */}
+          <InnerCreatePostPage />
           <PostFormSection items={CreatePost_Items} />
         </div>
       </div>

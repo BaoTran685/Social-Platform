@@ -4,7 +4,7 @@ import ProfilePageLoading from "@/components/Loading/Profile/profilePageLoading"
 
 const MessagePage = () => {
   return (
-    <ProfilePageLoading />
+    <ProfileUpdatePageLoading />
   );
 };
 
