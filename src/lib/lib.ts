@@ -7,7 +7,14 @@ export const dateToString = ({ today }: { today: Date }) => {
   const formattedDate = `${year}-${month}-${day}`
   return formattedDate
 }
-
+export const formatDate = ({today} : {today: Date}) => {
+  const options: Intl.DateTimeFormatOptions = {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  };
+  return today.toLocaleDateString('en-us', options);
+}
 export const stringToDate = ({ today }: { today: string }) => {
   return new Date(today)
 }

@@ -3,6 +3,7 @@
 import { removePost } from "@/app/actions/data/save-data/post/removePost";
 import { Spinner, Tick } from "@/components/Icon/icons";
 import { cn } from "@/lib/tailwind-merge";
+import { CheckIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 
 interface Props {
@@ -35,7 +36,7 @@ const DeleteButton = ({ type, text, postId, authorId, }: Props) => {
             <Spinner />
           ) : (
             isProcessSuccess ? (
-              <Tick />
+              <CheckIcon className="size-6" />
             ) : (
               text
             ))

@@ -4,7 +4,7 @@ import { CreatePostItems, Post_Option } from "@/components/Types/Profile/CreateP
 export const privacyOptions: Post_Option[] = [
   { value: 'public', label: 'Public', color: '#21A179' },
   { value: 'private', label: 'Private', color: '#ec5e06' },
-  { value: 'only me', label: 'Only me', color: '#dc2626' },
+  { value: 'only me', label: 'Only me', color: '#b91c1c' },
 ]
 
 export const CREATE_POST_ITEMS: CreatePostItems = {

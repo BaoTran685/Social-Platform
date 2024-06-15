@@ -61,7 +61,7 @@ export const Cor = () => {
 export const Spinner = () => {
   return (
     <svg
-      className="w-6 h-6 animate-spin"
+      className="size-6 animate-spin"
       viewBox="0 0 13 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">

@@ -1,7 +1,5 @@
-import { Pencil } from "@/components/Icon/icons"
-import PostSettingSection from "./postSettingSection"
 import Link from "next/link"
-import { ArrowTopRightOnSquareIcon, PencilSquareIcon, ViewfinderCircleIcon } from "@heroicons/react/24/outline"
+import { BookOpenIcon, PencilSquareIcon } from "@heroicons/react/24/outline"
 import { privacyOptions } from "@/components/Constants/Profile/CreatePost/createPost"
 
 type Post = {
@@ -35,7 +33,7 @@ const PostBox = ({ post, displayFull }: PostBoxProps) => {
         </div>
         <div className="flex flex-row items-center space-x-1">
           <Link href={`/profile/post/${post.postId}`} className="block w-fit h-fit bg-[var(--khaki-color)] shadow-inner rounded-lg p-1.5">
-            <ArrowTopRightOnSquareIcon className="size-6" />
+            <BookOpenIcon className="size-6" />
           </Link>
           <Link href={`/profile/editpost/${post.postId}`} className="block w-fit h-fit bg-[var(--khaki-color)] shadow-inner rounded-lg p-1.5">
             <PencilSquareIcon className="size-6" />
