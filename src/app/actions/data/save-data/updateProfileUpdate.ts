@@ -72,7 +72,7 @@ export const updateProfileUpdate = async ({
           from: 'Bot <admin@baotran.ca>',
           to: [email],
           subject: 'Verify Email',
-          html: render(VerifyEmailEmailTemplate({username: newUser.username, email: newUser.email, verifyEmailToken: verifyEmailToken}))
+          react: VerifyEmailEmailTemplate({username: newUser.username, email: newUser.email, verifyEmailToken: verifyEmailToken})
         })
         if (data?.data) {
           return {

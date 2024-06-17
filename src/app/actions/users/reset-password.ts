@@ -56,7 +56,7 @@ export const resetPassword = async ({
       from: 'Bot <admin@baotran.ca>',
       to: [email],
       subject: 'Reset Password',
-      react: React.createElement(ResetPasswordEmailTemplate, {
+      react: ResetPasswordEmailTemplate({
         username: newUser.username,
         email: newUser.email,
         resetPasswordToken: resetPasswordToken
