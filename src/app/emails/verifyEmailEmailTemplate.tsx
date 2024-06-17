@@ -37,9 +37,7 @@ export default function VerifyEmailEmailTemplate({
         <Body className="bg-[white] text-[#37352F] font-sans">
           <Container className="bg-gray-300 mx-auto my-0 p-[20px]">
             <Section className="bg-[white]" id='wrapper'>
-              <Section className="flex items-center justify-center bg-[#344358] px-0 pt-[20px] pb-[10px]">
-                <Img src={`${baseUrl}/images/verify-email-icon.png`} className="text-[white] w-[60px] h-[60px]" />
-              </Section>
+              <Section className="bg-[#344358] h-[30px]" />
               <Section className="px-[20px] py-[25px]" id='upper section'>
                 <Heading className="text-[20px] font-bold m-0">Verify your email address</Heading>
                 <Text className="text-[14px] my-[16px]">

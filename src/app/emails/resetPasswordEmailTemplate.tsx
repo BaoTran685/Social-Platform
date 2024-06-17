@@ -37,9 +37,7 @@ export default function ResetPasswordEmailTemplate({
         <Body className="bg-[white] text-[#37352F] font-sans">
           <Container className="bg-gray-300 mx-auto my-0 p-[20px]">
             <Section className="bg-[white]" id='wrapper'>
-              <Container className="flex items-center justify-center bg-[#344358] px-0 py-[10px]">
-                <Img src={`${baseUrl}/images/reset-password-icon-white.png`} className="text-[white] w-[60px] h-[60px]" />
-              </Container>
+              <Section className="bg-[#344358] h-[30px]" />
               <Section className="px-[20px] py-[25px]" id='upper section'>
                 <Heading className="text-center text-[30px] font-bold m-0">Forgot your Password?</Heading>
                 <Container className="mt-[16px]">
