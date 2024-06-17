@@ -1,17 +1,17 @@
 'use server'
 import prisma from '@/lib/prisma'
 import { sendEmail } from '../../emails/send-email'
-import { VerifyEmailEmailTemplate } from '@/components/email-templates/verifyEmailEmailTemplate'
+import VerifyEmailEmailTemplate from '@/app/emails/verifyEmailEmailTemplate'
 import crypto from 'crypto'
-import React from 'react'
 import { ProfileUpdate_ResponseFromServer } from '@/components/Types/Profile/Update/update'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/authOptions'
 import { revalidatePath } from 'next/cache'
 import { validateEmail } from '@/lib/lib'
+import { render } from '@react-email/components'
 
 interface updateProfileUpdateProps {
-  email?: string
+  email: string
   name?: string
   description?: string
 }
@@ -27,27 +27,7 @@ export const updateProfileUpdate = async ({
   }
   try {
     let verifyEmailToken = null
-    if (email === undefined) {
-      // if email is undefined, it means that the email input has not changed so we dont need to deal with
-      // the emailVerified and verifyEmailToken
-      await prisma.user.update({
-        where: {
-          id: id
-        },
-        data: {
-          email,
-          info: {
-            update: {
-              email,
-              name,
-              description
-            }
-          }
-        }
-      })
-    }
-    // if there is such valid email, then we find the user with that email
-    else if (validateEmail(email)) {
+    if (validateEmail(email)) {
       // note that we already validate email in the input before get to this point
       // but this acts as a second barrier
       const user = await prisma.user.findFirst({
@@ -69,7 +49,7 @@ export const updateProfileUpdate = async ({
           throw new Error('verifyEmailToken cannot be generated')
         }
       }
-      await prisma.user.update({
+      const newUser = await prisma.user.update({
         where: {
           id: id
         },
@@ -92,10 +72,7 @@ export const updateProfileUpdate = async ({
           from: 'Bot <admin@baotran.ca>',
           to: [email],
           subject: 'Verify Email',
-          react: VerifyEmailEmailTemplate({
-            email,
-            verifyEmailToken
-          }) as React.ReactElement
+          html: render(VerifyEmailEmailTemplate({username: newUser.username, email: newUser.email, verifyEmailToken: verifyEmailToken}))
         })
         if (data?.data) {
           return {

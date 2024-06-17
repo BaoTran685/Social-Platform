@@ -129,12 +129,12 @@ interface processSubmitProps {
   setIsProcessSuccess: Function,
 }
 type PartialUserObj = {
-  email?: string,
+  email: string,
   name?: string,
   description?: string,
-} 
+}
 const processSubmit = async ({ newInfo, dbInfo, objectKey, setErrorMessage, setProcessMessage, setIsProcessSuccess }: processSubmitProps) => {
-  let differenceInfo: PartialUserObj = {}
+  let differenceInfo: PartialUserObj = { email: newInfo.email }
   objectKey.forEach((item) => {
     if (dbInfo[item] !== newInfo[item]) {
       differenceInfo[item] = newInfo[item];
