@@ -37,7 +37,7 @@ const InnerProfileUpdatePage = async () => {
             ~/{data?.content.username}
           </div>
 
-          <ProfileUpdateFormSection items={profileUpdateItems} info={data?.content} />
+          <ProfileUpdateFormSection items={profileUpdateItems} info={data?.content} emailVerified={data?.content.emailVerified} />
         </div>
       </div>
     </section>

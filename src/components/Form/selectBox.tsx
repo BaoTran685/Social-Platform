@@ -21,12 +21,12 @@ const dot = (color = 'transparent') => ({
 
   ':before': {
     backgroundColor: color,
-    borderRadius: 10,
+    borderRadius: '10px',
     content: '" "',
     display: 'block',
-    marginRight: 8,
-    height: 11,
-    width: 11,
+    marginRight: '8px',
+    height: '11px',
+    width: '11px',
   },
 });
 type Color = chroma.Color;

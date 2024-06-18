@@ -25,11 +25,11 @@ const PostBox = ({ post, displayFull }: PostBoxProps) => {
   })
   return (
     <div className="text-[black] flex flex-col w-full h-fit bg-[var(--background-grey-color)] rounded-lg shadow-md py-4 px-6 relative overflow-hidden">
-      <div className="flex flex-row justify-between">
-        <div className="flex items-center">
+      <div className="flex flex-row justify-between space-x-2">
+        <div className="flex flex-row items-center space-x-2">
           {/* I use normal css here just to match the css of Select from SelectBox */}
-          <span style={{ backgroundColor: privacyColor, borderRadius: 10, content: '" "', display: 'block', marginRight: 8, height: 11, width: 11 }} />
-          <span className="text--sub--header font-medium">{post.title}</span>
+          <div style={{ backgroundColor: privacyColor, borderRadius: '10px', content: '" "', display: 'block', flexShrink: '0', height: '11px', width: '11px' }} />
+          <div className="text--sub--header font-medium">{post.title}</div>
         </div>
         <div className="flex flex-row items-center space-x-1">
           <Link href={`/profile/post/${post.postId}`} className="block w-fit h-fit bg-[var(--khaki-color)] shadow-inner rounded-lg p-1.5">
