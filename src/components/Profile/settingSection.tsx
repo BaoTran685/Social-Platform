@@ -1,10 +1,10 @@
 'use client'
 import { signIn, signOut, useSession } from "next-auth/react"
-import { Cor } from "@/components/Icon/icons"
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/tailwind-merge";
 import { motion } from "framer-motion";
+import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 
 const SettingSection = () => {
   const menuRef = useRef<HTMLDivElement>(null);
@@ -43,11 +43,11 @@ const SettingSection = () => {
               }}
               transition={{ duration: 0.3 }}
             >
-              <Cor />
+              <Cog6ToothIcon className="size-6" />
             </motion.div>
           </motion.button>
         </motion.div>
-        <div className={cn("absolute top-[calc(100%+0.25rem)] right-0 bg-[white] rounded-lg box--shadow pointer-events-none opacity-0 transition-all -translate-y-6 ease-in-out duration-200 p-1.5 ",
+        <div className={cn("absolute top-[calc(100%+0.25rem)] right-0 bg-[white] rounded-lg box--shadow pointer-events-none opacity-0 -translate-y-6 transition-all ease-in-out duration-200 p-1.5 ",
           {
             'opacity-100 pointer-events-auto translate-y-0': settingOpen,
           }
