@@ -40,3 +40,4 @@ const InnerProfilePage = async () => {
     </section>
   )
 }
+

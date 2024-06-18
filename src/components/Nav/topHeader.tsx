@@ -1,11 +1,14 @@
 'use client'
-
+import React, { ReactNode } from 'react';
 import { DoubleArrow } from "../Icon/icons";
 import { useSideNavContext } from "../Context/sideNavContext";
+import SearchBar from '../Search/searchBar';
+import { useSearchContext } from '../Context/searchContext';
 
 const TopHeader = () => {
-  const {isSideNavOpen, setIsSideNavOpen} = useSideNavContext();
-
+  const { isSearchBarVisible } = useSearchContext();
+  
+  const { isSideNavOpen, setIsSideNavOpen } = useSideNavContext();
   const handleClick = () => {
     setIsSideNavOpen(!isSideNavOpen)
   }
@@ -15,6 +18,7 @@ const TopHeader = () => {
         <div onClick={handleClick}>
           <DoubleArrow />
         </div>
+      <div className="flex justify-center w-full ">{isSearchBarVisible && <SearchBar/>}</div>
       </div>
     </div>
   )
