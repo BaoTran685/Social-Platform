@@ -5,7 +5,6 @@ import { sendEmail } from '../emails/send-email'
 import ResetPasswordEmailTemplate from '@/app/emails/resetPasswordEmailTemplate'
 import crypto from 'crypto'
 import { Auth_ResponseFromServer } from '@/components/Types/Auth/auth'
-import React from 'react'
 
 interface resetPasswordProps {
   email: string

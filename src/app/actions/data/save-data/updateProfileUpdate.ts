@@ -6,8 +6,6 @@ import crypto from 'crypto'
 import { ProfileUpdate_ResponseFromServer } from '@/components/Types/Profile/Update/update'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/authOptions'
-import { revalidatePath } from 'next/cache'
-import { validateEmail } from '@/lib/lib'
 import { render } from '@react-email/components'
 
 interface updateProfileUpdateProps {
@@ -27,9 +25,8 @@ export const updateProfileUpdate = async ({
   }
   try {
     let verifyEmailToken = null
-    if (validateEmail(email)) {
+    if (email) {
       // note that we already validate email in the input before get to this point
-      // but this acts as a second barrier
       const user = await prisma.user.findFirst({
         where: {
           email,
@@ -61,7 +58,7 @@ export const updateProfileUpdate = async ({
             update: {
               email,
               name,
-              description,
+              description
             }
           }
         }
@@ -72,7 +69,13 @@ export const updateProfileUpdate = async ({
           from: 'Bot <admin@baotran.ca>',
           to: [email],
           subject: 'Verify Email',
-          react: VerifyEmailEmailTemplate({username: newUser.username, email: newUser.email, verifyEmailToken: verifyEmailToken})
+          html: render(
+            VerifyEmailEmailTemplate({
+              username: newUser.username,
+              email: newUser.email,
+              verifyEmailToken: verifyEmailToken
+            })
+          )
         })
         if (data?.data) {
           return {
@@ -104,8 +107,6 @@ export const updateProfileUpdate = async ({
     return { errorMessage: {}, message: 'Successfully Update', ok: true }
   } catch (e) {
     console.log('Error in updateProfielUpdate', e)
-  } finally {
-    revalidatePath('/profile')
   }
   return { errorMessage: {}, message: 'fail', ok: false }
 }
