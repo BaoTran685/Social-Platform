@@ -41,8 +41,6 @@ export const createPost = async ({
   } catch (e) {
     // Log any errors
     console.log('Error in createPost', e)
-  } finally {
-    revalidatePath('/profile')
   }
   // Failure response if an error occurs
   return { errorMessage: {}, message: 'fail', ok: false }

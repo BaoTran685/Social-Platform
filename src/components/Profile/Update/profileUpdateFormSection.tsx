@@ -8,9 +8,10 @@ import { cn } from "@/lib/tailwind-merge";
 import InputItem from "@/components/Form/Profile/inputItem";
 import { validateEmail } from "@/lib/lib";
 import { trimText } from "@/lib/lib";
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
 
 
-const ProfileUpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, info: ProfileUpdate_UserObj }) => {
+const ProfileUpdateFormSection = ({ items, info, emailVerified }: { items: ProfileUpdateItems, info: ProfileUpdate_UserObj, emailVerified: boolean }) => {
   const router = useRouter();
 
   const { objectKey, initErrorMessage, field } = items;
@@ -52,17 +53,22 @@ const ProfileUpdateFormSection = ({ items, info }: { items: ProfileUpdateItems, 
   }
   return (
     <form className="flex-grow flex flex-col space-y-6" onSubmit={(e) => handleSubmit(e)} autoComplete="off">
-      <div className="grid grid-cols-2 gap-10">
+      <div className="grid grid-cols-2 gap-6">
         <div>
           <InputItem object={field.name} value={newInfo.name} isError={Boolean(errorMessage.name)} onChange={handleChange} />
           {Boolean(errorMessage.name) && (
             <div className="text-sm font-medium text-red-600 pt-1">{errorMessage.name}</div>
           )}
         </div>
-        <div>
+        <div className="relative">
           <InputItem object={field.email} value={newInfo.email} isError={Boolean(errorMessage.email)} onChange={handleChange} />
           {Boolean(errorMessage.email) && (
             <div className="text-sm font-medium text-red-600 pt-1">{errorMessage.email}</div>
+          )}
+          {emailVerified && (
+            <div className="absolute top-0 right-0">
+              <CheckCircleIcon className="text-[#21A179] w-7 h-7" />
+            </div>
           )}
         </div>
       </div>
@@ -129,12 +135,12 @@ interface processSubmitProps {
   setIsProcessSuccess: Function,
 }
 type PartialUserObj = {
-  email?: string,
+  email: string,
   name?: string,
   description?: string,
-} 
+}
 const processSubmit = async ({ newInfo, dbInfo, objectKey, setErrorMessage, setProcessMessage, setIsProcessSuccess }: processSubmitProps) => {
-  let differenceInfo: PartialUserObj = {}
+  let differenceInfo: PartialUserObj = { email: newInfo.email }
   objectKey.forEach((item) => {
     if (dbInfo[item] !== newInfo[item]) {
       differenceInfo[item] = newInfo[item];

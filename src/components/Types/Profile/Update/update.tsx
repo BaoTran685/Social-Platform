@@ -42,6 +42,7 @@ export type ProfileUpdate_DataFromServer = {
     name: string,
     email: string,
     description: string,
+    emailVerified: boolean,
   },
   ok: boolean,
 }

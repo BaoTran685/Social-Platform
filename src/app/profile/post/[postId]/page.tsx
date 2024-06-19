@@ -35,9 +35,9 @@ const PostPage = async ({ params }: { params: { postId: string } }) => {
   return (
     <section className="text-[#37352F] mt-10 mx-4 sm:mx-10 md:mx-16 xl:mx-28">
       <div className="flex flex-col justify-center w-full">
-        <div className="flex items-center">
+        <div className="flex items-center space-x-2">
           {/* I use normal css here just to match the css of Select from SelectBox */}
-          <span style={{ backgroundColor: privacyColor, borderRadius: 10, content: '" "', display: 'block', marginRight: 8, height: 11, width: 11 }} />
+          <span style={{ backgroundColor: privacyColor, borderRadius: '10px', content: '" "', display: 'block', flexShrink: '0', height: '11px', width: '11px' }} />
           <span className="text--sub--header font-medium">{post.title}</span>
         </div>
         <div className="flex flex-row space-x-1.5 text--content font-medium">

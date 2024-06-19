@@ -2,9 +2,8 @@
 import prisma from '@/lib/prisma'
 
 import { sendEmail } from '../emails/send-email'
-import { ResetPasswordEmailTemplate } from '@/components/email-templates/resetPasswordEmailTemplate'
+import ResetPasswordEmailTemplate from '@/app/emails/resetPasswordEmailTemplate'
 import crypto from 'crypto'
-import * as React from 'react'
 import { Auth_ResponseFromServer } from '@/components/Types/Auth/auth'
 
 interface resetPasswordProps {
@@ -42,7 +41,7 @@ export const resetPassword = async ({
       today.setDate(today.getDate() + 1)
     ) // 24 hours from this moment
     // update the user with the token and expiry inserted
-    await prisma.user.update({
+    const newUser = await prisma.user.update({
       where: {
         id: user.id
       },
@@ -57,9 +56,10 @@ export const resetPassword = async ({
       to: [email],
       subject: 'Reset Password',
       react: ResetPasswordEmailTemplate({
-        email,
-        resetPasswordToken
-      }) as React.ReactElement
+        username: newUser.username,
+        email: newUser.email,
+        resetPasswordToken: resetPasswordToken
+      })
     })
 
     if (data?.data) {

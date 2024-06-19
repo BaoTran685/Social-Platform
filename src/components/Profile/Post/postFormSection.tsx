@@ -7,21 +7,16 @@ import { FormEvent, useState } from "react";
 import { createPost } from "@/app/actions/data/save-data/post/createPost";
 import { EditPostItems, EditPost_ErrorMessageObj, EditPost_ObjectKey, EditPost_ResponseFromServer, EditPost_UserObj } from "@/components/Types/Profile/EditPost/editPost";
 import { editPost } from "@/app/actions/data/save-data/post/editPost";
-import { MultiValue, SingleValue } from "react-select";
+import { SingleValue } from "react-select";
 import SelectBox from "@/components/Form/selectBox";
-import { privacyOptions } from "@/components/Constants/Profile/CreatePost/createPost";
+import { getPrivacyOptions } from "@/lib/Profile/Post/lib";
 
 
 const PostFormSection = ({ items, postId, authorId }: { items: CreatePostItems | EditPostItems, postId?: string, authorId?: string }) => {
 
   const { objectKey, initNewInfo, initErrorMessage, field, buttonName, formType } = items;
   // get the default value of privacy from the db
-  let defaultSelectedOption = null;
-  privacyOptions.forEach((option) => {
-    if (option.value === initNewInfo.privacy) {
-      defaultSelectedOption = option;
-    }
-  })
+  const defaultSelectedOption = getPrivacyOptions({ value: initNewInfo.privacy });
 
   const [newInfo, setNewInfo] = useState<CreatePost_UserObj | EditPost_UserObj>(initNewInfo);
   const [selectedOption, setSelectedOption] = useState<SingleValue<Post_Option>>(defaultSelectedOption);

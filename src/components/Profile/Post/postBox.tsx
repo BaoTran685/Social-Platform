@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { BookOpenIcon, PencilSquareIcon } from "@heroicons/react/24/outline"
 import { privacyOptions } from "@/components/Constants/Profile/CreatePost/createPost"
+import { getPrivacyOptions } from "@/lib/Profile/Post/lib"
 
 type Post = {
   authorUsername: string,
@@ -17,21 +18,16 @@ interface PostBoxProps {
 const PostBox = ({ post, displayFull }: PostBoxProps) => {
   const length = post.content.length;
   // get the default color of privacy from the db
-  let privacyColor = '';
-  privacyOptions.forEach((option) => {
-    if (option.value === post.privacy) {
-      privacyColor = option.color;
-    }
-  })
+  const option = getPrivacyOptions({ value: post.privacy })
   return (
-    <div className="text-[black] flex flex-col w-full h-fit bg-[var(--background-grey-color)] rounded-lg shadow-md py-4 px-6 relative overflow-hidden">
-      <div className="flex flex-row justify-between">
-        <div className="flex items-center">
+    <div className="text-[black] w-full h-fit bg-[var(--background-grey-color)] rounded-lg shadow-md py-4 px-6 relative overflow-hidden">
+      <div className="relative flex flex-col">
+        <div className="flex flex-row items-center space-x-2 mr-20">
           {/* I use normal css here just to match the css of Select from SelectBox */}
-          <span style={{ backgroundColor: privacyColor, borderRadius: 10, content: '" "', display: 'block', marginRight: 8, height: 11, width: 11 }} />
-          <span className="text--sub--header font-medium">{post.title}</span>
+          <div style={{ backgroundColor: option?.color, borderRadius: '10px', content: '" "', display: 'block', flexShrink: '0', height: '11px', width: '11px' }} />
+          <div className="text--sub--header font-medium">{post.title}</div>
         </div>
-        <div className="flex flex-row items-center space-x-1">
+        <div className="absolute top-0 right-0 flex flex-row items-center space-x-1">
           <Link href={`/profile/post/${post.postId}`} className="block w-fit h-fit bg-[var(--khaki-color)] shadow-inner rounded-lg p-1.5">
             <BookOpenIcon className="size-6" />
           </Link>
@@ -39,20 +35,19 @@ const PostBox = ({ post, displayFull }: PostBoxProps) => {
             <PencilSquareIcon className="size-6" />
           </Link>
         </div>
-      </div>
-      <div className="text--content font-medium underline decoration-[#ec4899]">
-        ~/{post.authorUsername}
-      </div>
-      {displayFull ? (
-        <p className="text--sub--content leading-relaxed whitespace-pre-wrap mt-3">{post.content}</p>
-      ) : (
-        <p className="text--sub--content leading-relaxed whitespace-pre-wrap mt-3">{post.content.slice(0, 100)}
-          {length > 100 && ('...')}
-        </p>
-      )}
+        <div className="text--content font-medium underline decoration-[#ec4899]">
+          ~/{post.authorUsername}
+        </div>
+        {displayFull ? (
+          <p className="text--sub--content leading-relaxed whitespace-pre-wrap mt-3">{post.content}</p>
+        ) : (
+          <p className="text--sub--content leading-relaxed whitespace-pre-wrap mt-3">{post.content.slice(0, 100)}
+            {length > 100 && ('...')}
+          </p>
+        )}
 
-
-    </div >
+      </div>
+    </div>
   )
 }
 
