@@ -2,23 +2,21 @@
 import SearchBar from '@/components/Search/searchBar';
 import UserList from '@/components/Search/userList';
 
-interface SearchParams {
-  query?: string;
+
+interface Params {
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
-interface Props {
-  searchParams?: SearchParams;
-}
-
- const SearchPage= async ({ searchParams }: Props) => { 
-  const query = searchParams?.query || "";       
+const SearchPage = async ({ searchParams }: Params) => {
+  const query = searchParams.q as string || '';
+  console.log(query);
   return (
     <section>
-     <div className="flex justify-center w-full "><SearchBar/></div>
-      <UserList query={query}/>
-    
+      <SearchBar query={query} />
+      <UserList query={query} />
+
     </section>
-      
+
   )
 }
 

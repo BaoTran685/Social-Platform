@@ -1,6 +1,6 @@
-import { authOptions } from "@/lib/authOptions"
-import prisma from "@/lib/prisma"
-import { getServerSession } from "next-auth"
+import { authOptions } from '@/lib/authOptions'
+import prisma from '@/lib/prisma'
+import { getServerSession } from 'next-auth'
 
 export const getUsername = async () => {
   const session = await getServerSession(authOptions)
@@ -9,16 +9,19 @@ export const getUsername = async () => {
     if (id) {
       const user = await prisma.user.findUnique({
         where: {
-          id: id,
+          id: id
         }
       })
       if (user) {
-        return {message: 'success', content: {username: user.username}, ok: true}
+        return {
+          message: 'success',
+          content: { username: user.username },
+          ok: true
+        }
       }
     }
   } catch (e) {
     console.log('Error in getUsername', e)
   }
-  return {message: 'fail', content: {username: ''}, ok: false}
+  return { message: 'fail', content: { username: '' }, ok: false }
 }
-

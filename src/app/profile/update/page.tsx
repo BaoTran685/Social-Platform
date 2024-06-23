@@ -1,4 +1,4 @@
-import { getProfileUpdate } from "@/app/actions/data/get-data/getProfileUpdate";
+import { getProfileUpdate } from "@/app/actions/data/get-data/profile/getProfileUpdate";
 import { ProfileUpdateItems, ProfileUpdate_DataFromServer } from "@/components/Types/Profile/Update/update";
 import { PROFILE_UPDATE_ITEMS } from "@/components/Constants/Profile/Update/update";
 import ProfileUpdateFormSection from "@/components/Profile/Update/profileUpdateFormSection";

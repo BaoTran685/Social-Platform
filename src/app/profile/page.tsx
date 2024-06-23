@@ -1,5 +1,5 @@
 
-import { getProfile } from "@/app/actions/data/get-data/getProfile"
+import { getProfile } from "@/app/actions/data/get-data/profile/getProfile"
 import ProfilePageLoading from "@/components/Loading/Profile/profilePageLoading";
 import ContentSection from "@/components/Profile/contentSection";
 import PostSection from "@/components/Profile/postSection";

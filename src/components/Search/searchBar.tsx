@@ -1,41 +1,36 @@
 'use client';
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { useSearchParams, usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
+import { FormEvent, useState } from "react";
 
-const SearchBar = () => {
-  const searchParams = useSearchParams();
-  const pathname = usePathname ();
-  const { replace } = useRouter();
+const SearchBar = ({ query }: { query: string }) => {
+  const [searchQuery, setSearchQuery] = useState<string>(query);
+  const router = useRouter();
 
-  const handleSearch = (searchTerm: string) => {
-    const params = new URLSearchParams(searchParams);
-    
-    if (searchTerm) {
-        params.set("query", searchTerm);
-    } else {
-        params.delete("query");
-    }
+  const handleSearch = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-    replace(`${pathname}?${params.toString()}`);
-};
+    const encodedSearchQuery = encodeURI(searchQuery);
+
+    router.push(`/search?q=${encodedSearchQuery}`);
+  };
 
 
   return (
-    <div className= " justify-center relative flex flex-1 flex-shrink-0">
-
-
-    <div className="relative w-full max-w-md">
-        <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-[18px] text-gray-500 peer-focus:text-gray-900" />
+    <div className="flex justify-center flex-1 flex-shrink-0">
+      <form className="my--container relative" onSubmit={handleSearch}>
         <input
-            className="peer block w-full p-2 bg-[#e7e7e76b] rounded-full shadow-md text-lg pl-10 outline-2 placeholder:text-gray-500"
-            placeholder="search"
-            defaultValue={searchParams.get('query')?.toString()}
-            onChange={(e) => {
-                handleSearch(e.target.value);
-            }} 
+          className="peer text--content text-black block w-full bg-[var(--background-grey-color)] rounded-full shadow-lg border-2 border-[#A1A1AA] focus:border-[#1E1E24] transition-colors ease-linear placeholder:text-[#A1A1AA] pl-10 py-2.5 pr-10 appearance-none focus:outline-none"
+          placeholder="search for username..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.currentTarget.value)}
+          autoComplete='off'
+          autoCorrect='off'
+          spellCheck='false'
         />
+        <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 size-6 text-[#A1A1AA] peer-focus:text-black transition-colors ease-linear" />
+      </form>
     </div>
-</div>
 
   )
 }
