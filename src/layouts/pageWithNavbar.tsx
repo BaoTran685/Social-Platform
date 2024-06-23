@@ -5,7 +5,6 @@ import PageWrapper from "./pageWrapper";
 import SideNav from "@/components/Nav/sideNav";
 import TopHeader from "@/components/Nav/topHeader";
 import ContextProvider from "@/provider/contextProvider";
-import SearchProvider from "@/provider/searchProvider";
 
 
 
@@ -16,7 +15,6 @@ export default function PageWithNavbar({
 }) {
   return (
     <ContextProvider>
-      <SearchProvider>
       <main className="flex">
         <SideNav />
         <div className="flex-1">
@@ -28,7 +26,6 @@ export default function PageWithNavbar({
           </MarginWidthWrapper>
         </div>
       </main>
-      </SearchProvider>
     </ContextProvider>
   )
 }

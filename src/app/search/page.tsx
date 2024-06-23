@@ -1,23 +1,25 @@
-'use client'
-import HomePage from '../home/page';
-import {useEffect} from 'react';
-import { useSearchContext } from '@/components/Context/searchContext';
 
-const SearchPage= () => {
-  const {  setSearchBarVisible } = useSearchContext();
+import SearchBar from '@/components/Search/searchBar';
+import UserList from '@/components/Search/userList';
 
-  useEffect(() => {
-    // Set showSearchBar to true when the search page mounts
-    setSearchBarVisible(true);
-    return () => {
-      // Reset showSearchBar when leaving the search page
-      setSearchBarVisible(false);
-    };
-  }, []);
+interface SearchParams {
+  query?: string;
+}
 
+interface Props {
+  searchParams?: SearchParams;
+}
+
+ const SearchPage= async ({ searchParams }: Props) => { 
+  const query = searchParams?.query || "";       
   return (
-    <HomePage/>
-  );
-};
+    <section>
+     <div className="flex justify-center w-full "><SearchBar/></div>
+      <UserList query={query}/>
+    
+    </section>
+      
+  )
+}
 
 export default SearchPage;

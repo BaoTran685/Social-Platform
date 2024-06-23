@@ -10,12 +10,10 @@ import { SIDENAV_ARRAY } from "../Constants/sideNav";
 import { SideNavArray } from "../Types/sideNav";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import SearchBar from '../Search/searchBar';
-import { useSearchContext } from '../Context/searchContext';
+
 
 const TopHeader = () => {
   const { isSideNavOpen, setIsSideNavOpen } = useSideNavContext();
-  const { isSearchBarVisible } = useSearchContext();
 
   return (
     <div className="sticky top-0 left-0 right-0 z-30 w-full h-[50px] transition-all bg-[var(--background-grey-color)] backdrop-blur-sm border-b-2 border-b-[#ddd] px-3">
@@ -52,7 +50,6 @@ const TopHeader = () => {
             <TopNavItem key={index} item={item} />
           ))}
         </div>
-      <div className="flex justify-center w-full ">{isSearchBarVisible && <SearchBar/>}</div>
       </div>
     </div >
   )
