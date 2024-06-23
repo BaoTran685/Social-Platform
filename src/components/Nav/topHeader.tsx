@@ -1,5 +1,7 @@
 'use client'
 
+import React, { ReactNode } from 'react';
+import { DoubleArrow } from "../Icon/icons";
 import { useSideNavContext } from "../Context/sideNavContext";
 import { motion } from "framer-motion";
 import { ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
@@ -9,9 +11,9 @@ import { SideNavArray } from "../Types/sideNav";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
+
 const TopHeader = () => {
   const { isSideNavOpen, setIsSideNavOpen } = useSideNavContext();
-
 
   return (
     <div className="sticky top-0 left-0 right-0 z-30 w-full h-[50px] transition-all bg-[var(--background-grey-color)] backdrop-blur-sm border-b-2 border-b-[#ddd] px-3">

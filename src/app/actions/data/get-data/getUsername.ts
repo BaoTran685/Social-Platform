@@ -2,7 +2,6 @@ import { authOptions } from "@/lib/authOptions"
 import prisma from "@/lib/prisma"
 import { getServerSession } from "next-auth"
 
-
 export const getUsername = async () => {
   const session = await getServerSession(authOptions)
   const id = session?.user?.id
@@ -22,3 +21,4 @@ export const getUsername = async () => {
   }
   return {message: 'fail', content: {username: ''}, ok: false}
 }
+

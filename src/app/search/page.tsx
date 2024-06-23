@@ -1,14 +1,24 @@
 
+import SearchBar from '@/components/Search/searchBar';
+import UserList from '@/components/Search/userList';
 
-const SearchPage = () => {
+interface SearchParams {
+  query?: string;
+}
+
+interface Props {
+  searchParams?: SearchParams;
+}
+
+ const SearchPage= async ({ searchParams }: Props) => { 
+  const query = searchParams?.query || "";       
   return (
-    <div className="flex justify-center items-center">
-    <input className="w-1/2 max-w-md p-2 bg-[#e7e7e76b] rounded-full shadow-md text-lg placeholder-gray-500 focus:outline-none" placeholder="Search...">
-    </input>
-  </div>
-
-
-  
+    <section>
+     <div className="flex justify-center w-full "><SearchBar/></div>
+      <UserList query={query}/>
+    
+    </section>
+      
   )
 }
 
