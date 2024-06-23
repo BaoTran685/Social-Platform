@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { BookOpenIcon, PencilSquareIcon } from "@heroicons/react/24/outline"
-import { privacyOptions } from "@/components/Constants/Profile/CreatePost/createPost"
 import { getPrivacyOptions } from "@/lib/Profile/Post/lib"
 
 type Post = {
@@ -15,8 +14,12 @@ interface PostBoxProps {
   post: Post,
   displayFull: boolean
 }
+
+const CONTENT_LENGTH_THRESHOLD = 100;
+const TITLE_LENGTH_THRESHOLD = 40;
 const PostBox = ({ post, displayFull }: PostBoxProps) => {
-  const length = post.content.length;
+  const content_length = post.content.length;
+  const title_length = post.title.length;
   // get the default color of privacy from the db
   const option = getPrivacyOptions({ value: post.privacy })
   return (
@@ -25,7 +28,16 @@ const PostBox = ({ post, displayFull }: PostBoxProps) => {
         <div className="flex flex-row items-center space-x-2 mr-20">
           {/* I use normal css here just to match the css of Select from SelectBox */}
           <div style={{ backgroundColor: option?.color, borderRadius: '10px', content: '" "', display: 'block', flexShrink: '0', height: '11px', width: '11px' }} />
-          <div className="text--sub--header font-medium">{post.title}</div>
+          <h2 className="text--sub--header font-medium">
+            {displayFull ? (
+              post.title
+            ) : (
+              <>
+                {post.title.slice(0, TITLE_LENGTH_THRESHOLD)}
+                {title_length > TITLE_LENGTH_THRESHOLD && '...'}
+              </>
+            )}
+          </h2>
         </div>
         <div className="absolute top-0 right-0 flex flex-row items-center space-x-1">
           <Link href={`/profile/post/${post.postId}`} className="block w-fit h-fit bg-[var(--khaki-color)] shadow-inner rounded-lg p-1.5">
@@ -35,19 +47,21 @@ const PostBox = ({ post, displayFull }: PostBoxProps) => {
             <PencilSquareIcon className="size-6" />
           </Link>
         </div>
-        <div className="text--content font-medium underline decoration-[#ec4899]">
+        <h3 className="text--content font-medium underline decoration-[#ec4899]">
           ~/{post.authorUsername}
-        </div>
-        {displayFull ? (
-          <p className="text--sub--content leading-relaxed whitespace-pre-wrap mt-3">{post.content}</p>
-        ) : (
-          <p className="text--sub--content leading-relaxed whitespace-pre-wrap mt-3">{post.content.slice(0, 100)}
-            {length > 100 && ('...')}
-          </p>
-        )}
-
+        </h3>
+        <p className="text--sub--content leading-relaxed whitespace-pre-wrap mt-3">
+          {displayFull ? (
+            post.content
+          ) : (
+            <>
+              {post.content.slice(0, CONTENT_LENGTH_THRESHOLD)}
+              {content_length > 100 && ('...')}
+            </>
+          )}
+        </p>
       </div>
-    </div>
+    </div >
   )
 }
 
