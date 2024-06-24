@@ -2,6 +2,7 @@ import { authOptions } from '@/lib/authOptions'
 import prisma from '@/lib/prisma'
 import { getServerSession } from 'next-auth'
 
+// getPostArray return all the posts of an user
 export const getPostArray = async () => {
   const session = await getServerSession(authOptions)
   const id = session?.user?.id
@@ -9,18 +10,11 @@ export const getPostArray = async () => {
     return { message: 'fail', content: {}, ok: false }
   }
   try {
-    const user = await prisma.user.findUnique({
+    const posts = await prisma.post.findMany({
       where: {
-        id: id
-      },
-      include: {
-        posts: true
+        authorId: id
       }
     })
-    if (!user) {
-      return { message: 'user not found', content: {}, ok: false }
-    }
-    const { posts } = user
     return { message: 'success', content: { posts }, ok: true }
   } catch (e) {
     console.log('Error in getPost', e)
@@ -28,6 +22,8 @@ export const getPostArray = async () => {
   return { message: 'fail', content: {}, ok: false }
 }
 
+
+// getAllPostArray return all the posts in the db
 export const getAllPostArray = async () => {
   try {
     const posts = await prisma.post.findMany()
@@ -38,10 +34,9 @@ export const getAllPostArray = async () => {
   return { message: 'fail', content: { posts: [] }, ok: false }
 }
 
-interface getPostProps {
-  postId: string
-}
-export const getPost = async ({ postId }: getPostProps) => {
+
+// getPost return the particular post
+export const getPost = async ({ postId }: {postId: string}) => {
   try {
     const post = await prisma.post.findUnique({
       where: {

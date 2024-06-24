@@ -1,5 +1,7 @@
+import { Info } from "@prisma/client"
 import { Post_Option } from "../CreatePost/createPost"
 
+// the form elements' types
 export type ProfileUpdate_UserObj = {
   name: string,
   email: string,
@@ -29,20 +31,24 @@ export type ProfileUpdateItems = {
   endPoint: string,
 }
 
+
+// response get back after submit the update profile form
 export type ProfileUpdate_ResponseFromServer = {
   errorMessage: Object;
   message: string,
   ok: boolean,
 }
 
+
+// data when first rendering the update profile page
+export type ProfileUpdate_ContentObj = {
+  username: string,
+  email: string,
+  info: Info | null,
+  emailVerified: boolean,
+}
 export type ProfileUpdate_DataFromServer = {
   message: string,
-  content: {
-    username: string,
-    name: string,
-    email: string,
-    description: string,
-    emailVerified: boolean,
-  },
+  content: { user: ProfileUpdate_ContentObj | null },
   ok: boolean,
 }

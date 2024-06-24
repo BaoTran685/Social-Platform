@@ -4,6 +4,8 @@ import { PROFILE_UPDATE_ITEMS } from '@/components/Constants/Profile/Update/upda
 import { authOptions } from '@/lib/authOptions'
 import prisma from '@/lib/prisma'
 import { ProfileUpdate_DataFromServer } from '@/components/Types/Profile/Update/update'
+import { Prisma } from '@prisma/client'
+import { getUserSelectFields } from '@/lib/Data/lib'
 
 export const getProfileUpdate =
   async (): Promise<ProfileUpdate_DataFromServer> => {
@@ -11,32 +13,27 @@ export const getProfileUpdate =
     const id = session?.user?.id
     try {
       if (id) {
+        const userFieldsToExclude: (keyof Prisma.UserSelect)[] = [
+          'hashPassword',
+          'number',
+          'posts',
+          'resetPasswordToken',
+          'resetPasswordTokenExpiry',
+          'verifyEmailToken'
+        ]
+        const userSelectFields: Prisma.UserSelect = getUserSelectFields({
+          userFieldsToExclude
+        })
         const user = await prisma.user.findUnique({
           where: {
             id: id
           },
-          include: {
-            info: true
-          }
+          select: userSelectFields
         })
-        if (user && user.info) {
-          const info = user.info
-          const returnInfo = {
-            username: user.username,
-            name: info.name,
-            email: info.email,
-            description: info.description,
-            emailVerified: user.emailVerified
-          }
-          return { message: 'success', content: returnInfo, ok: true }
-        }
+        return { message: 'success', content: { user }, ok: true }
       }
     } catch (e) {
       console.log('Error in getUpdateProfile', e)
     }
-    return {
-      message: 'fail',
-      content: { ...PROFILE_UPDATE_ITEMS.initNewInfo, username: '', emailVerified: false },
-      ok: false
-    }
+    return { message: 'fail', content: { user: null }, ok: false }
   }

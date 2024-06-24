@@ -21,25 +21,29 @@ let profileUpdateItems: ProfileUpdateItems = PROFILE_UPDATE_ITEMS;
 
 const InnerProfileUpdatePage = async () => {
   const data: ProfileUpdate_DataFromServer = await getProfileUpdate();
-
-  return (
-    <section className="flex-grow place-self-center flex my--container text-[#37352F] mt-10">
-      <div className="flex-grow flex flex-col w-full">
-        <div className="flex flex-row justify-between">
-          <div className="text--main--header font-semibold">
-            Update Profile
+  const { message, content, ok } = data;
+  const { user } = content;
+  if (ok && user) {
+    return (
+      <section className="flex-grow place-self-center flex my--container text-[#37352F] mt-10">
+        <div className="flex-grow flex flex-col w-full">
+          <div className="flex flex-row justify-between">
+            <div className="text--main--header font-semibold">
+              Update Profile
+            </div>
+            <SettingSection />
           </div>
-          <SettingSection />
-        </div>
-        <div className="w-full h-0.5 bg-[#ddd] mt-2" />
-        <div className="flex-grow flex flex-col w-full space-y-8 my-8">
-          <div className="text--sub--header font-medium underline decoration-[#ec4899]">
-            ~/{data?.content.username}
-          </div>
+          <div className="w-full h-0.5 bg-[#ddd] mt-2" />
+          <div className="flex-grow flex flex-col w-full space-y-8 my-8">
+            <div className="text--sub--header font-medium underline decoration-[#ec4899]">
+              ~/{user.username}
+            </div>
 
-          <ProfileUpdateFormSection items={profileUpdateItems} info={data?.content} emailVerified={data?.content.emailVerified} />
+            <ProfileUpdateFormSection items={profileUpdateItems} info={user.info || profileUpdateItems.initNewInfo} emailVerified={user.emailVerified} />
+          </div>
         </div>
-      </div>
-    </section>
-  )
+      </section>
+    )
+  }
+  // handle error
 }

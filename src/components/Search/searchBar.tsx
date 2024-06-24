@@ -20,7 +20,7 @@ const SearchBar = ({ query }: { query: string }) => {
     <div className="flex justify-center flex-1 flex-shrink-0">
       <form className="my--container relative" onSubmit={handleSearch}>
         <input
-          className="peer text--content text-black block w-full bg-[var(--background-grey-color)] rounded-full shadow-lg border-2 border-[#A1A1AA] focus:border-[#1E1E24] transition-colors ease-linear placeholder:text-[#A1A1AA] pl-10 py-2.5 pr-10 appearance-none focus:outline-none"
+          className="peer text--content text-black block w-full bg-[var(--background-grey-color)] rounded-full border-2 border-[#A1A1AA] focus:border-[#1E1E24] transition-colors ease-linear placeholder:text-[#A1A1AA] pl-10 py-2.5 pr-10 appearance-none focus:outline-none"
           placeholder="search for username..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.currentTarget.value)}

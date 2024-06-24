@@ -22,22 +22,27 @@ export default ProfilePage;
 
 const InnerProfilePage = async () => {
   const data: Profile_DataFromServer = await getProfile();
-
-  return (
-    <section className="my--container mx-auto text-[#37352F] mt-10">
-      <div className="flex flex-col">
-        <div className="flex flex-row justify-between">
-          <div className="text--main--header font-semibold">
-            {data?.content.name}
+  const { message, content, ok } = data;
+  const { user } = content;
+  
+  if (ok && user) {
+    return (
+      <section className="my--container mx-auto text-[#37352F] mt-10">
+        <div className="flex flex-col">
+          <div className="flex flex-row justify-between">
+            <div className="text--main--header font-semibold">
+              {user.info?.name}
+            </div>
+            <SettingSection />
           </div>
-          <SettingSection />
+          <div className="w-full h-0.5 bg-[#ddd] mt-2" />
+          <ContentSection user={user} />
+          <div className="w-full h-0.5 bg-[#ddd]" />
+          <PostSection />
         </div>
-        <div className="w-full h-0.5 bg-[#ddd] mt-2" />
-        <ContentSection profile={data?.content} />
-        <div className="w-full h-0.5 bg-[#ddd]" />
-        <PostSection />
-      </div>
-    </section>
-  )
+      </section>
+    )
+  }
+  // handle error
 }
 
