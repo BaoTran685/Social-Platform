@@ -1,30 +1,14 @@
-import { getAllPostArray, getPost } from "@/app/actions/data/get-data/getPost";
-import { privacyOptions } from "@/components/Constants/Profile/CreatePost/createPost";
-import DeleteIconButton from "@/components/Profile/Post/deleteIconButton";
-import PostBox from "@/components/Profile/Post/postBox";
-import { dateToString, formatDate } from "@/lib/lib";
+import { formatDate } from "@/lib/lib";
+import { Post } from "@prisma/client";
+import DeleteIconButton from "./deleteIconButton";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { privacyOptions } from "@/components/Constants/Profile/CreatePost/createPost";
 
 
 
-export const generateStaticParams = async () => {
-  const data = await getAllPostArray();
-  const posts = data.content.posts
-  return posts.map((post) => ({
-    postId: post.postId
-  }))
-}
 
-const PostPage = async ({ params }: { params: { postId: string } }) => {
-  const { postId } = params;
-  const data = await getPost({ postId })
-  const post = data.content.post
-  console.log(data);
-  if (!data.ok || !post) {
-    return notFound();
-  }
+const ViewPostPage = ({ post }: { post: Post }) => {
   // get the default color of privacy from the db
   let privacyColor = '';
   privacyOptions.forEach((option) => {
@@ -52,7 +36,7 @@ const PostPage = async ({ params }: { params: { postId: string } }) => {
             <DeleteIconButton type='button' postId={post.postId} authorId={post.authorId}>
               <TrashIcon className="size-6 text-white" />
             </DeleteIconButton>
-            <Link href={`/profile/editpost/${post.postId}`} className="block w-fit h-fit bg-[var(--khaki-color)] shadow-inner rounded-lg p-1.5">
+            <Link href={`/post/${post.postId}?o=edit`} className="block w-fit h-fit bg-[var(--khaki-color)] shadow-inner rounded-lg p-1.5">
               <PencilSquareIcon className="size-6" />
             </Link>
           </div>
@@ -66,4 +50,4 @@ const PostPage = async ({ params }: { params: { postId: string } }) => {
   )
 }
 
-export default PostPage;
+export default ViewPostPage;

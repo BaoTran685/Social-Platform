@@ -40,10 +40,10 @@ const PostBox = ({ post, displayFull }: PostBoxProps) => {
           </h2>
         </div>
         <div className="absolute top-0 right-0 flex flex-row items-center space-x-1">
-          <Link href={`/profile/post/${post.postId}`} className="block w-fit h-fit bg-[var(--khaki-color)] shadow-inner rounded-lg p-1.5">
+          <Link href={`/post/${post.postId}?o=view`} className="block w-fit h-fit bg-[var(--khaki-color)] shadow-inner rounded-lg p-1.5">
             <BookOpenIcon className="size-6" />
           </Link>
-          <Link href={`/profile/editpost/${post.postId}`} className="block w-fit h-fit bg-[var(--khaki-color)] shadow-inner rounded-lg p-1.5">
+          <Link href={`/post/${post.postId}?o=edit`} className="block w-fit h-fit bg-[var(--khaki-color)] shadow-inner rounded-lg p-1.5">
             <PencilSquareIcon className="size-6" />
           </Link>
         </div>

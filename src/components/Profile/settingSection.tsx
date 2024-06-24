@@ -56,7 +56,7 @@ const SettingSection = () => {
             <Link href='/profile/update'>
               <SettingItem text="Update Profile" onClick={() => { }} />
             </Link>
-            <Link href='/profile/createpost'>
+            <Link href='/post/createpost'>
               <SettingItem text="Create Post" onClick={() => { }} />
             </Link>
             {(session === null) ? (

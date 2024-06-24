@@ -6,8 +6,7 @@ import { useRouter } from "next/navigation";
 import { updateProfileUpdate } from "@/app/actions/data/save-data/updateProfileUpdate";
 import { cn } from "@/lib/tailwind-merge";
 import InputItem from "@/components/Form/Profile/inputItem";
-import { validateEmail } from "@/lib/lib";
-import { trimText } from "@/lib/lib";
+import { validateEmail, trimText } from "@/lib/lib";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 
 
