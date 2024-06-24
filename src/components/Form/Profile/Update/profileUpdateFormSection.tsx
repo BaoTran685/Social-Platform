@@ -5,7 +5,7 @@ import LoadingButton from "@/components/loadingButton";
 import { useRouter } from "next/navigation";
 import { updateProfileUpdate } from "@/app/actions/data/save-data/updateProfileUpdate";
 import { cn } from "@/lib/tailwind-merge";
-import InputItem from "@/components/Form/Profile/inputItem";
+import InputItem from "@/components/Form/inputItem";
 import { validateEmail, trimText } from "@/lib/lib";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 

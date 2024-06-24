@@ -1,5 +1,5 @@
 'use server'
-import { EditPost_ResponseFromServer } from '@/components/Types/Profile/EditPost/editPost'
+import { EditPost_ResponseFromServer } from '@/components/Types/Post/EditPost/editPost'
 import { authOptions } from '@/lib/authOptions'
 import prisma from '@/lib/prisma'
 import { getServerSession } from 'next-auth'

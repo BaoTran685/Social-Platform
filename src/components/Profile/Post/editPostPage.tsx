@@ -1,9 +1,9 @@
 
 import { EDIT_POST_ITEMS } from "@/components/Constants/Profile/EditPost/editPost";
 import DeleteButton from "@/components/Profile/Post/deleteButton";
-import PostFormSection from "@/components/Profile/Post/postFormSection";
+import PostFormSection from "@/components/Form/Post/postFormSection";
 import SettingSection from "@/components/Profile/settingSection";
-import { EditPostItems } from "@/components/Types/Profile/EditPost/editPost";
+import { EditPostItems } from "@/components/Types/Post/EditPost/editPost";
 import { authOptions } from "@/lib/authOptions";
 import { Post } from "@prisma/client";
 import { getServerSession } from "next-auth";

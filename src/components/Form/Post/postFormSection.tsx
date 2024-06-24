@@ -1,11 +1,11 @@
 'use client'
-import InputItem from "@/components/Form/Profile/inputItem";
-import { CreatePostItems, CreatePost_ErrorMessageObj, CreatePost_ObjectKey, CreatePost_ResponseFromServer, CreatePost_UserObj, Post_Option } from "@/components/Types/Profile/CreatePost/createPost";
+import InputItem from "@/components/Form/inputItem";
+import { CreatePostItems, CreatePost_ErrorMessageObj, CreatePost_ObjectKey, CreatePost_ResponseFromServer, CreatePost_UserObj, Post_Option } from "@/components/Types/Post/CreatePost/createPost";
 import LoadingButton from "@/components/loadingButton";
 import { cn } from "@/lib/tailwind-merge";
 import { FormEvent, useState } from "react";
 import { createPost } from "@/app/actions/data/save-data/post/createPost";
-import { EditPostItems, EditPost_ErrorMessageObj, EditPost_ObjectKey, EditPost_ResponseFromServer, EditPost_UserObj } from "@/components/Types/Profile/EditPost/editPost";
+import { EditPostItems, EditPost_ErrorMessageObj, EditPost_ObjectKey, EditPost_ResponseFromServer, EditPost_UserObj } from "@/components/Types/Post/EditPost/editPost";
 import { editPost } from "@/app/actions/data/save-data/post/editPost";
 import { SingleValue } from "react-select";
 import SelectBox from "@/components/Form/selectBox";

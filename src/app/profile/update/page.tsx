@@ -1,7 +1,7 @@
 import { getProfileUpdate } from "@/app/actions/data/get-data/profile/getProfileUpdate";
 import { ProfileUpdateItems, ProfileUpdate_DataFromServer } from "@/components/Types/Profile/Update/update";
 import { PROFILE_UPDATE_ITEMS } from "@/components/Constants/Profile/Update/update";
-import ProfileUpdateFormSection from "@/components/Profile/Update/profileUpdateFormSection";
+import ProfileUpdateFormSection from "@/components/Form/Profile/Update/profileUpdateFormSection";
 import SettingSection from "@/components/Profile/settingSection";
 import { Suspense } from "react";
 import ProfileUpdatePageLoading from "@/components/Loading/Profile/Update/profileUpdatePageLoading";

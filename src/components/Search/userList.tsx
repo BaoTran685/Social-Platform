@@ -1,5 +1,4 @@
 import React from "react";
-import { getAllUsers } from "@/app/actions/data/get-data/getUser";
 import { Search_ContentObj } from "../Types/Search/search";
 
 const UserList = async ({ users }: { users: Array<Search_ContentObj> }) => {
@@ -19,9 +18,7 @@ const UserList = async ({ users }: { users: Array<Search_ContentObj> }) => {
           ))}
         </div>
       )}
-
     </div>
-
   )
 }
 

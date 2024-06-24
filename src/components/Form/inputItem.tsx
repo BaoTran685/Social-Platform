@@ -1,7 +1,7 @@
 import InputBox from "@/components/Form/inputBox";
 import TextAreaBox from "@/components/Form/textAreaBox";
-import { CreatePost_InputObj } from "@/components/Types/Profile/CreatePost/createPost";
-import { EditPost_InputObj } from "@/components/Types/Profile/EditPost/editPost";
+import { CreatePost_InputObj } from "@/components/Types/Post/CreatePost/createPost";
+import { EditPost_InputObj } from "@/components/Types/Post/EditPost/editPost";
 import { ProfileUpdate_InputObj } from "@/components/Types/Profile/Update/update";
 
 

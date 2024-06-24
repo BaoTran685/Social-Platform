@@ -1,5 +1,5 @@
 import { privacyOptions } from "@/components/Constants/Profile/CreatePost/createPost"
-import { Post_Option } from "@/components/Types/Profile/CreatePost/createPost";
+import { Post_Option } from "@/components/Types/Post/CreatePost/createPost";
 
 
 

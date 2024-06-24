@@ -1,4 +1,4 @@
-import { Post_Option } from "../CreatePost/createPost"
+import { Post_Option } from "../../Post/CreatePost/createPost"
 
 export type EditPost_UserObj = {
   title: string,

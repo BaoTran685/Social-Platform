@@ -1,4 +1,4 @@
-import { CreatePostItems, Post_Option } from "@/components/Types/Profile/CreatePost/createPost";
+import { CreatePostItems, Post_Option } from "@/components/Types/Post/CreatePost/createPost";
 
 
 export const privacyOptions: Post_Option[] = [

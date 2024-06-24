@@ -1,7 +1,7 @@
 import { cn } from "@/lib/tailwind-merge";
 import Select, { StylesConfig } from "react-select";
 import { } from "../Types/Profile/Update/update";
-import { Post_Option } from "../Types/Profile/CreatePost/createPost";
+import { Post_Option } from "../Types/Post/CreatePost/createPost";
 import { SingleValue } from "react-select";
 import chroma from "chroma-js";
 

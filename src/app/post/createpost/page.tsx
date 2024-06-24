@@ -1,9 +1,9 @@
 import { getUsername } from "@/app/actions/data/get-data/getUsername";
 import { CREATE_POST_ITEMS } from "@/components/Constants/Profile/CreatePost/createPost";
 import UsernameLoading from "@/components/Loading/Profile/usernameLoading";
-import PostFormSection from "@/components/Profile/Post/postFormSection";
+import PostFormSection from "@/components/Form/Post/postFormSection";
 import SettingSection from "@/components/Profile/settingSection";
-import { CreatePostItems } from "@/components/Types/Profile/CreatePost/createPost";
+import { CreatePostItems } from "@/components/Types/Post/CreatePost/createPost";
 import { dateToString } from "@/lib/lib";
 import { Suspense } from "react";
 

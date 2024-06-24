@@ -1,5 +1,5 @@
 import { Info } from "@prisma/client"
-import { Post_Option } from "../CreatePost/createPost"
+import { Post_Option } from "../../Post/CreatePost/createPost"
 
 // the form elements' types
 export type ProfileUpdate_UserObj = {

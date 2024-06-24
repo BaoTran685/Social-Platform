@@ -1,7 +1,7 @@
 'use server'
 
 import prisma from '@/lib/prisma' // Import Prisma client
-import { CreatePost_ResponseFromServer } from '@/components/Types/Profile/CreatePost/createPost' // Ensure this import path is correct
+import { CreatePost_ResponseFromServer } from '@/components/Types/Post/CreatePost/createPost' // Ensure this import path is correct
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/authOptions'
 import { revalidatePath } from 'next/cache'

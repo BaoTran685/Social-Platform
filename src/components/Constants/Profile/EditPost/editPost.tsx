@@ -1,4 +1,4 @@
-import { EditPostItems } from "@/components/Types/Profile/EditPost/editPost";
+import { EditPostItems } from "@/components/Types/Post/EditPost/editPost";
 import { privacyOptions } from "../CreatePost/createPost";
 
 
