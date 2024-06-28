@@ -1,6 +1,7 @@
 import { authOptions } from '@/lib/authOptions'
 import prisma from '@/lib/prisma'
 import { getServerSession } from 'next-auth'
+import { Search_ContentObj, Search_UserObj } from '@/components/Types/Search/search'
 
 // getPostArray return all the posts of an user
 export const getPostArray = async () => {
@@ -46,6 +47,20 @@ export const getPost = async ({ postId }: {postId: string}) => {
     if (post) {
       return { message: 'success', content: { post }, ok: true }
     }
+  } catch (e) {
+    console.log('Error in getPost', e)
+  }
+  return { message: 'fail', content: {}, ok: false }
+}
+
+export const getUserPost = async ({ user }: {user: Search_UserObj}) => {
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        authorId: user.id
+      }
+    })
+    return { message: 'success', content: { posts }, ok: true }
   } catch (e) {
     console.log('Error in getPost', e)
   }

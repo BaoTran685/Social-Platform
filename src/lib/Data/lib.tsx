@@ -16,15 +16,3 @@ export const getUserSelectFields = ({ userFieldsToExclude }: { userFieldsToExclu
   return userSelectFields
 }
 
-export const getPostSelectFields = ({ postFieldsToExclude }: { postFieldsToExclude: (keyof Prisma.PostSelect)[] }) => {
-  const postSelectFields: Prisma.PostSelect = POST_MODEL_ARRAY.reduce(
-    (acc, field) => {
-      if (!postFieldsToExclude.includes(field)) {
-        acc[field] = true
-      }
-      return acc
-    },
-    {} as Prisma.PostSelect
-  )
-  return postSelectFields
-}

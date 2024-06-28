@@ -13,11 +13,12 @@ type Post = {
 interface PostBoxProps {
   post: Post,
   displayFull: boolean
+  editable: boolean 
 }
 
 const CONTENT_LENGTH_THRESHOLD = 100;
 const TITLE_LENGTH_THRESHOLD = 40;
-const PostBox = ({ post, displayFull }: PostBoxProps) => {
+const PostBox = ({ post, displayFull, editable }: PostBoxProps) => {
   const content_length = post.content.length;
   const title_length = post.title.length;
   // get the default color of privacy from the db
@@ -39,6 +40,7 @@ const PostBox = ({ post, displayFull }: PostBoxProps) => {
             )}
           </h2>
         </div>
+        {editable === true ? (
         <div className="absolute top-0 right-0 flex flex-row items-center space-x-1">
           <Link href={`/post/${post.postId}?o=view`} className="block w-fit h-fit bg-[var(--khaki-color)] shadow-inner rounded-lg p-1.5">
             <BookOpenIcon className="size-6" />
@@ -47,6 +49,8 @@ const PostBox = ({ post, displayFull }: PostBoxProps) => {
             <PencilSquareIcon className="size-6" />
           </Link>
         </div>
+        ) : null
+      }
         <h3 className="text--content font-medium underline decoration-[#ec4899]">
           ~/{post.authorUsername}
         </h3>

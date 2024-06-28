@@ -24,6 +24,8 @@ const InnerProfilePage = async () => {
   const data: Profile_DataFromServer = await getProfile();
   const { message, content, ok } = data;
   const { user } = content;
+  console.log({message})
+  console.log({ok})
   
   if (ok && user) {
     return (
@@ -36,13 +38,27 @@ const InnerProfilePage = async () => {
             <SettingSection />
           </div>
           <div className="w-full h-0.5 bg-[#ddd] mt-2" />
-          <ContentSection user={user} />
+          <ContentSection user={user}/>
           <div className="w-full h-0.5 bg-[#ddd]" />
           <PostSection />
         </div>
       </section>
     )
   }
-  // handle error
+  return (
+    <section className="my--container mx-auto text-[#37352F] mt-10">
+      <div className="flex flex-col">
+        <div className="flex flex-row justify-between">
+          <div className="text--main--header font-semibold">
+        
+          </div>
+          <SettingSection />
+        </div>
+        <div className="w-full h-0.5 bg-[#ddd] mt-2" />
+        <div className="w-full h-0.5 bg-[#ddd]" />
+        <PostSection />
+      </div>
+    </section>
+  )
 }
 

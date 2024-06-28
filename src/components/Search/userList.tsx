@@ -8,7 +8,8 @@ const UserList = ({ users }: { users: Array<Search_ContentObj> }) => {
   const router = useRouter();
 
   const handleClick = (userId: string) => {
-    router.push(`/user?i=${userId}`);
+    const encodedUserId = encodeURI(userId);
+    router.push(`/user?i=${encodedUserId}`);
   };
 
   

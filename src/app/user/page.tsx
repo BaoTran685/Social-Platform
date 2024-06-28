@@ -3,7 +3,7 @@ import { getUser } from '@/app/actions/data/get-data/getUser';
 import ProfilePageLoading from '@/components/Loading/Profile/profilePageLoading';
 import { Suspense } from 'react';
 import ContentSection from '@/components/Profile/contentSection';
-import PostSection from '@/components/Profile/postSection';
+import UserPostSection from '@/components/Profile/userpostSection';
 import SettingSection from '@/components/Profile/settingSection';
 import { Search_UserObj } from '@/components/Types/Search/search';
 
@@ -44,6 +44,7 @@ const InnerProfilePage = ({ user }: { user: Search_UserObj }) => {
         <div className="w-full h-0.5 bg-[#ddd] mt-2" />
         <ContentSection user={user} />
         <div className="w-full h-0.5 bg-[#ddd]" />
+        <UserPostSection user={user}/>
       </div>
     </section>
   );

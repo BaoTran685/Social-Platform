@@ -21,10 +21,25 @@ export const createPost = async ({
   const session = await getServerSession(authOptions)
   const id = session?.user?.id
   const username = session?.user?.username
+  const user = await prisma.user.findUnique({
+    where: { id: id },
+    include: { number: true },
+  });
+  
   if (!id || !username) {
     return { errorMessage: {}, message: 'fail', ok: false }
   }
   try {
+    if (user && user.number) {
+      // Update the number_post field in the Number model
+      await prisma.number.update({
+        where: { numberId: user.number.numberId },
+        data: {
+          number_post: user.number.number_post + 1,
+        },
+      });
+    }
+
     // Create a new post
     await prisma.post.create({
       data: {
@@ -33,15 +48,17 @@ export const createPost = async ({
         privacy: privacy,
         authorId: id,
         authorUsername: username,
-        createdAt: new Date()
-      }
-    })
+        createdAt: new Date(),
+      },
+    });
+
     // Success response if the post is created
-    return { errorMessage: {}, message: 'Successfully Created', ok: true }
+    return { errorMessage: {}, message: 'Successfully Created', ok: true };
   } catch (e) {
     // Log any errors
-    console.log('Error in createPost', e)
+    console.error('Error in createPost', e);
+
+    // Failure response if an error occurs
+    return { errorMessage: {}, message: 'fail', ok: false };
   }
-  // Failure response if an error occurs
-  return { errorMessage: {}, message: 'fail', ok: false }
-}
+};

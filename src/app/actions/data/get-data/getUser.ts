@@ -1,7 +1,7 @@
 import { Search_DataFromServer, Search_UserFromServer, Search_ContentObj
 
  } from '@/components/Types/Search/search'
-import { getUserSelectFields , getPostSelectFields} from '@/lib/Data/lib'
+import { getUserSelectFields} from '@/lib/Data/lib'
 import prisma from '@/lib/prisma'
 import { Prisma } from '@prisma/client'
 import { authOptions } from '@/lib/authOptions'
@@ -96,18 +96,10 @@ export const getUser = async ({
       'verifyEmailToken'
     ];
 
-    /*const postFieldsToExclude: (keyof Prisma.PostSelect)[] = [
-      'postId',
-      'privacy'
-    ]; */
 
     const userSelectFields: Prisma.UserSelect = getUserSelectFields({
       userFieldsToExclude
     });
-
-   /* const postSelectFields: Prisma.PostSelect = getPostSelectFields({
-      postFieldsToExclude
-    }); */
 
       try {
         const users = await prisma.user.findUnique({
