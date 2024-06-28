@@ -1,9 +1,17 @@
-import React from "react";
-import { getAllUsers } from "@/app/actions/data/get-data/getUser";
+'use client'
 import { Search_ContentObj } from "../Types/Search/search";
+import React from "react";
+import { useRouter } from "next/navigation";
 
-const UserList = async ({ users }: { users: Array<Search_ContentObj> }) => {
+const UserList = ({ users }: { users: Array<Search_ContentObj> }) => {
   const users_length = users.length;
+  const router = useRouter();
+
+  const handleClick = (userId: string) => {
+    router.push(`/user?i=${userId}`);
+  };
+
+  
   return (
     <div>
       {users_length === 0 ? (
@@ -13,7 +21,7 @@ const UserList = async ({ users }: { users: Array<Search_ContentObj> }) => {
           {users.map((user) => (
             <div key={user.id} className="flex flex-col">
               <div className="flex space-x-6 items-center">
-                <h2>{user.username}</h2>
+              <button onClick={() => handleClick(user.id)}>{user.username}</button>
               </div>
             </div>
           ))}

@@ -1,7 +1,7 @@
 
 import SearchBar from '@/components/Search/searchBar';
 import UserList from '@/components/Search/userList';
-import { getUser } from '@/app/actions/data/get-data/getUser';
+import { getUsers } from '@/app/actions/data/get-data/getUser';
 import { Search_DataFromServer } from '@/components/Types/Search/search';
 
 
@@ -14,7 +14,8 @@ const SearchPage = async ({ searchParams }: Params) => {
   console.log({ query });
 
   if (query) {
-    const data: Search_DataFromServer = await getUser({ query });
+    
+    const data: Search_DataFromServer = await getUsers({ query });
     const { message, content, ok } = data;
     const { users } = content;
     if (ok && users) {

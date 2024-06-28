@@ -1,15 +1,22 @@
 'use client';
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useRouter } from 'next/navigation'
-import { FormEvent, useState } from "react";
+import { FormEvent, useState , useEffect} from "react";
 
 const SearchBar = ({ query }: { query: string }) => {
   const [searchQuery, setSearchQuery] = useState<string>(query);
   const router = useRouter();
+   
+ useEffect(() => {
+    if (searchQuery) {
+      const encodedSearchQuery = encodeURI(searchQuery); 
+      router.push(`/search?q=${encodedSearchQuery}`); 
+    }
+  }, [searchQuery]); 
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    
     const encodedSearchQuery = encodeURI(searchQuery);
 
     router.push(`/search?q=${encodedSearchQuery}`);

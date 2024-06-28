@@ -1,4 +1,4 @@
-import { getUsername } from "@/app/actions/data/get-data/getUsername";
+import { getUsername } from '@/app/actions/data/get-data/getUser';
 import { CREATE_POST_ITEMS } from "@/components/Constants/Profile/CreatePost/createPost";
 import UsernameLoading from "@/components/Loading/Profile/usernameLoading";
 import PostFormSection from "@/components/Profile/Post/postFormSection";
