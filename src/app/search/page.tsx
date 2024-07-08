@@ -19,7 +19,7 @@ const SearchPage = async ({ searchParams }: Params) => {
     const { users } = content;
     if (ok && users) {
       return (
-        <section>
+        <section className='my--container mx-auto'>
           <SearchBar query={query} />
           <UserList users={users} />
         </section>
@@ -29,7 +29,7 @@ const SearchPage = async ({ searchParams }: Params) => {
   }
   // handle when nothing is searched
   return (
-    <section>
+    <section className='my--container mx-auto'>
       <SearchBar query={query} />
     </section>
 
@@ -37,3 +37,4 @@ const SearchPage = async ({ searchParams }: Params) => {
 }
 
 export default SearchPage;
+
