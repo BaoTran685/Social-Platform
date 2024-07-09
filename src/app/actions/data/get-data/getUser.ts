@@ -1,19 +1,37 @@
-import { Search_DataFromServer } from '@/components/Types/Search/search'
-import { getUserSelectFields } from '@/lib/Data/lib'
+import { Search_DataFromServer, Search_UserFromServer, Search_ContentObj
+
+ } from '@/components/Types/Search/search'
+import { getUserSelectFields} from '@/lib/Data/lib'
 import prisma from '@/lib/prisma'
 import { Prisma } from '@prisma/client'
+import { authOptions } from '@/lib/authOptions'
+import { getServerSession } from 'next-auth'
 
-export const getAllUsers = async () => {
+export const getUsername = async () => {
+  const session = await getServerSession(authOptions)
+  const id = session?.user?.id
   try {
-    const users = await prisma.info.findMany()
-    return { message: 'success', content: { users }, ok: true }
+    if (id) {
+      const user = await prisma.user.findUnique({
+        where: {
+          id: id
+        }
+      })
+      if (user) {
+        return {
+          message: 'success',
+          content: { username: user.username },
+          ok: true
+        }
+      }
+    }
   } catch (e) {
-    console.log('Error in getUser', e)
+    console.log('Error in getUsername', e)
   }
-  return { message: 'fail', content: { users: [] }, ok: false }
+  return { message: 'fail', content: { username: '' }, ok: false }
 }
 
-export const getUser = async ({
+export const getUsers = async ({
   query
 }: {
   query: string
@@ -64,3 +82,35 @@ export const getUser = async ({
   }
   return { message: 'fail', content: { users: null }, ok: false }
 }
+
+export const getUser = async ({
+  userId
+}: {
+  userId: string
+}): Promise<Search_UserFromServer> => {
+    const userFieldsToExclude: (keyof Prisma.UserSelect)[] = [
+      'hashPassword',
+      'resetPasswordToken',
+      'resetPasswordTokenExpiry',
+      'emailVerified',
+      'verifyEmailToken'
+    ];
+
+
+    const userSelectFields: Prisma.UserSelect = getUserSelectFields({
+      userFieldsToExclude
+    });
+
+      try {
+        const users = await prisma.user.findUnique({
+          where: {
+            id: userId
+          },
+          select: userSelectFields
+        })
+        return { message: 'success', content: {users }, ok: true }
+      } catch (e) {
+        console.log('Error in getUser', e)
+      }
+      return { message: 'fail', content: { users : null }, ok: false }
+    }

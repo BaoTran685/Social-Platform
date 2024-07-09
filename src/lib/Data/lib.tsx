@@ -1,4 +1,4 @@
-import { USER_MODEL_ARRAY } from "@/components/Constants/Prisma/data";
+import { USER_MODEL_ARRAY,POST_MODEL_ARRAY } from "@/components/Constants/Prisma/data";
 import { Prisma } from "@prisma/client";
 
 
@@ -15,3 +15,4 @@ export const getUserSelectFields = ({ userFieldsToExclude }: { userFieldsToExclu
   )
   return userSelectFields
 }
+

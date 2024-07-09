@@ -1,16 +1,30 @@
-import React from "react";
+'use client'
 import { Search_ContentObj } from "../Types/Search/search";
+import React from "react";
+import { useRouter } from "next/navigation";
 
-const UserList = async ({ users }: { users: Array<Search_ContentObj> }) => {
+const UserList = ({ users }: { users: Array<Search_ContentObj> }) => {
   const users_length = users.length;
+  const router = useRouter();
+
+  const handleClick = (userId: string) => {
+    const encodedUserId = encodeURI(userId);
+    router.push(`/user?i=${encodedUserId}`);
+  };
+
+  
   return (
     <div>
       {users_length === 0 ? (
         <p className="mt-4">No user found</p>
       ) : (
-        <div className="flex flex-col space-y-6 mt-6">
-          {users.map((user, index) => (
-            <UserItem key={index} user={user} />
+        <div className="flex flex-col mt-6">
+          {users.map((user) => (
+            <div key={user.id} className="flex flex-col">
+              <div className="flex space-x-6 items-center">
+              <button onClick={() => handleClick(user.id)}>{user.username}</button>
+              </div>
+            </div>
           ))}
         </div>
       )}

@@ -7,7 +7,7 @@ const PostSection = async () => {
   return (
     <div className="flex flex-col items-center justify-center space-y-8 mt-8">
       {posts && posts.reverse().map((post, index) => (
-        <PostBox key={index} post={post} displayFull={false} />
+        <PostBox key={index} post={post} displayFull={false} editable={true} />
       ))}
     </div>
   );
