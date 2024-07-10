@@ -12,7 +12,6 @@ const UserList = ({ users }: { users: Array<Search_ContentObj> }) => {
     router.push(`/user?i=${encodedUserId}`);
   };
 
-  
   return (
     <div>
       {users_length === 0 ? (

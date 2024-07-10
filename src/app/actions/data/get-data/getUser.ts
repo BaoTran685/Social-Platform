@@ -1,7 +1,9 @@
-import { Search_DataFromServer, Search_UserFromServer, Search_ContentObj
-
- } from '@/components/Types/Search/search'
-import { getUserSelectFields} from '@/lib/Data/lib'
+import {
+  Search_DataFromServer,
+  Search_UserFromServer,
+  Search_ContentObj
+} from '@/components/Types/Search/search'
+import { getUserSelectFields } from '@/lib/Data/lib'
 import prisma from '@/lib/prisma'
 import { Prisma } from '@prisma/client'
 import { authOptions } from '@/lib/authOptions'
@@ -88,29 +90,28 @@ export const getUser = async ({
 }: {
   userId: string
 }): Promise<Search_UserFromServer> => {
-    const userFieldsToExclude: (keyof Prisma.UserSelect)[] = [
-      'hashPassword',
-      'resetPasswordToken',
-      'resetPasswordTokenExpiry',
-      'emailVerified',
-      'verifyEmailToken'
-    ];
+  const userFieldsToExclude: (keyof Prisma.UserSelect)[] = [
+    'hashPassword',
+    'resetPasswordToken',
+    'resetPasswordTokenExpiry',
+    'emailVerified',
+    'verifyEmailToken'
+  ]
 
+  const userSelectFields: Prisma.UserSelect = getUserSelectFields({
+    userFieldsToExclude
+  })
 
-    const userSelectFields: Prisma.UserSelect = getUserSelectFields({
-      userFieldsToExclude
-    });
-
-      try {
-        const users = await prisma.user.findUnique({
-          where: {
-            id: userId
-          },
-          select: userSelectFields
-        })
-        return { message: 'success', content: {users }, ok: true }
-      } catch (e) {
-        console.log('Error in getUser', e)
-      }
-      return { message: 'fail', content: { users : null }, ok: false }
-    }
+  try {
+    const users = await prisma.user.findUnique({
+      where: {
+        id: userId
+      },
+      select: userSelectFields
+    })
+    return { message: 'success', content: { users }, ok: true }
+  } catch (e) {
+    console.log('Error in getUser', e)
+  }
+  return { message: 'fail', content: { users: null }, ok: false }
+}

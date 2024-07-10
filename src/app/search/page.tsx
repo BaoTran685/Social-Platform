@@ -14,7 +14,6 @@ const SearchPage = async ({ searchParams }: Params) => {
   console.log({ query });
 
   if (query) {
-    
     const data: Search_DataFromServer = await getUsers({ query });
     const { message, content, ok } = data;
     const { users } = content;

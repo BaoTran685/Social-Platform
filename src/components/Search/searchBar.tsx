@@ -6,14 +6,15 @@ import { FormEvent, useState , useEffect} from "react";
 const SearchBar = ({ query }: { query: string }) => {
   const [searchQuery, setSearchQuery] = useState<string>(query);
   const router = useRouter();
-   
+  
+  // to search when user is typing
  useEffect(() => {
     if (searchQuery) {
       const encodedSearchQuery = encodeURI(searchQuery); 
       router.push(`/search?q=${encodedSearchQuery}`); 
     }
   }, [searchQuery]); 
-
+  // to search when user press enter, is not really needed since we have search when user is typing
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
