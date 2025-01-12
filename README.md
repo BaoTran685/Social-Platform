@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+##Design: https://www.figma.com/design/PLkbJ8YSC8vMMyoVZrCAZg/Blind-Social?node-id=0-1&t=2RLSakcjuhLGmtuQ-1
+
 ## Getting Started
 
 First, run the development server:
